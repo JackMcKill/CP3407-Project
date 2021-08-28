@@ -11,6 +11,7 @@
         android:id="@+id/btn_getWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="getWeatherPressed"
         android:text="Press me for weather" />
 
     <TextView
