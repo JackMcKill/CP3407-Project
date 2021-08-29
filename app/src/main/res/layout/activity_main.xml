@@ -8,11 +8,18 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_getWeather"
+        android:id="@+id/btn_getCityID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getCityIdPressed"
+        android:text="Press me for Brisbane's city ID" />
+
+    <Button
+        android:id="@+id/btn_getWeatherData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="getWeatherPressed"
-        android:text="Press me for weather" />
+        android:text="Press me for weather data" />
 
     <TextView
         android:id="@+id/tv_weatherView"

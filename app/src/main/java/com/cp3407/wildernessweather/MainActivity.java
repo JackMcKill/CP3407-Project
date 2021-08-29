@@ -8,36 +8,42 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
 public class MainActivity extends AppCompatActivity {
 
     Button getWeatherData;
     TextView weatherData;
+
+    WeatherDataService weatherDataService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getWeatherData = findViewById(R.id.btn_getWeather);
+        getWeatherData = findViewById(R.id.btn_getCityID);
         weatherData = findViewById(R.id.tv_weatherView);
+
+        weatherDataService = new WeatherDataService(MainActivity.this);
+
+    }
+
+    public void getCityIdPressed(View view) {
+
+        // Brisbane is temporarily hardcoded for testing
+        weatherDataService.getCityID("brisbane", new WeatherDataService.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String cityID) {
+                Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void getWeatherPressed(View view) {
-        // Instantiate the RequestQueue
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        String url = "https://www.metaweather.com/api/location/1100661/"; // 1100661 is the code for Brisbane. Just hardcoded for now while prototyping.
-
-        // Request string response
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            weatherData.setText(response.toString());
-            Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-        }, error -> Toast.makeText(MainActivity.this, "failed", Toast.LENGTH_SHORT).show());
-        // Add the request to the RequestQueue
-        queue.add(request);
+        weatherDataService.getCityForecastByID("1100661");
     }
 }
