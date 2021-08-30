@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void getCityIdPressed(View view) {
 
         // Brisbane is temporarily hardcoded for testing
-        weatherDataService.getCityID("brisbane", new WeatherDataService.VolleyResponseListener() {
+        weatherDataService.getCityID("brisbane", new WeatherDataService.GetCityIDResponseListener() {
             @Override
             public void onError(String message) {
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -44,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getWeatherPressed(View view) {
-        weatherDataService.getCityForecastByID("1100661");
+        weatherDataService.getCityForecastByID("1100661", new WeatherDataService.ForecastByIDResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(WeatherReportModel weatherReportModel) {
+                Toast.makeText(MainActivity.this, "This is what you got back: " + weatherReportModel.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
