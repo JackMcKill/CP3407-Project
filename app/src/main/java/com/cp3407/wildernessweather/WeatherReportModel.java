@@ -3,8 +3,7 @@ package com.cp3407.wildernessweather;
 public class WeatherReportModel {
 
     // Properties from metaweather REST api data
-
-    private int id;
+    private long id;
     private String weather_state_name;
     private String weather_state_abbr;
     private String wind_direction_compass;
@@ -21,7 +20,7 @@ public class WeatherReportModel {
     private int predictability;
 
     // Constructor with all properties
-    public WeatherReportModel(int id, String weather_state_name, String weather_state_abbr, String wind_direction_compass, String created, String applicable_date, float min_temp, float max_temp, float the_temp, float wind_speed, float wind_direction, int air_pressure, int humidity, float visibility, int predictability) {
+    public WeatherReportModel(long id, String weather_state_name, String weather_state_abbr, String wind_direction_compass, String created, String applicable_date, float min_temp, float max_temp, float the_temp, float wind_speed, float wind_direction, int air_pressure, int humidity, float visibility, int predictability) {
         this.id = id;
         this.weather_state_name = weather_state_name;
         this.weather_state_abbr = weather_state_abbr;
@@ -43,11 +42,11 @@ public class WeatherReportModel {
     public WeatherReportModel() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -167,20 +166,20 @@ public class WeatherReportModel {
     public String toString() {
         return "WeatherReportModel{" +
                 "id=" + id +
-                ", weather_state_name='" + weather_state_name + '\'' +
-                ", weather_state_abbr='" + weather_state_abbr + '\'' +
-                ", wind_direction_compass='" + wind_direction_compass + '\'' +
-                ", created='" + created + '\'' +
-                ", applicable_date='" + applicable_date + '\'' +
-                ", min_temp=" + min_temp +
-                ", max_temp=" + max_temp +
-                ", the_temp=" + the_temp +
-                ", wind_speed=" + wind_speed +
-                ", wind_direction=" + wind_direction +
-                ", air_pressure=" + air_pressure +
-                ", humidity=" + humidity +
-                ", visibility=" + visibility +
-                ", predictability=" + predictability +
+                "weather_state_name='" + weather_state_name + "\n" +
+                "weather_state_abbr='" + weather_state_abbr + "\n" +
+                "wind_direction_compass='" + wind_direction_compass + "\n" +
+                "created='" + created + "\n" +
+                "applicable_date='" + applicable_date + "\n" +
+                "min_temp=" + min_temp + "\n" +
+                "max_temp=" + max_temp + "\n" +
+                "the_temp=" + the_temp + "\n" +
+                "wind_speed=" + wind_speed + "\n" +
+                "wind_direction=" + wind_direction + "\n" +
+                "air_pressure=" + air_pressure + "\n" +
+                "humidity=" + humidity + "\n" +
+                "visibility=" + visibility + "\n" +
+                "predictability=" + predictability +
                 '}';
     }
 }
