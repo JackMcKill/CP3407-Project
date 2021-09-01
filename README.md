@@ -6,3 +6,4 @@
 * Harper Thurlow
 * Caroline Hao
 * [Jack McGill](https://github.com/JackMcKill)
+* [☕️☕️☕️](https://nerdlettering.com/blogs/articles/why-do-programmers-love-coffee)
