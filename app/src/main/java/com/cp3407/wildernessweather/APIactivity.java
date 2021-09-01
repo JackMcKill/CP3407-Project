@@ -33,26 +33,16 @@ public class APIactivity extends AppCompatActivity {
 
     public void getWeatherPressed(View view) {
 
-        weatherDataService.getCityID(searchBox.getText().toString(), new WeatherDataService.GetCityIDResponseListener() {
+        weatherDataService.getCityForecastByName(searchBox.getText().toString(), new WeatherDataService.ForecastByNameCallback() {
             @Override
-            public void onError(String message) {
-                Toast.makeText(APIactivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            public void onError(String errorMessage) {
+                Toast.makeText(APIactivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onResponse(String cityID) {
-                weatherDataService.getCityForecastByID(cityID, new WeatherDataService.ForecastByIDResponseListener() {
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(APIactivity.this, "Something went wrong, could not get weather data", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(APIactivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-                        weatherReports.setAdapter(arrayAdapter);
-                    }
-                });
+            public void onResponse(List<WeatherReportModel> weatherReportModels) {
+                ArrayAdapter<WeatherReportModel> arrayAdapter = new ArrayAdapter<>(APIactivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
+                weatherReports.setAdapter(arrayAdapter);
             }
         });
     }

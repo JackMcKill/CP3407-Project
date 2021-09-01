@@ -25,13 +25,13 @@ public class WeatherDataService {
         this.context = context;
     }
 
-    public interface GetCityIDResponseListener {
-        void onError(String message);
+    public interface GetCityIDCallback {
+        void onError(String errorMessage);
 
         void onResponse(String cityID);
     }
 
-    public void getCityID(String cityName, GetCityIDResponseListener getCityIDResponseListener) {
+    public void getCityID(String cityName, GetCityIDCallback getCityIDCallback) {
         String url = QUERY_FOR_CITY_ID + cityName;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
@@ -42,18 +42,18 @@ public class WeatherDataService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            getCityIDResponseListener.onResponse(cityID);
-        }, error -> getCityIDResponseListener.onError("Something went wrong"));
+            getCityIDCallback.onResponse(cityID);
+        }, error -> getCityIDCallback.onError("Something went wrong - invalid city name"));
         Singleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public interface ForecastByIDResponseListener {
-        void onError(String message);
+    public interface ForecastByIDCallback {
+        void onError(String errorMessage);
 
-        void onResponse(List<WeatherReportModel> weatherReportModel);
+        void onResponse(List<WeatherReportModel> weatherReportModels);
     }
 
-    public void getCityForecastByID(String cityID, ForecastByIDResponseListener forecastByIDResponseListener) {
+    public void getCityForecastByID(String cityID, ForecastByIDCallback forecastByIDCallback) {
         List<WeatherReportModel> weatherReportModels = new ArrayList<>();
         String url = QUERY_FOR_WEATHER_REPORT + cityID + "/";
 
@@ -64,7 +64,8 @@ public class WeatherDataService {
                 WeatherReportModel oneDayWeather;
 
                 for (int i = 0; i < consolidated_weather_list.length(); i++) {
-                    // Get first object from from the array
+
+                    // Get i'th object from from the array
                     oneDayWeather = new WeatherReportModel();
 
                     JSONObject firstDay_fromAPI = (JSONObject) consolidated_weather_list.get(i);
@@ -88,17 +89,51 @@ public class WeatherDataService {
 
                     weatherReportModels.add(oneDayWeather);
                 }
-                forecastByIDResponseListener.onResponse(weatherReportModels);
+                forecastByIDCallback.onResponse(weatherReportModels);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }, error -> {
-            forecastByIDResponseListener.onError("Something went wrong");
-            Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show();
+            forecastByIDCallback.onError("Something went wrong");
         });
 
         Singleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface ForecastByNameCallback {
+        void onError(String errorMessage);
+
+        void onResponse(List<WeatherReportModel> weatherReportModels);
+    }
+
+    public void getCityForecastByName(String cityName, ForecastByNameCallback forecastByNameCallback) {
+        // Get the city ID number using the given city name
+        getCityID(cityName, new GetCityIDCallback() {
+            @Override
+            public void onError(String errorMessage) {
+                // Toast displaying error message if getCityID fails
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String cityID) {
+                // Get the forecast for the city using the given city ID
+                getCityForecastByID(cityID, new ForecastByIDCallback() {
+                    @Override
+                    public void onError(String errorMessage) {
+                        // Toast displaying error message if getCityForecastByID fails
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
+                        // Return the list of weather report models
+                        forecastByNameCallback.onResponse(weatherReportModels);
+                    }
+                });
+            }
+        });
     }
 }
