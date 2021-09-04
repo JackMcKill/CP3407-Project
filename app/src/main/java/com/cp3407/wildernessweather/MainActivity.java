@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        x = connectDatabase.connectToDB();
+
+        connectDatabase.connectToDB();
+        System.out.println("x=" + x);
         tv = findViewById(R.id.connectionStatus);
         tv.setText(x);
         apiPrototype = findViewById(R.id.btn_apiPrototype);
