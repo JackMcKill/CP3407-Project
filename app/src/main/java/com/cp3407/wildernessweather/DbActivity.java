@@ -2,6 +2,7 @@ package com.cp3407.wildernessweather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cp3407.wildernessweather.database.ConnectToDatabase;
 import com.cp3407.wildernessweather.database.Word;
 import com.cp3407.wildernessweather.database.WordListAdapter;
 import com.cp3407.wildernessweather.database.WordViewModel;
@@ -18,11 +20,14 @@ public class DbActivity extends AppCompatActivity {
 
     private WordViewModel mWordViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    TextView databaseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
+
+        databaseTextView = findViewById(R.id.connectionStatus);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final WordListAdapter adapter = new WordListAdapter(new WordListAdapter.WordDiff());
@@ -41,6 +46,15 @@ public class DbActivity extends AppCompatActivity {
             Intent intent = new Intent(DbActivity.this, NewWordActivity.class);
             startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
         });
+
+        // Begin ASync task to collect data from database.
+        ConnectToDatabase asyncTask = new ConnectToDatabase(new ConnectToDatabase.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                databaseTextView.setText( output);
+            }
+        });
+        asyncTask.execute();
 
 
     }

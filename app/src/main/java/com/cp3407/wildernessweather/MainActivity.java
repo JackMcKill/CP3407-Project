@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button apiPrototype;
     Button dbPrototype;
-    TextView databaseTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
         apiPrototype = findViewById(R.id.btn_apiPrototype);
         dbPrototype = findViewById(R.id.dbPrototype);
 
-        databaseTextView = findViewById(R.id.connectionStatus);
-
-        // Begin ASync task to collect data from database.
-        ConnectToDatabase asyncTask = new ConnectToDatabase(new ConnectToDatabase.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                databaseTextView.setText( output);
-            }
-        });
-        asyncTask.execute();
     }
 
     public void apiPrototypePressed(View view) {
