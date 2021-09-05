@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".APIactivity">
+
+    <EditText
+        android:id="@+id/et_searchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City name or ID" />
+
+    <Button
+        android:id="@+id/btn_getWeatherData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getWeatherPressed"
+        android:text="Press for weather data" />
+
+    <ListView
+        android:id="@+id/lv_weatherReports"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
