@@ -44,6 +44,9 @@ dependencies {
     // Volley dependency used for REST API calls
     implementation 'com.android.volley:volley:1.1.1'
 
+    // MySQL dependency used for connecting to the database
+    implementation 'mysql:mysql-connector-java:5.1.49'
+
     // Room dependency used for SQLite database
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
@@ -55,6 +58,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifeCycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifeCycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifeCycleVersion"
-
 
 }
