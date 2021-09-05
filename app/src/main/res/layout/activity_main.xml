@@ -14,6 +14,14 @@
         android:onClick="apiPrototypePressed"
         android:text="Press for API Prototype" />
 
+    <Button
+        android:id="@+id/dbPrototype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="btn_dbPrototypeClicked"
+        android:text="Press for db prototype" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,5 +30,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ConnectionStatus: "
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Getting Data..."
+            android:id="@+id/connectionStatus"
+            />
+
+    </TableLayout>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

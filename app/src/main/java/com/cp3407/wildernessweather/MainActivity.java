@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     Button apiPrototype;
+    Button dbPrototype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +18,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         apiPrototype = findViewById(R.id.btn_apiPrototype);
+        dbPrototype = findViewById(R.id.dbPrototype);
     }
 
     public void apiPrototypePressed(View view) {
         Intent intent = new Intent(this, APIactivity.class);
+        startActivity(intent);
+    }
+
+    public void btn_dbPrototypeClicked(View view) {
+        Intent intent = new Intent(this, DbActivity.class);
         startActivity(intent);
     }
 }
