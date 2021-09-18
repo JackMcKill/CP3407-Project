@@ -53,6 +53,18 @@ Define fields either at the top of the file or immediately before the methods th
 ### Use descriptive comments where needed
 You should try and write self-describing code, however where needed, use comments to further explain what each section does.
 
+### Write appropriate tests
+You should try and write unit tests for each new method you create. These tests should be placed in the `com.cp3407.wildernessweather (test)` package.
+
+### Commit messages should be in the imperative mood
+Don't write a git commit subject line that talks about what you did, or what you are doing. Instead, describe what was done.
+`Fixing the layout error //bad`
+`Fix the layout error //good`
+
+A good rule of thumb is that a git commit message can be appended to the statement "If applied, this commit will ..."
+`If applied, this commit will Fixing the layout error // bad`
+`If applied, this commit will Fix the layout error // good`
+
 ## Code of Conduct
 
 ### Our Pledge
