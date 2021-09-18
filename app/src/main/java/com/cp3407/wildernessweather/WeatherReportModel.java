@@ -8,6 +8,8 @@ import org.parceler.Parcel;
 @Entity(tableName = "weather")
 public class WeatherReportModel {
 
+    // TODO convert this model into a Room Entity. Avoids confusion between this class and the WeatherReport class
+
     // Properties from metaweather REST api data
     // Properties must be public in order to use the Parceler dependency
     long id;

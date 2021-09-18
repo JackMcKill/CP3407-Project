@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 public class WeatherReportViewModel extends AndroidViewModel {
@@ -35,7 +34,7 @@ public class WeatherReportViewModel extends AndroidViewModel {
 
         WeatherReportDao mWeatherReportDao;
 
-        public InsertAsyncTask(WeatherReportDao mWeatherReportDao){
+        public InsertAsyncTask(WeatherReportDao mWeatherReportDao) {
             this.mWeatherReportDao = mWeatherReportDao;
         }
 

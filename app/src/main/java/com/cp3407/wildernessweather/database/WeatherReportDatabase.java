@@ -13,6 +13,7 @@ public abstract class WeatherReportDatabase extends RoomDatabase {
 
     // Singleton design pattern
     private static volatile WeatherReportDatabase weatherDatabaseInstance;
+
     static WeatherReportDatabase getDatabase(final Context context) {
         if (weatherDatabaseInstance == null) {
             synchronized (WeatherReportDatabase.class) {

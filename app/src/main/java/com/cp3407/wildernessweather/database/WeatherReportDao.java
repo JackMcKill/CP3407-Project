@@ -5,7 +5,6 @@ import androidx.room.Insert;
 
 @Dao
 public interface WeatherReportDao {
-
     @Insert
     void insert(WeatherReport weatherReport);
 }
