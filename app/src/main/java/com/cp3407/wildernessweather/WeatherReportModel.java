@@ -1,8 +1,11 @@
 package com.cp3407.wildernessweather;
 
+import androidx.room.Entity;
+
 import org.parceler.Parcel;
 
 @Parcel
+@Entity(tableName = "weather")
 public class WeatherReportModel {
 
     // Properties from metaweather REST api data
