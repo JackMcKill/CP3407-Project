@@ -100,14 +100,14 @@
         android:id="@+id/btn_unwrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="unWrapData"
-        android:text="Press to unwrap data" />
+        android:onClick="populateFields"
+        android:text="Press to populate data" />
 
     <Button
+        android:id="@+id/btn_addToDatabase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to local database"
-        android:id="@+id/btn_addToDatabase"
-        android:onClick="addToDatabase"/>
+        android:onClick="addToDatabase"
+        android:text="Add to local database" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

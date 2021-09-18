@@ -1,6 +1,8 @@
 package com.cp3407.wildernessweather;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import org.parceler.Parcel;
 
@@ -8,24 +10,39 @@ import org.parceler.Parcel;
 @Entity(tableName = "weather")
 public class WeatherReportModel {
 
-    // TODO convert this model into a Room Entity. Avoids confusion between this class and the WeatherReport class
-
     // Properties from metaweather REST api data
     // Properties must be public in order to use the Parceler dependency
+
+    @PrimaryKey
+    @NonNull
     long id;
+    @NonNull
     String weather_state_name;
+    @NonNull
     String weather_state_abbr;
+    @NonNull
     String wind_direction_compass;
+    @NonNull
     String created;
+    @NonNull
     String applicable_date;
+    @NonNull
     float min_temp;
+    @NonNull
     float max_temp;
+    @NonNull
     float the_temp;
+    @NonNull
     float wind_speed;
+    @NonNull
     float wind_direction;
+    @NonNull
     int air_pressure;
+    @NonNull
     int humidity;
+    @NonNull
     float visibility;
+    @NonNull
     int predictability;
 
     // Empty constructor
@@ -40,6 +57,7 @@ public class WeatherReportModel {
         this.id = id;
     }
 
+    @NonNull
     public String getWeather_state_name() {
         return weather_state_name;
     }
@@ -48,6 +66,7 @@ public class WeatherReportModel {
         this.weather_state_name = weather_state_name;
     }
 
+    @NonNull
     public String getWeather_state_abbr() {
         return weather_state_abbr;
     }
@@ -56,6 +75,7 @@ public class WeatherReportModel {
         this.weather_state_abbr = weather_state_abbr;
     }
 
+    @NonNull
     public String getWind_direction_compass() {
         return wind_direction_compass;
     }
@@ -64,6 +84,7 @@ public class WeatherReportModel {
         this.wind_direction_compass = wind_direction_compass;
     }
 
+    @NonNull
     public String getCreated() {
         return created;
     }
@@ -72,6 +93,7 @@ public class WeatherReportModel {
         this.created = created;
     }
 
+    @NonNull
     public String getApplicable_date() {
         return applicable_date;
     }

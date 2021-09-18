@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 
+import com.cp3407.wildernessweather.WeatherReportModel;
+
 public class WeatherReportViewModel extends AndroidViewModel {
 
     private WeatherReportDao weatherReportDao;
@@ -19,8 +21,8 @@ public class WeatherReportViewModel extends AndroidViewModel {
     }
 
     // Wrapper method for the insert method
-    public void insert(WeatherReport weatherReport) {
-        new InsertAsyncTask(weatherReportDao).execute(weatherReport);
+    public void insert(WeatherReportModel weatherReportModel) {
+        new InsertAsyncTask(weatherReportDao).execute(weatherReportModel);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class WeatherReportViewModel extends AndroidViewModel {
     }
 
     // Performs insert operations on a background thread
-    private class InsertAsyncTask extends AsyncTask<WeatherReport, Void, Void> {
+    private class InsertAsyncTask extends AsyncTask<WeatherReportModel, Void, Void> {
 
         WeatherReportDao mWeatherReportDao;
 
@@ -39,8 +41,8 @@ public class WeatherReportViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(WeatherReport... weatherReports) {
-            mWeatherReportDao.insert(weatherReports[0]);
+        protected Void doInBackground(WeatherReportModel... weatherReportModels) {
+            mWeatherReportDao.insert(weatherReportModels[0]);
             return null;
         }
     }
