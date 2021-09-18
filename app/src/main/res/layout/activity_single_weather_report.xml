@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SingleWeatherReportActivity">
+
+
+    <TextView
+        android:id="@+id/tv_weatherStateName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather State: " />
+
+    <TextView
+        android:id="@+id/tv_weatherStateAbbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather State Abbreviation: " />
+
+    <TextView
+        android:id="@+id/tv_weatherTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather Temp: " />
+
+    <Button
+        android:id="@+id/btn_unwrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="unWrapData"
+        android:text="Press to unwrap data" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
