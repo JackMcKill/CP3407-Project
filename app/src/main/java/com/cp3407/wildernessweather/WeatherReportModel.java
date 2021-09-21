@@ -17,27 +17,27 @@ public class WeatherReportModel {
     @NonNull
     long id;
     @NonNull
-    String weather_state_name;
+    String weatherStateName;
     @NonNull
-    String weather_state_abbr;
+    String weatherStateAbbr;
     @NonNull
-    String wind_direction_compass;
+    String windDirectionCompass;
     @NonNull
     String created;
     @NonNull
-    String applicable_date;
+    String applicableDate;
     @NonNull
-    float min_temp;
+    float minTemp;
     @NonNull
-    float max_temp;
+    float maxTemp;
     @NonNull
-    float the_temp;
+    float theTemp;
     @NonNull
-    float wind_speed;
+    float windSpeed;
     @NonNull
-    float wind_direction;
+    float windDirection;
     @NonNull
-    int air_pressure;
+    int airPressure;
     @NonNull
     int humidity;
     @NonNull
@@ -58,30 +58,30 @@ public class WeatherReportModel {
     }
 
     @NonNull
-    public String getWeather_state_name() {
-        return weather_state_name;
+    public String getWeatherStateName() {
+        return weatherStateName;
     }
 
-    public void setWeather_state_name(String weather_state_name) {
-        this.weather_state_name = weather_state_name;
-    }
-
-    @NonNull
-    public String getWeather_state_abbr() {
-        return weather_state_abbr;
-    }
-
-    public void setWeather_state_abbr(String weather_state_abbr) {
-        this.weather_state_abbr = weather_state_abbr;
+    public void setWeatherStateName(String weatherStateName) {
+        this.weatherStateName = weatherStateName;
     }
 
     @NonNull
-    public String getWind_direction_compass() {
-        return wind_direction_compass;
+    public String getWeatherStateAbbr() {
+        return weatherStateAbbr;
     }
 
-    public void setWind_direction_compass(String wind_direction_compass) {
-        this.wind_direction_compass = wind_direction_compass;
+    public void setWeatherStateAbbr(String weatherStateAbbr) {
+        this.weatherStateAbbr = weatherStateAbbr;
+    }
+
+    @NonNull
+    public String getWindDirectionCompass() {
+        return windDirectionCompass;
+    }
+
+    public void setWindDirectionCompass(String windDirectionCompass) {
+        this.windDirectionCompass = windDirectionCompass;
     }
 
     @NonNull
@@ -94,60 +94,60 @@ public class WeatherReportModel {
     }
 
     @NonNull
-    public String getApplicable_date() {
-        return applicable_date;
+    public String getApplicableDate() {
+        return applicableDate;
     }
 
-    public void setApplicable_date(String applicable_date) {
-        this.applicable_date = applicable_date;
+    public void setApplicableDate(String applicableDate) {
+        this.applicableDate = applicableDate;
     }
 
-    public float getMin_temp() {
-        return min_temp;
+    public float getMinTemp() {
+        return minTemp;
     }
 
-    public void setMin_temp(float min_temp) {
-        this.min_temp = min_temp;
+    public void setMinTemp(float minTemp) {
+        this.minTemp = minTemp;
     }
 
-    public float getMax_temp() {
-        return max_temp;
+    public float getMaxTemp() {
+        return maxTemp;
     }
 
-    public void setMax_temp(float max_temp) {
-        this.max_temp = max_temp;
+    public void setMaxTemp(float maxTemp) {
+        this.maxTemp = maxTemp;
     }
 
-    public float getThe_temp() {
-        return the_temp;
+    public float getTheTemp() {
+        return theTemp;
     }
 
-    public void setThe_temp(float the_temp) {
-        this.the_temp = the_temp;
+    public void setTheTemp(float theTemp) {
+        this.theTemp = theTemp;
     }
 
-    public float getWind_speed() {
-        return wind_speed;
+    public float getWindSpeed() {
+        return windSpeed;
     }
 
-    public void setWind_speed(float wind_speed) {
-        this.wind_speed = wind_speed;
+    public void setWindSpeed(float windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
-    public float getWind_direction() {
-        return wind_direction;
+    public float getWindDirection() {
+        return windDirection;
     }
 
-    public void setWind_direction(float wind_direction) {
-        this.wind_direction = wind_direction;
+    public void setWindDirection(float windDirection) {
+        this.windDirection = windDirection;
     }
 
-    public int getAir_pressure() {
-        return air_pressure;
+    public int getAirPressure() {
+        return airPressure;
     }
 
-    public void setAir_pressure(int air_pressure) {
-        this.air_pressure = air_pressure;
+    public void setAirPressure(int airPressure) {
+        this.airPressure = airPressure;
     }
 
     public int getHumidity() {
@@ -178,17 +178,17 @@ public class WeatherReportModel {
     public String toString() {
         return "WeatherReportModel{" +
                 "id=" + id +
-                "weather_state_name='" + weather_state_name + "\n" +
-                "weather_state_abbr='" + weather_state_abbr + "\n" +
-                "wind_direction_compass='" + wind_direction_compass + "\n" +
+                "weather_state_name='" + weatherStateName + "\n" +
+                "weather_state_abbr='" + weatherStateAbbr + "\n" +
+                "wind_direction_compass='" + windDirectionCompass + "\n" +
                 "created='" + created + "\n" +
-                "applicable_date='" + applicable_date + "\n" +
-                "min_temp=" + min_temp + "\n" +
-                "max_temp=" + max_temp + "\n" +
-                "the_temp=" + the_temp + "\n" +
-                "wind_speed=" + wind_speed + "\n" +
-                "wind_direction=" + wind_direction + "\n" +
-                "air_pressure=" + air_pressure + "\n" +
+                "applicable_date='" + applicableDate + "\n" +
+                "min_temp=" + minTemp + "\n" +
+                "max_temp=" + maxTemp + "\n" +
+                "the_temp=" + theTemp + "\n" +
+                "wind_speed=" + windSpeed + "\n" +
+                "wind_direction=" + windDirection + "\n" +
+                "air_pressure=" + airPressure + "\n" +
                 "humidity=" + humidity + "\n" +
                 "visibility=" + visibility + "\n" +
                 "predictability=" + predictability +

@@ -72,17 +72,17 @@ public class WeatherDataService {
 
                     // Get properties from the object and assign to WeatherReportModel properties
                     oneDayWeather.setId(firstDay_fromAPI.getLong("id"));
-                    oneDayWeather.setWeather_state_name(firstDay_fromAPI.getString("weather_state_name"));
-                    oneDayWeather.setWeather_state_abbr(firstDay_fromAPI.getString("weather_state_abbr"));
-                    oneDayWeather.setWind_direction_compass(firstDay_fromAPI.getString("wind_direction_compass"));
+                    oneDayWeather.setWeatherStateName(firstDay_fromAPI.getString("weather_state_name"));
+                    oneDayWeather.setWeatherStateAbbr(firstDay_fromAPI.getString("weather_state_abbr"));
+                    oneDayWeather.setWindDirectionCompass(firstDay_fromAPI.getString("wind_direction_compass"));
                     oneDayWeather.setCreated(firstDay_fromAPI.getString("created"));
-                    oneDayWeather.setApplicable_date(firstDay_fromAPI.getString("applicable_date"));
-                    oneDayWeather.setMin_temp((float) firstDay_fromAPI.getDouble("min_temp"));
-                    oneDayWeather.setMax_temp((float) firstDay_fromAPI.getDouble("max_temp"));
-                    oneDayWeather.setThe_temp((float) firstDay_fromAPI.getDouble("the_temp"));
-                    oneDayWeather.setWind_speed((float) firstDay_fromAPI.getDouble("wind_speed"));
-                    oneDayWeather.setWind_direction((float) firstDay_fromAPI.getDouble("wind_direction"));
-                    oneDayWeather.setAir_pressure(firstDay_fromAPI.getInt("air_pressure"));
+                    oneDayWeather.setApplicableDate(firstDay_fromAPI.getString("applicable_date"));
+                    oneDayWeather.setMinTemp((float) firstDay_fromAPI.getDouble("min_temp"));
+                    oneDayWeather.setMaxTemp((float) firstDay_fromAPI.getDouble("max_temp"));
+                    oneDayWeather.setTheTemp((float) firstDay_fromAPI.getDouble("the_temp"));
+                    oneDayWeather.setWindSpeed((float) firstDay_fromAPI.getDouble("wind_speed"));
+                    oneDayWeather.setWindDirection((float) firstDay_fromAPI.getDouble("wind_direction"));
+                    oneDayWeather.setAirPressure(firstDay_fromAPI.getInt("air_pressure"));
                     oneDayWeather.setHumidity(firstDay_fromAPI.getInt("humidity"));
                     oneDayWeather.setVisibility((float) firstDay_fromAPI.getDouble("visibility"));
                     oneDayWeather.setPredictability(firstDay_fromAPI.getInt("predictability"));

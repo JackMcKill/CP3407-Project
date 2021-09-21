@@ -63,21 +63,21 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     // This is just a helper method used to demo the unwrapping of the Parcelable object
     public void populateFields(View view) {
-        String stateName = singleWeatherReport.getWeather_state_name();
+        String stateName = singleWeatherReport.getWeatherStateName();
         Log.i("parcel", "State name: " + stateName);
 
         idView.setText(String.valueOf("ID: " + singleWeatherReport.getId()));
-        stateView.setText(String.valueOf("Weather State: " + singleWeatherReport.getWeather_state_name()));
-        stateAbbrView.setText(String.valueOf("Weather State Abbreviation: " + singleWeatherReport.getWeather_state_abbr()));
-        windDirectionCompassView.setText(String.valueOf("Wind Direction Compass: " + singleWeatherReport.getWind_direction_compass()));
+        stateView.setText(String.valueOf("Weather State: " + singleWeatherReport.getWeatherStateName()));
+        stateAbbrView.setText(String.valueOf("Weather State Abbreviation: " + singleWeatherReport.getWeatherStateAbbr()));
+        windDirectionCompassView.setText(String.valueOf("Wind Direction Compass: " + singleWeatherReport.getWindDirectionCompass()));
         createdView.setText(String.valueOf("Created: " + singleWeatherReport.getCreated()));
-        applicableDateView.setText(String.valueOf("Created: " + singleWeatherReport.getApplicable_date()));
-        minTempView.setText(String.valueOf("Min Temp: " + singleWeatherReport.getMin_temp()));
-        minTempView.setText(String.valueOf("Max Temp: " + singleWeatherReport.getMax_temp()));
-        tempView.setText(String.valueOf("Weather Temp: " + singleWeatherReport.getThe_temp()));
-        windspeedView.setText(String.valueOf("Wind Speed: " + singleWeatherReport.getWind_speed()));
-        windDirectionView.setText(String.valueOf("Wind Direction: " + singleWeatherReport.getWind_direction()));
-        airPressureView.setText(String.valueOf("Air Pressure: " + singleWeatherReport.getAir_pressure()));
+        applicableDateView.setText(String.valueOf("Created: " + singleWeatherReport.getApplicableDate()));
+        minTempView.setText(String.valueOf("Min Temp: " + singleWeatherReport.getMinTemp()));
+        minTempView.setText(String.valueOf("Max Temp: " + singleWeatherReport.getMaxTemp()));
+        tempView.setText(String.valueOf("Weather Temp: " + singleWeatherReport.getTheTemp()));
+        windspeedView.setText(String.valueOf("Wind Speed: " + singleWeatherReport.getWindSpeed()));
+        windDirectionView.setText(String.valueOf("Wind Direction: " + singleWeatherReport.getWindDirection()));
+        airPressureView.setText(String.valueOf("Air Pressure: " + singleWeatherReport.getAirPressure()));
         humidityView.setText(String.valueOf("Humidity: " + singleWeatherReport.getHumidity()));
         visibilityView.setText(String.valueOf("Visibility: " + singleWeatherReport.getVisibility()));
         predictabilityView.setText(String.valueOf("Predictability: " + singleWeatherReport.getPredictability()));
