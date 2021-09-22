@@ -34,7 +34,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/epicText"
         android:text="This is our new home screen" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/epicButton"
+        android:onClick="someEpicMethod"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

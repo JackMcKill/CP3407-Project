@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button apiPrototype;
     Button dbPrototype;
+    TextView someTextView;
 
 
     @Override
@@ -23,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         apiPrototype = findViewById(R.id.btn_apiPrototype);
         dbPrototype = findViewById(R.id.dbPrototype);
+        someTextView = findViewById(R.id.epicText);
+
+        someTextView.setText("Some different text");
+
 
     }
 
@@ -34,5 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public void btn_dbPrototypeClicked(View view) {
         Intent intent = new Intent(this, DbActivity.class);
         startActivity(intent);
+    }
+
+    public void someEpicMethod(View view) {
+        someTextView.setText("Text has been changed");
     }
 }
