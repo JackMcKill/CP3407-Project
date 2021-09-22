@@ -1,44 +1,51 @@
 package com.cp3407.wildernessweather;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import org.parceler.Parcel;
+
+@Parcel
+@Entity(tableName = "weather")
 public class WeatherReportModel {
 
     // Properties from metaweather REST api data
-    private long id;
-    private String weather_state_name;
-    private String weather_state_abbr;
-    private String wind_direction_compass;
-    private String created;
-    private String applicable_date;
-    private float min_temp;
-    private float max_temp;
-    private float the_temp;
-    private float wind_speed;
-    private float wind_direction;
-    private int air_pressure;
-    private int humidity;
-    private float visibility;
-    private int predictability;
+    // Properties must be public in order to use the Parceler dependency
 
-    // Constructor with all properties
-    public WeatherReportModel(long id, String weather_state_name, String weather_state_abbr, String wind_direction_compass, String created, String applicable_date, float min_temp, float max_temp, float the_temp, float wind_speed, float wind_direction, int air_pressure, int humidity, float visibility, int predictability) {
-        this.id = id;
-        this.weather_state_name = weather_state_name;
-        this.weather_state_abbr = weather_state_abbr;
-        this.wind_direction_compass = wind_direction_compass;
-        this.created = created;
-        this.applicable_date = applicable_date;
-        this.min_temp = min_temp;
-        this.max_temp = max_temp;
-        this.the_temp = the_temp;
-        this.wind_speed = wind_speed;
-        this.wind_direction = wind_direction;
-        this.air_pressure = air_pressure;
-        this.humidity = humidity;
-        this.visibility = visibility;
-        this.predictability = predictability;
-    }
+    @PrimaryKey
+    @NonNull
+    long id;
+    @NonNull
+    String weatherStateName;
+    @NonNull
+    String weatherStateAbbr;
+    @NonNull
+    String windDirectionCompass;
+    @NonNull
+    String created;
+    @NonNull
+    String applicableDate;
+    @NonNull
+    float minTemp;
+    @NonNull
+    float maxTemp;
+    @NonNull
+    float theTemp;
+    @NonNull
+    float windSpeed;
+    @NonNull
+    float windDirection;
+    @NonNull
+    int airPressure;
+    @NonNull
+    int humidity;
+    @NonNull
+    float visibility;
+    @NonNull
+    int predictability;
 
-    // Constructor with no properties
+    // Empty constructor
     public WeatherReportModel() {
     }
 
@@ -50,30 +57,34 @@ public class WeatherReportModel {
         this.id = id;
     }
 
-    public String getWeather_state_name() {
-        return weather_state_name;
+    @NonNull
+    public String getWeatherStateName() {
+        return weatherStateName;
     }
 
-    public void setWeather_state_name(String weather_state_name) {
-        this.weather_state_name = weather_state_name;
+    public void setWeatherStateName(String weatherStateName) {
+        this.weatherStateName = weatherStateName;
     }
 
-    public String getWeather_state_abbr() {
-        return weather_state_abbr;
+    @NonNull
+    public String getWeatherStateAbbr() {
+        return weatherStateAbbr;
     }
 
-    public void setWeather_state_abbr(String weather_state_abbr) {
-        this.weather_state_abbr = weather_state_abbr;
+    public void setWeatherStateAbbr(String weatherStateAbbr) {
+        this.weatherStateAbbr = weatherStateAbbr;
     }
 
-    public String getWind_direction_compass() {
-        return wind_direction_compass;
+    @NonNull
+    public String getWindDirectionCompass() {
+        return windDirectionCompass;
     }
 
-    public void setWind_direction_compass(String wind_direction_compass) {
-        this.wind_direction_compass = wind_direction_compass;
+    public void setWindDirectionCompass(String windDirectionCompass) {
+        this.windDirectionCompass = windDirectionCompass;
     }
 
+    @NonNull
     public String getCreated() {
         return created;
     }
@@ -82,60 +93,61 @@ public class WeatherReportModel {
         this.created = created;
     }
 
-    public String getApplicable_date() {
-        return applicable_date;
+    @NonNull
+    public String getApplicableDate() {
+        return applicableDate;
     }
 
-    public void setApplicable_date(String applicable_date) {
-        this.applicable_date = applicable_date;
+    public void setApplicableDate(String applicableDate) {
+        this.applicableDate = applicableDate;
     }
 
-    public float getMin_temp() {
-        return min_temp;
+    public float getMinTemp() {
+        return minTemp;
     }
 
-    public void setMin_temp(float min_temp) {
-        this.min_temp = min_temp;
+    public void setMinTemp(float minTemp) {
+        this.minTemp = minTemp;
     }
 
-    public float getMax_temp() {
-        return max_temp;
+    public float getMaxTemp() {
+        return maxTemp;
     }
 
-    public void setMax_temp(float max_temp) {
-        this.max_temp = max_temp;
+    public void setMaxTemp(float maxTemp) {
+        this.maxTemp = maxTemp;
     }
 
-    public float getThe_temp() {
-        return the_temp;
+    public float getTheTemp() {
+        return theTemp;
     }
 
-    public void setThe_temp(float the_temp) {
-        this.the_temp = the_temp;
+    public void setTheTemp(float theTemp) {
+        this.theTemp = theTemp;
     }
 
-    public float getWind_speed() {
-        return wind_speed;
+    public float getWindSpeed() {
+        return windSpeed;
     }
 
-    public void setWind_speed(float wind_speed) {
-        this.wind_speed = wind_speed;
+    public void setWindSpeed(float windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
-    public float getWind_direction() {
-        return wind_direction;
+    public float getWindDirection() {
+        return windDirection;
     }
 
-    public void setWind_direction(float wind_direction) {
-        this.wind_direction = wind_direction;
+    public void setWindDirection(float windDirection) {
+        this.windDirection = windDirection;
     }
 
-    public int getAir_pressure() {
-        return air_pressure;
+    public int getAirPressure() {
+        return airPressure;
     }
 
-    public void setAir_pressure(int air_pressure) {
-        this.air_pressure = air_pressure;
+    public void setAirPressure(int airPressure) {
+        this.airPressure = airPressure;
     }
 
     public int getHumidity() {
@@ -166,17 +178,17 @@ public class WeatherReportModel {
     public String toString() {
         return "WeatherReportModel{" +
                 "id=" + id +
-                "weather_state_name='" + weather_state_name + "\n" +
-                "weather_state_abbr='" + weather_state_abbr + "\n" +
-                "wind_direction_compass='" + wind_direction_compass + "\n" +
+                "weather_state_name='" + weatherStateName + "\n" +
+                "weather_state_abbr='" + weatherStateAbbr + "\n" +
+                "wind_direction_compass='" + windDirectionCompass + "\n" +
                 "created='" + created + "\n" +
-                "applicable_date='" + applicable_date + "\n" +
-                "min_temp=" + min_temp + "\n" +
-                "max_temp=" + max_temp + "\n" +
-                "the_temp=" + the_temp + "\n" +
-                "wind_speed=" + wind_speed + "\n" +
-                "wind_direction=" + wind_direction + "\n" +
-                "air_pressure=" + air_pressure + "\n" +
+                "applicable_date='" + applicableDate + "\n" +
+                "min_temp=" + minTemp + "\n" +
+                "max_temp=" + maxTemp + "\n" +
+                "the_temp=" + theTemp + "\n" +
+                "wind_speed=" + windSpeed + "\n" +
+                "wind_direction=" + windDirection + "\n" +
+                "air_pressure=" + airPressure + "\n" +
                 "humidity=" + humidity + "\n" +
                 "visibility=" + visibility + "\n" +
                 "predictability=" + predictability +

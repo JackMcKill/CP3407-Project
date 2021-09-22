@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SingleWeatherReportActivity">
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather ID: " />
+
+    <TextView
+        android:id="@+id/tv_weatherStateName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather State: " />
+
+    <TextView
+        android:id="@+id/tv_weatherStateAbbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather State Abbreviation: " />
+
+    <TextView
+        android:id="@+id/tv_windDirectionCompass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wind Direction Compass: " />
+
+    <TextView
+        android:id="@+id/tv_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Created: " />
+
+    <TextView
+        android:id="@+id/tv_applicableDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather Date: " />
+
+    <TextView
+        android:id="@+id/tv_minTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Min Temp: " />
+
+    <TextView
+        android:id="@+id/tv_maxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Temp: " />
+
+    <TextView
+        android:id="@+id/tv_weatherTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather Temp: " />
+
+    <TextView
+        android:id="@+id/tv_windSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wind Speed: " />
+
+    <TextView
+        android:id="@+id/tv_windDirection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wind Direction: " />
+
+    <TextView
+        android:id="@+id/tv_airPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Air Pressure: " />
+
+    <TextView
+        android:id="@+id/tv_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity: " />
+
+    <TextView
+        android:id="@+id/tv_visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visibility: " />
+
+    <TextView
+        android:id="@+id/tv_predictability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Predictability: " />
+
+    <Button
+        android:id="@+id/btn_unwrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="populateFields"
+        android:text="Press to populate data" />
+
+    <Button
+        android:id="@+id/btn_addToDatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addToDatabase"
+        android:text="Add to local database" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

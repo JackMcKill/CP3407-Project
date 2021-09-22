@@ -1,7 +1,10 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -43,6 +48,25 @@ public class APIactivity extends AppCompatActivity {
             public void onResponse(List<WeatherReportModel> weatherReportModels) {
                 ArrayAdapter<WeatherReportModel> arrayAdapter = new ArrayAdapter<>(APIactivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
                 weatherReports.setAdapter(arrayAdapter);
+
+                weatherReports.setClickable(true);
+
+                weatherReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    // This code is run when the user clicks on a list item
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        Log.i("ListView", i + " clicked!");
+
+                        // Store the selected weather report in a new variable
+                        WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
+
+                        // Send singleWeatherReport to a new activity inside an intent
+                        Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
+                        intent.putExtra("report", Parcels.wrap(singleWeatherReport));
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
