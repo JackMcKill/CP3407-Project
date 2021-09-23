@@ -46,7 +46,3 @@ This hides away the complexities of interacting with the SQLite database behind 
 ```java
 viewModel.insert(someWeatherReportModel);
 ```
-
-
-## External database storage
-*Harper to complete this section*

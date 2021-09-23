@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".DbActivity">
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_databaseList"
+        android:background="@android:color/darker_gray"
+        tools:listitem=""/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="External Database:" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ConnectionStatus: "
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/connectionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Getting Data..."
+            tools:ignore="MissingConstraints" />
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

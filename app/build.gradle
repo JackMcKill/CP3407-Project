@@ -60,7 +60,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifeCycleVersion"
 
     // Parceler dependency to automate creating Parcelable objects
-    implementation 'org.parceler:parceler-api:1.1.12'
-    annotationProcessor 'org.parceler:parceler:1.1.12'
+    def parceler_version = "1.1.12"
+    implementation "org.parceler:parceler-api:$parceler_version"
+    annotationProcessor "org.parceler:parceler:$parceler_version"
+
+    // RecyclerView dependency
+    def recyclerview_version ="1.2.1"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
 }

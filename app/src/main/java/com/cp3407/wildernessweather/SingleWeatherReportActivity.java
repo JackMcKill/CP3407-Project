@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,17 +21,13 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     TextView idView, stateView, stateAbbrView, windDirectionCompassView, createdView,
             applicableDateView, minTempView, maxTempView, tempView, windspeedView, windDirectionView,
-            airPressureView, humidityView, visibilityView, predictabilityView; // TODO find a better way to do this (this is disgusting)
+            airPressureView, humidityView, visibilityView, predictabilityView;
 
-    Button populateFieldsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
-
-        // Get the report from the intent and unwrap it
-        singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
 
         idView = findViewById(R.id.tv_id);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -48,24 +45,29 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         visibilityView = findViewById(R.id.tv_visibility);
         predictabilityView = findViewById(R.id.tv_predictability);
 
-        populateFieldsButton = findViewById(R.id.btn_unwrap);
-
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
+
+        if (Parcels.unwrap(getIntent().getParcelableExtra("report")) != null) {
+            Log.i("Parcelable", "Parcelable object received");
+            // Get the report from the intent and unwrap it
+            singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
+            populateFields();
+
+        } else {
+            Log.i("Parcelable", "No parcelable object received");
+            // TODO code for when this activity is called without a Parcel object
+        }
 
     }
 
     // Adds the single weather report to the local database
     public void addToDatabase(View view) {
-        viewModel.insert(singleWeatherReport);
+        viewModel.insert(singleWeatherReport); // TODO The ID value provided by metaweather is irrelevant to us, we need to create our own ID value for storing in the database
 
         Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
     }
 
-    // This is just a helper method used to demo the unwrapping of the Parcelable object
-    public void populateFields(View view) {
-        String stateName = singleWeatherReport.getWeatherStateName();
-        Log.i("parcel", "State name: " + stateName);
-
+    public void populateFields() {
         idView.setText(String.valueOf("ID: " + singleWeatherReport.getId()));
         stateView.setText(String.valueOf("Weather State: " + singleWeatherReport.getWeatherStateName()));
         stateAbbrView.setText(String.valueOf("Weather State Abbreviation: " + singleWeatherReport.getWeatherStateAbbr()));
