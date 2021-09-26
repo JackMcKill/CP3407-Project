@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cp3407.wildernessweather.database.ConnectToDatabase;
+import com.cp3407.wildernessweather.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void btn_dbPrototypeClicked(View view) {
         Intent intent = new Intent(this, DbActivity.class);
+        startActivity(intent);
+    }
+
+    public void settingsPressed(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

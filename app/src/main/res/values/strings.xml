@@ -10,5 +10,9 @@
     <string name="hint_word">Word...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="turn_on_weather_warnings">Turn on weather warnings</string>
+    <string name="display_preferences">Display Preferences</string>
+    <string name="manage_downloaded_data">Manage Downloaded Data</string>
+    <string name="weather_source">Weather Source</string>
 
 </resources>
