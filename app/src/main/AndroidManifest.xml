@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WildernessWeather">
         <activity
+            android:name=".settings.WeatherSourceSettings"
+            android:exported="true" />
+        <activity
+            android:name=".settings.DisplaySettings"
+            android:exported="true" />
+        <activity
             android:name=".settings.SettingsActivity"
             android:exported="true" />
         <activity
