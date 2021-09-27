@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cp3407.wildernessweather.R;
 
-public class DisplaySettings extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class DisplaySettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner unitsOfMeasurementSpinner;
     private Spinner fontSizeSpinner;

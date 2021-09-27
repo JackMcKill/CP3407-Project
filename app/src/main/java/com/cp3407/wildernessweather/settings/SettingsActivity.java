@@ -20,12 +20,12 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void displayPrefsClicked(View view) {
-        Intent intent = new Intent(this, DisplaySettings.class);
+        Intent intent = new Intent(this, DisplaySettingsActivity.class);
         startActivity(intent);
     }
 
     public void weatherSourceClicked(View view) {
-        Intent intent = new Intent(this, WeatherSourceSettings.class);
+        Intent intent = new Intent(this, WeatherSourceSettingsActivity.class);
         startActivity(intent);
     }
 }

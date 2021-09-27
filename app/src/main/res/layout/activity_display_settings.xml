@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".settings.DisplaySettings">
+    tools:context=".settings.DisplaySettingsActivity">
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sw_darkmode"

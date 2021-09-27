@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cp3407.wildernessweather.R;
 
-public class WeatherSourceSettings extends AppCompatActivity {
+public class WeatherSourceSettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
