@@ -3,26 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../Library/Android/sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.13931623931623932" />
         <entry key="..\:/Users/Harper/OneDrive - James Cook University/2021/Sem 2/CP3407 - Advanced Software Engineering/CP3407-Project/app/src/main/res/layout/activity_apiactivity.xml" value="0.209375" />
         <entry key="..\:/Users/Harper/OneDrive - James Cook University/2021/Sem 2/CP3407 - Advanced Software Engineering/CP3407-Project/app/src/main/res/layout/activity_db.xml" value="0.209375" />
         <entry key="..\:/Users/Harper/OneDrive - James Cook University/2021/Sem 2/CP3407 - Advanced Software Engineering/CP3407-Project/app/src/main/res/layout/activity_main.xml" value="0.16259057971014493" />
         <entry key="..\:/Users/Harper/OneDrive - James Cook University/2021/Sem 2/CP3407 - Advanced Software Engineering/CP3407-Project/app/src/main/res/layout/activity_new_word.xml" value="0.209375" />
         <entry key="..\:/Users/Harper/OneDrive - James Cook University/2021/Sem 2/CP3407 - Advanced Software Engineering/CP3407-Project/app/src/main/res/layout/recyclerview_item.xml" value="0.209375" />
-        <entry key="app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.2641350210970464" />
         <entry key="app/src/main/res/layout/activity_apiactivity.xml" value="0.31837606837606836" />
         <entry key="app/src/main/res/layout/activity_db.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_display_settings.xml" value="0.25427350427350426" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_new_word.xml" value="0.31837606837606836" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_single_weather_report.xml" value="0.31837606837606836" />
-        <entry key="app/src/main/res/layout/activity_weather_source_settings.xml" value="0.25427350427350426" />
-        <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recyclerview_item.xml" value="0.25427350427350426" />
-        <entry key="app/src/main/res/layout/simple_spinner_item.xml" value="0.25427350427350426" />
-        <entry key="app/src/main/res/layout/spinner_dropdown_item.xml" value="0.25427350427350426" />
-        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.25427350427350426" />
       </map>
     </option>
   </component>
