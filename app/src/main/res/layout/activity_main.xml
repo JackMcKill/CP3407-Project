@@ -21,6 +21,13 @@
         android:onClick="btn_dbPrototypeClicked"
         android:text="Press for db prototype" />
 
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="settingsPressed"
+        android:text="Settings Page" />
+
 
     <TextView
         android:layout_width="wrap_content"
