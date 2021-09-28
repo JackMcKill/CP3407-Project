@@ -7,6 +7,11 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+
+import com.cp3407.wildernessweather.settings.SettingsActivity;
+
+
 public class MainActivity extends AppCompatActivity {
 
     Button apiPrototype;
@@ -29,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void btn_dbPrototypeClicked(View view) {
         Intent intent = new Intent(this, DbActivity.class);
+        startActivity(intent);
+    }
+
+    public void settingsPressed(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

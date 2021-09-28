@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".settings.DisplaySettingsActivity">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sw_darkmode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#E6E6E6"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/use_dark_mode"
+        android:textSize="18sp" />
+
+    <!--    This is the units of measurement section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#E6E6E6"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
+
+        <!--        TODO create spinners - need string arrays showing options-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/units_of_measurement"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spin_unitOfMeasurement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#E6E6E6"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/font_size"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spin_fontSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_saveDisplaySettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:onClick="savePressed"
+        android:text="@string/save"
+        android:textSize="30sp" />
+
+</LinearLayout>
