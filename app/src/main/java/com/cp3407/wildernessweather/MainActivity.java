@@ -7,13 +7,15 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+
 import com.cp3407.wildernessweather.settings.SettingsActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
     Button apiPrototype;
     Button dbPrototype;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

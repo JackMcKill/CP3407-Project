@@ -174,6 +174,7 @@ public class WeatherReportModel {
         this.predictability = predictability;
     }
 
+    // This method should only be used when prototyping - USER SHOULD NEVER SEE THIS OUTPUT
     @Override
     public String toString() {
         return "WeatherReportModel{" +
