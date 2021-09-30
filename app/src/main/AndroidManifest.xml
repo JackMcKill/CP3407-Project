@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WildernessWeather">
         <activity
+            android:name=".ExternalDatabaseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".NewWordActivity"
             android:name=".settings.WeatherSourceSettingsActivity"
             android:exported="true" />
         <activity
