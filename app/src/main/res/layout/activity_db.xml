@@ -26,29 +26,6 @@
         android:layout_margin="16dp"
         android:contentDescription="add_word"/>
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="External Database:"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ConnectionStatus: "
-            tools:ignore="MissingConstraints" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Getting Data..."
-            android:id="@+id/connectionStatus"
-            tools:ignore="MissingConstraints" />
-    </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

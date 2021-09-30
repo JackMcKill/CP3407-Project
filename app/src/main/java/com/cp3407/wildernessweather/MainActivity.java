@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         apiPrototype = findViewById(R.id.btn_apiPrototype);
         dbPrototype = findViewById(R.id.dbPrototype);
+        dbPrototype = findViewById(R.id.externalDBPrototype);
 
     }
 
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void btn_dbPrototypeClicked(View view) {
         Intent intent = new Intent(this, DbActivity.class);
+        startActivity(intent);
+    }
+    public void btn_externalDBPrototypeClicked(View view) {
+        Intent intent = new Intent(this, ExternalDatabaseActivity.class);
         startActivity(intent);
     }
 }

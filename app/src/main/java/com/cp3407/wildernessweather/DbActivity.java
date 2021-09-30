@@ -20,14 +20,12 @@ public class DbActivity extends AppCompatActivity {
 
     private WordViewModel mWordViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
-    TextView databaseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
-        databaseTextView = findViewById(R.id.connectionStatus);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final WordListAdapter adapter = new WordListAdapter(new WordListAdapter.WordDiff());
@@ -47,14 +45,7 @@ public class DbActivity extends AppCompatActivity {
             startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
         });
 
-        // Begin ASync task to collect data from database.
-        ConnectToDatabase asyncTask = new ConnectToDatabase(new ConnectToDatabase.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                databaseTextView.setText( output);
-            }
-        });
-        asyncTask.execute();
+
 
 
     }
