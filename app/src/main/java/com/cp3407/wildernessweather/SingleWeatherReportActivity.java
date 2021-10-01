@@ -29,21 +29,22 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
 
-        idView = findViewById(R.id.tv_id);
-        stateView = findViewById(R.id.tv_weatherStateName);
-        stateAbbrView = findViewById(R.id.tv_weatherStateAbbr);
-        windDirectionCompassView = findViewById(R.id.tv_windDirectionCompass);
-        createdView = findViewById(R.id.tv_created);
-        applicableDateView = findViewById(R.id.tv_applicableDate);
-        minTempView = findViewById(R.id.tv_minTemp);
-        maxTempView = findViewById(R.id.tv_maxTemp);
-        tempView = findViewById(R.id.tv_weatherTemp);
-        windspeedView = findViewById(R.id.tv_windSpeed);
-        windDirectionView = findViewById(R.id.tv_windDirection);
-        airPressureView = findViewById(R.id.tv_airPressure);
-        humidityView = findViewById(R.id.tv_humidity);
-        visibilityView = findViewById(R.id.tv_visibility);
-        predictabilityView = findViewById(R.id.tv_predictability);
+//        idView = findViewById(R.id.tv_id);
+//        idView = findViewById(R.id.textView3);
+//        stateView = findViewById(R.id.tv_weatherStateName);
+//        stateAbbrView = findViewById(R.id.tv_weatherStateAbbr);
+//        windDirectionCompassView = findViewById(R.id.tv_windDirectionCompass);
+//        createdView = findViewById(R.id.tv_created);
+//        applicableDateView = findViewById(R.id.tv_applicableDate);
+//        minTempView = findViewById(R.id.tv_minTemp);
+//        maxTempView = findViewById(R.id.tv_maxTemp);
+//        tempView = findViewById(R.id.tv_weatherTemp);
+//        windspeedView = findViewById(R.id.tv_windSpeed);
+//        windDirectionView = findViewById(R.id.tv_windDirection);
+//        airPressureView = findViewById(R.id.tv_airPressure);
+//        humidityView = findViewById(R.id.tv_humidity);
+//        visibilityView = findViewById(R.id.tv_visibility);
+//        predictabilityView = findViewById(R.id.tv_predictability);
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
@@ -51,7 +52,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             Log.i("Parcelable", "Parcelable object received");
             // Get the report from the intent and unwrap it
             singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
-            populateFields();
+//            populateFields();
 
         } else {
             Log.i("Parcelable", "No parcelable object received");
@@ -68,7 +69,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     public void populateFields() {
-        idView.setText(String.valueOf("ID: " + singleWeatherReport.getId()));
+//        idView.setText(String.valueOf("ID: " + singleWeatherReport.getId()));
         stateView.setText(String.valueOf("Weather State: " + singleWeatherReport.getWeatherStateName()));
         stateAbbrView.setText(String.valueOf("Weather State Abbreviation: " + singleWeatherReport.getWeatherStateAbbr()));
         windDirectionCompassView.setText(String.valueOf("Wind Direction Compass: " + singleWeatherReport.getWindDirectionCompass()));
