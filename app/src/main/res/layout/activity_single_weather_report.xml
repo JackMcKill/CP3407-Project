@@ -1,106 +1,422 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SingleWeatherReportActivity">
+    <!-- Main vertical layout container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:weightSum="100">
+        <!-- City name section (blue banner) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:background="@drawable/city_name_layout_bg"
+            android:padding="12dp"
+            android:weightSum="100">
+            <!-- Back button -->
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@android:drawable/list_selector_background"
+                android:rotation="180"
+                app:srcCompat="@drawable/ic_baseline_chevron_right_50" />
+            <!-- City name -->
+            <TextView
+                android:id="@+id/tv_cityName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="90"
+                android:autoSizeTextType="uniform"
+                android:paddingStart="12dp"
+                android:textColor="#000000"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather ID: " />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_weatherStateName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather State: " />
+    </LinearLayout>
+    <!-- Weather state section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:padding="12dp"
+        android:weightSum="100">
+        <!-- Weather state image -->
+        <ImageView
+            android:id="@+id/iv_stateImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20" />
+        <!-- Weather state name -->
+        <TextView
+            android:id="@+id/tv_weatherStateName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:autoSizeTextType="uniform"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tv_weatherStateAbbr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather State Abbreviation: " />
+    </LinearLayout>
+    <!-- Temperature section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="35"
+        android:background="@drawable/layout_bottom_border"
+        android:padding="12dp"
+        android:weightSum="100">
+        <!-- Left panel -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:weightSum="100">
+            <!-- Download button -->
+            <ImageButton
+                android:id="@+id/btn_download"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:background="@android:drawable/list_selector_background"
+                app:srcCompat="@drawable/ic_download" />
 
-    <TextView
-        android:id="@+id/tv_windDirectionCompass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wind Direction Compass: " />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20" />
+            <!-- Max temperature -->
+            <TextView
+                android:id="@+id/tv_maxTemp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="25"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="30sp" />
+            <!-- Max temperature label ("HIGH") -->
+            <TextView
+                android:id="@+id/tv_maxTempLabel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:text="@string/high"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <!-- Middle panel -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="60"
+            android:orientation="vertical"
+            android:weightSum="100">
+            <!-- Applicable date -->
+            <TextView
+                android:id="@+id/tv_applicableDate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+            <!-- Main temperature -->
+            <TextView
+                android:id="@+id/tv_weatherTemp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="85"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="85sp" />
 
-    <TextView
-        android:id="@+id/tv_created"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created: " />
+        </LinearLayout>
+        <!-- Right panel -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:weightSum="100">
 
-    <TextView
-        android:id="@+id/tv_applicableDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather Date: " />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="60" />
+            <!-- Min temperature -->
+            <TextView
+                android:id="@+id/tv_minTemp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="25"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="30sp" />
+            <!-- Min temperature label ("LOW") -->
+            <TextView
+                android:id="@+id/tv_minTempLabel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:text="@string/low"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_minTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Min Temp: " />
+    </LinearLayout>
+    <!-- Details section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="45"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:weightSum="100">
+        <!-- "Details" heading -->
+        <TextView
+            android:id="@+id/tv_detailsHeading"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="22"
+            android:text="@string/details"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        <!-- Details 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="26"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <!-- Wind speed image -->
+            <ImageView
+                android:id="@+id/iv_windSpeedImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_wind" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Wind speed value -->
+                <TextView
+                    android:id="@+id/tv_windSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Wind speed label -->
+                <TextView
+                    android:id="@+id/tv_windSpeedLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/wind_speed"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <!-- Wind direction image -->
+            <ImageView
+                android:id="@+id/iv_windDirectionImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_compass" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Wind direction value -->
+                <TextView
+                    android:id="@+id/tv_windDirection"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Wind direction label -->
+                <TextView
+                    android:id="@+id/tv_windDirectionLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/wind_direction"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_maxTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max Temp: " />
+        </LinearLayout>
+        <!-- Details 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="26"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <!-- Pressure image -->
+            <ImageView
+                android:id="@+id/iv_pressureImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_barometer" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Pressure value -->
+                <TextView
+                    android:id="@+id/tv_airPressure"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Pressure label -->
+                <TextView
+                    android:id="@+id/tv_pressureLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/pressure"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <!-- Humidity image -->
+            <ImageView
+                android:id="@+id/iv_humidityImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_drop" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Humidity value -->
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Humidity label -->
+                <TextView
+                    android:id="@+id/tv_humidityLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/humidity"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_weatherTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather Temp: " />
+        </LinearLayout>
+        <!-- Details 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="26"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <!-- Visibility image -->
+            <ImageView
+                android:id="@+id/iv_visibilityImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_windshield" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Visibility value -->
+                <TextView
+                    android:id="@+id/tv_visibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Visibility label -->
+                <TextView
+                    android:id="@+id/tv_visibilityLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/visibility"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <!-- Predictability image -->
+            <ImageView
+                android:id="@+id/iv_predictabilityImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="16"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_question" />
+            <!-- Vertical container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Predictability value -->
+                <TextView
+                    android:id="@+id/tv_predictability"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <!-- Predictability label -->
+                <TextView
+                    android:id="@+id/tv_predictabilityLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="@string/predictability"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_windSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wind Speed: " />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_windDirection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wind Direction: " />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_airPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Air Pressure: " />
-
-    <TextView
-        android:id="@+id/tv_humidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Humidity: " />
-
-    <TextView
-        android:id="@+id/tv_visibility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Visibility: " />
-
-    <TextView
-        android:id="@+id/tv_predictability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Predictability: " />
-
-    <Button
-        android:id="@+id/btn_addToDatabase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addToDatabase"
-        android:text="Add to local database" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>
