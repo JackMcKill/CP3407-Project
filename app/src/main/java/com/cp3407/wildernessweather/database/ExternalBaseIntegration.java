@@ -9,7 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ConnectToDatabase extends AsyncTask<Void, Void, String> {
+public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     private static final String url = "jdbc:mysql://db-mysql-weatherapp.c5hi3iqblfad.ap-southeast-2.rds.amazonaws.com:3306/db_mysql_weatherapp";
     private static final String user = "admin";
     private static final String pass = "jackandharper";
@@ -18,12 +18,12 @@ public class ConnectToDatabase extends AsyncTask<Void, Void, String> {
 
     public AsyncResponse delegate = null; //Call back interface
 
-    public ConnectToDatabase(AsyncResponse asyncResponse) {
+    public ExternalBaseIntegration(AsyncResponse asyncResponse) {
         delegate = asyncResponse; //Assigning call back interface through constructor
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected Object doInBackground(Void... voids) {
         try{
             // #TODO Buttons blocked until connection made.
             // Method made to connect to the database.
@@ -34,7 +34,7 @@ public class ConnectToDatabase extends AsyncTask<Void, Void, String> {
                 // #TODO if buttonPressed or onConditionMet then read database.
 
                 // Once connection is made read data from tables
-                return readDatabase(con);
+                return con;
 
                 // #TODO if buttonPressed or onConditionMet then write to database
                 // writeToDatabase();
@@ -43,12 +43,12 @@ public class ConnectToDatabase extends AsyncTask<Void, Void, String> {
         }
         catch (Exception e){
             e.printStackTrace();
-            dataBaseOutput = (e.toString());
+            return e;
         }
         return dataBaseOutput;
     }
 
-    private String readDatabase(Connection con) throws SQLException {
+    public String readDatabase(Connection con) throws SQLException {
         // Once connection is made begin building output
         StringBuilder result = new StringBuilder();
         Statement st = con.createStatement();
@@ -83,14 +83,14 @@ public class ConnectToDatabase extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Object result) {
         // When data is finished gathering, send to Activity.
         System.out.println("Finished gathering Data");
         delegate.processFinish(result);
     }
 
     public interface AsyncResponse {
-        void processFinish(String output);
+        void processFinish(Object output);
     }
 
 }
