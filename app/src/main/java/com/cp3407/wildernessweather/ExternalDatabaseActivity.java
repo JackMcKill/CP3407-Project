@@ -3,12 +3,14 @@ package com.cp3407.wildernessweather;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.cp3407.wildernessweather.database.ConnectToDatabase;
+import com.cp3407.wildernessweather.database.ExternalBaseIntegration;
 
 public class ExternalDatabaseActivity extends AppCompatActivity {
     TextView databaseTextView;
+    Button getDataButton;
 
 
     @Override
@@ -17,13 +19,13 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_external_database);
 
         databaseTextView = findViewById(R.id.connectionStatus);
+        getDataButton = findViewById(R.id.getData);
 
 
         // Begin ASync task to collect data from database.
-        ConnectToDatabase asyncTask = new ConnectToDatabase(new ConnectToDatabase.AsyncResponse() {
+        ExternalBaseIntegration asyncTask = new ExternalBaseIntegration(new ExternalBaseIntegration.AsyncResponse() {
             @Override
-            public void processFinish(String output) {
-                databaseTextView.setText( output);
+            public void processFinish(Object output) {
             }
         });
         asyncTask.execute();

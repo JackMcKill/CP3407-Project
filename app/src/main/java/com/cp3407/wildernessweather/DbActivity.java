@@ -2,7 +2,6 @@ package com.cp3407.wildernessweather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cp3407.wildernessweather.database.ConnectToDatabase;
 import com.cp3407.wildernessweather.database.Word;
 import com.cp3407.wildernessweather.database.WordListAdapter;
 import com.cp3407.wildernessweather.database.WordViewModel;
