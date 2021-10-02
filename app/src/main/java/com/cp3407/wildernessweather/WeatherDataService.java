@@ -72,6 +72,7 @@ public class WeatherDataService {
 
                     // Get properties from the object and assign to WeatherReportModel properties
                     oneDayWeather.setId(firstDay_fromAPI.getLong("id"));
+                    oneDayWeather.setCityName(response.getString("title"));
                     oneDayWeather.setWeatherStateName(firstDay_fromAPI.getString("weather_state_name"));
                     oneDayWeather.setWeatherStateAbbr(firstDay_fromAPI.getString("weather_state_abbr"));
                     oneDayWeather.setWindDirectionCompass(firstDay_fromAPI.getString("wind_direction_compass"));
