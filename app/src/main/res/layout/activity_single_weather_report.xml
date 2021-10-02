@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="12dp"
     tools:context=".SingleWeatherReportActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginRight="12dp"
-        android:layout_weight="10"
+        android:layout_weight="15"
+        android:padding="12dp"
         android:weightSum="100">
 
         <ImageButton
@@ -20,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="15"
+            android:background="@android:drawable/list_selector_background"
             android:rotation="180"
             app:srcCompat="@drawable/ic_baseline_chevron_right_50" />
 
@@ -32,30 +32,14 @@
             android:padding="12dp"
             android:weightSum="100">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_cityName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <TextView
-                    android:id="@+id/tv_cityName"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="85"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="15"
-                    tools:srcCompat="@android:drawable/btn_star_big_on" />
-
-            </LinearLayout>
+                android:layout_weight="85"
+                android:autoSizeTextType="uniform"
+                android:textColor="#000000"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -64,41 +48,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30"
-        android:orientation="vertical"
+        android:layout_weight="15"
         android:padding="12dp"
         android:weightSum="100">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
-            android:orientation="horizontal"
-            android:weightSum="100">
+        <ImageView
+            android:id="@+id/iv_stateImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20" />
 
-            <ImageView
-                android:id="@+id/iv_stateImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                tools:srcCompat="@drawable/sun" />
+        <TextView
+            android:id="@+id/tv_weatherStateName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:autoSizeTextType="uniform"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/tv_weatherStateName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="80"
-                android:paddingLeft="12dp"
-                android:text="TextView"
-                android:textSize="30sp" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
+        android:layout_weight="35"
         android:padding="12dp"
         android:weightSum="100">
 
@@ -114,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="40"
+                android:background="@android:drawable/list_selector_background"
                 app:srcCompat="@drawable/ic_download" />
 
             <Space
@@ -126,7 +102,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="25"
-                android:text=" 29°"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="30sp" />
@@ -195,7 +170,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="25"
-                android:text=" 18°"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="30sp" />
@@ -215,7 +189,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="35"
+        android:layout_weight="45"
         android:orientation="vertical"
         android:padding="12dp"
         android:weightSum="100">
@@ -225,7 +199,6 @@
             android:layout_height="0dp"
             android:layout_weight="22"
             android:orientation="horizontal"
-            android:paddingRight="20dp"
             android:weightSum="100">
 
             <TextView
@@ -244,6 +217,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="15"
+                android:background="@android:drawable/list_selector_background"
                 android:rotation="90"
                 app:srcCompat="@drawable/ic_baseline_chevron_right_50" />
 
@@ -261,9 +235,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                tools:srcCompat="@drawable/ic_wind" />
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_wind" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -294,8 +267,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 app:srcCompat="@drawable/ic_compass" />
 
             <LinearLayout
@@ -336,8 +308,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 app:srcCompat="@drawable/ic_barometer" />
 
             <LinearLayout
@@ -369,9 +340,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                tools:srcCompat="@drawable/ic_drop" />
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_drop" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -411,8 +381,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 app:srcCompat="@drawable/ic_windshield" />
 
             <LinearLayout
@@ -444,8 +413,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="16"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 app:srcCompat="@drawable/ic_question" />
 
             <LinearLayout
@@ -472,78 +440,6 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="25"
-            android:text="Next Week"
-            android:textAlignment="textStart"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="75"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="35"
-                android:orientation="vertical"
-                android:weightSum="100">
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:text="TONIGHT"
-                    android:textAlignment="center"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="30"
-                    android:text=" 16°"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:text="HIGH"
-                    android:textAlignment="center"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="65"
-                android:paddingRight="12dp"
-                android:text="Cloudy skies with high winds. Low near 30c. Winds NNE at 20 to 25km/h." />
         </LinearLayout>
     </LinearLayout>
 
