@@ -17,6 +17,8 @@ public class WeatherReportModel {
     @NonNull
     long id;
     @NonNull
+    String cityName;
+    @NonNull
     String weatherStateName;
     @NonNull
     String weatherStateAbbr;
@@ -56,6 +58,10 @@ public class WeatherReportModel {
     public void setId(long id) {
         this.id = id;
     }
+
+    public String getCityName() { return cityName; }
+
+    public void setCityName(String cityName) { this.cityName = cityName; }
 
     @NonNull
     public String getWeatherStateName() {
