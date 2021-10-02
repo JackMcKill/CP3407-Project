@@ -72,7 +72,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
         applicableDateView.setText(String.valueOf(singleWeatherReport.getApplicableDate()));
         minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMinTemp()) + "°"));
-        minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°"));
+        maxTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°"));
         tempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getTheTemp()) + "°"));
         windSpeedView.setText(String.valueOf((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h"));
         windDirectionView.setText(String.valueOf(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)"));
