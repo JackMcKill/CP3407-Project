@@ -69,8 +69,10 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
         stateView.setText(String.valueOf(singleWeatherReport.getWeatherStateName()));
+        // Set weather state image field to correct resource.
         stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
-        applicableDateView.setText(String.valueOf(singleWeatherReport.getApplicableDate()));
+        // Convert date string before inserting.
+        applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
         minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMinTemp()) + "°"));
         maxTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°"));
         tempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getTheTemp()) + "°"));
@@ -96,5 +98,15 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             case "lc": return R.drawable.light_cloud;
             default: return R.drawable.clear;
         }
+    }
+
+    /**
+     * Converts date string in format YYYY-MM-DD to the format DD/MM/YYYY.
+     * @param dateString date string in old format.
+     * @return date string in new format.
+     */
+    public String convertDateString(String dateString) {
+        String[] parts = dateString.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
 }
