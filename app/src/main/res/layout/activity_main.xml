@@ -1,42 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_home"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_apiPrototype"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/homeTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="apiPrototypePressed"
-        android:text="Press for API Prototype" />
-
-    <Button
-        android:id="@+id/dbPrototype"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btn_dbPrototypeClicked"
-        android:text="Press for db prototype" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="settingsPressed"
-        android:text="Settings Page" />
-
+        android:layout_marginTop="40dp"
+        android:text="@string/today_s_weather"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/currentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Friday 27th August, 2021"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/quickViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quick_view"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/searchBox"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="3dp"
+            android:paddingStart="10dp"
+            android:hint="@string/search_city_name"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/locationList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/editFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World! Welcome to the greatest weather app you have ever used!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:text="@string/edit_favourites"
+        android:textSize="15sp"
+        tools:ignore="TouchTargetSizeCheck" />
 
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/settings"
+        tools:ignore="SpeakableTextPresentCheck" />
+</LinearLayout>
