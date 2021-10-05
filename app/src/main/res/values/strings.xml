@@ -25,7 +25,6 @@
     <string name="bom">BOM (bom.gov.au)</string>
     <string name="metaweather">Metaweather (metaweather.com)</string>
     <string name="default_weather_source">Default Weather Source</string>
-    <string name="today_s_weather">Today\'s Weather</string>
 
     <string-array name="units_of_measurement">
         <item>Metric</item>
