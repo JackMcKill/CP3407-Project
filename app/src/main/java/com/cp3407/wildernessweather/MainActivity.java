@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        apiPrototype = findViewById(R.id.btn_apiPrototype);
-        dbPrototype = findViewById(R.id.dbPrototype);
+//      apiPrototype = findViewById(R.id.btn_apiPrototype);
+//        dbPrototype = findViewById(R.id.dbPrototype);
 
     }
 
