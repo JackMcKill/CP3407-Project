@@ -3,7 +3,7 @@
 ## Local database storage
 
 ### Room Library
-Our app uses an SQLite database to provide local persistent storage. We are using the [The Room Persistence Library](https://developer.android.com/training/data-storage/room), which provides an abstraction layer over SQLite. Room provides the following benefits:
+Our app uses an SQLite database to provide local persistent storage. We are using [The Room Persistence Library](https://developer.android.com/training/data-storage/room), which provides an abstraction layer over SQLite. Room provides the following benefits:
 * Compile-time verification of SQL queries
 * Convenience annotations that minimize repetitive and error-prone boilerplate code
 * Streamlined database migration paths
@@ -23,7 +23,7 @@ There are four main components in our Room database:
 * The database class (`WeatherReportDatabase.java`)  
 This class holds the database, and serves as the main access point for the underlying connection to our app's data. We are following the Singleton Design Pattern when instantiating a `WeatherReportDatabase` object.
 * The Data Entity class (`WeatherReportModel.java`)  
-This class represents the table in our apps database. Rather than creating a new class who's only purpose was to act as a Data Entity Class, we were able to use the existing `WeatherReportModel` class by just adding the correct Room annotations to it.
+This class represents the table in our app's database. Rather than creating a new class who's only purpose was to act as a Data Entity Class, we were able to use the existing `WeatherReportModel` class by just adding the correct Room annotations to it.
 * The Data Access Object (DAO) (`WeatherReportDao.java`)  
 This object provides methods that our app can use to query, update, insert and delete data in our database.
 * The ViewModel (`WeatherReportViewModel.java`)  
