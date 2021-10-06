@@ -3,6 +3,7 @@ package com.cp3407.wildernessweather;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,20 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             Log.i("Parcelable", "No parcelable object received");
             // TODO code for when this activity is called without a Parcel object
         }
+
+        final ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                goBack();
+            }
+        });
+
+        final ImageButton downloadButton = findViewById(R.id.btn_download);
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                downloadData();
+            }
+        });
 
     }
 
@@ -109,4 +124,19 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         String[] parts = dateString.split("-");
         return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
+
+    /**
+     * Returns to APIActivity.
+     */
+    public void goBack() {
+
+    }
+
+    /**
+     * Downloads weather data to the local database.
+     */
+    public void downloadData() {
+
+    }
+
 }
