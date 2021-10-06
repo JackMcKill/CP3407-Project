@@ -25,6 +25,15 @@
     <string name="bom">BOM (bom.gov.au)</string>
     <string name="metaweather">Metaweather (metaweather.com)</string>
     <string name="default_weather_source">Default Weather Source</string>
+    <string name="low">LOW</string>
+    <string name="details">Details</string>
+    <string name="wind_speed">WIND SPEED</string>
+    <string name="wind_direction">WIND DIRECTION</string>
+    <string name="pressure">PRESSURE</string>
+    <string name="high">HIGH</string>
+    <string name="humidity">HUMIDITY</string>
+    <string name="visibility">VISIBILITY</string>
+    <string name="predictability">PREDICTABILITY</string>
 
     <string-array name="units_of_measurement">
         <item>Metric</item>
