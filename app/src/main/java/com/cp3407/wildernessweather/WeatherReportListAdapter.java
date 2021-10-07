@@ -28,7 +28,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
     @NonNull
     @Override
     public WeatherReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.list_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.recycler_list_item, parent, false);
         WeatherReportViewHolder viewHolder = new WeatherReportViewHolder(itemView);
         return viewHolder;
     }

@@ -13,7 +13,7 @@ public class WeatherReportModel {
     // Properties from metaweather REST api data
     // Properties must be public in order to use the Parceler dependency
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     long id;
     @NonNull

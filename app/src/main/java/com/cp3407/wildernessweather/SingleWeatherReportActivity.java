@@ -76,7 +76,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     // Adds the single weather report to the local database
     public void addToDatabase(View view) {
-        viewModel.insert(singleWeatherReport); // TODO The ID value provided by metaweather is irrelevant to us, we need to create our own ID value for storing in the database
+        singleWeatherReport.setId(0); // id is set to 0 so that it can be autoincremented by Room
+        viewModel.insert(singleWeatherReport);
 
         Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
     }
