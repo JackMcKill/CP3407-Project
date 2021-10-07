@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReportListAdapter.WeatherReportViewHolder> {
@@ -89,6 +91,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
                     Log.i("recyclerView", "Item " + position + " pressed");
                     // Opens a new SingleWeatherReportActivity - does not populate fields yet.
                     Intent intent = new Intent(context, SingleWeatherReportActivity.class);
+                    intent.putExtra("report", Parcels.wrap(weatherReports.get(position)));
                     context.startActivity(intent);
                 }
             });
