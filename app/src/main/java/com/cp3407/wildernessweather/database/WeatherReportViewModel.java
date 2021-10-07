@@ -40,6 +40,10 @@ public class WeatherReportViewModel extends AndroidViewModel {
         return weatherReportDao.getWeatherReport(id);
     }
 
+    public void delete(WeatherReportModel weatherReportModel) {
+        new DeleteAsyncTask(weatherReportDao).execute(weatherReportModel);
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -49,15 +53,29 @@ public class WeatherReportViewModel extends AndroidViewModel {
     // Performs insert operations on a background thread
     private class InsertAsyncTask extends AsyncTask<WeatherReportModel, Void, Void> {
 
-        WeatherReportDao mWeatherReportDao;
+        WeatherReportDao weatherReportDao;
 
-        public InsertAsyncTask(WeatherReportDao mWeatherReportDao) {
-            this.mWeatherReportDao = mWeatherReportDao;
+        public InsertAsyncTask(WeatherReportDao weatherReportDao) {
+            this.weatherReportDao = weatherReportDao;
         }
 
         @Override
         protected Void doInBackground(WeatherReportModel... weatherReportModels) {
-            mWeatherReportDao.insert(weatherReportModels[0]);
+            weatherReportDao.insert(weatherReportModels[0]);
+            return null;
+        }
+    }
+
+    private class DeleteAsyncTask extends AsyncTask<WeatherReportModel, Void, Void> {
+        WeatherReportDao weatherReportDao;
+
+        public DeleteAsyncTask(WeatherReportDao weatherReportDao) {
+            this.weatherReportDao = weatherReportDao;
+        }
+
+        @Override
+        protected Void doInBackground(WeatherReportModel... weatherReportModels) {
+            weatherReportDao.delete(weatherReportModels[0]);
             return null;
         }
     }

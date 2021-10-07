@@ -2,6 +2,7 @@ package com.cp3407.wildernessweather;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -14,7 +15,7 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.util.List;
 
-public class DbActivity extends AppCompatActivity {
+public class DbActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
 
     private RecyclerView recyclerView;
     private WeatherReportViewModel viewModel;
@@ -27,7 +28,7 @@ public class DbActivity extends AppCompatActivity {
         setContentView(R.layout.activity_db);
 
         recyclerView = findViewById(R.id.rv_databaseList);
-        adapter = new WeatherReportListAdapter(this);
+        adapter = new WeatherReportListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,5 +50,11 @@ public class DbActivity extends AppCompatActivity {
             }
         });
         asyncTask.execute();
+    }
+
+    @Override
+    public void OnDeleteClickListener(WeatherReportModel myModel) {
+        Toast.makeText(this, "Item Deleted", Toast.LENGTH_SHORT).show();
+        viewModel.delete(myModel);
     }
 }

@@ -17,13 +17,20 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReportListAdapter.WeatherReportViewHolder> {
+
+    public interface OnDeleteClickListener {
+        void OnDeleteClickListener(WeatherReportModel myModel);
+    }
+
     private final LayoutInflater layoutInflater;
     private Context context;
     private List<WeatherReportModel> weatherReports;
+    private OnDeleteClickListener onDeleteClickListener;
 
-    public WeatherReportListAdapter(Context context) {
+    public WeatherReportListAdapter(Context context, OnDeleteClickListener listener) {
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.onDeleteClickListener = listener;
 
     }
 
@@ -101,6 +108,9 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
                 @Override
                 public void onClick(View view) {
                     // TODO code to delete an item from the database here
+                    if (onDeleteClickListener != null) {
+                        onDeleteClickListener.OnDeleteClickListener(weatherReports.get(position));
+                    }
                 }
             });
         }

@@ -2,6 +2,7 @@ package com.cp3407.wildernessweather.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -22,4 +23,9 @@ public interface WeatherReportDao {
 
     @Query("SELECT * FROM weather WHERE id=:id")
     LiveData<WeatherReportModel> getWeatherReport(long id);
+
+    @Delete
+    int delete(WeatherReportModel weatherReportModel);
+
+    // TODO some form of update method
 }
