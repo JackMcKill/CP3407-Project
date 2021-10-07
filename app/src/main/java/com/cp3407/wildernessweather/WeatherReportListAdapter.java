@@ -47,11 +47,11 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         // Check if the list of WeatherReportModels is empty
         if (weatherReports != null) {
             WeatherReportModel weatherReport = weatherReports.get(position);
-            holder.setData(weatherReport.getId(), position);
+            holder.setData(weatherReport.getId(), weatherReport.getCityName(), weatherReport.getApplicableDate(), position);
             holder.setListeners();
         } else {
             // This is only run if the database is empty
-            holder.weatherReportItemView.setText(R.string.nothing_in_database);
+            holder.listItemID.setText(R.string.nothing_in_database);
         }
     }
 
@@ -70,21 +70,27 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
 
     public class WeatherReportViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView weatherReportItemView;
+        private TextView listItemID;
+        private TextView listItemCityName;
+        private TextView listItemDate;
         private int position;
         private ImageView deleteButton;
 
 
         public WeatherReportViewHolder(@NonNull View itemView) {
             super(itemView);
-            weatherReportItemView = itemView.findViewById(R.id.tv_listItemTitle);
+            listItemID = itemView.findViewById(R.id.tv_itemID);
+            listItemCityName = itemView.findViewById(R.id.tv_itemCityName);
+            listItemDate = itemView.findViewById(R.id.tv_itemDate);
             deleteButton = itemView.findViewById(R.id.iv_RowDelete);
         }
 
         // This method is setting the weather report item into the recyclerView
-        public void setData(long id, int position) {
-            // TODO change this so that instead of displaying the ID, we are displaying the date. ID is irrelevant to the user
-            weatherReportItemView.setText(String.valueOf(id)); // This is what will be displayed on the recyclerview
+        public void setData(long id, String cityName, String date, int position) {
+            // TODO change this so that instead of displaying the ID, we are displaying the date. ID is irrelevant to the user - this is waiting on the single_weather_report_view branch to be merged
+            listItemID.setText(String.valueOf(id)); // This is what will be displayed on the recyclerview
+            listItemCityName.setText(cityName);
+            listItemDate.setText(date);
             this.position = position;
         }
 
@@ -92,7 +98,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         public void setListeners() {
 
             // Code here runs whenever an item in the recyclerView is pressed
-            weatherReportItemView.setOnClickListener(new View.OnClickListener() {
+            listItemID.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.i("recyclerView", "Item " + position + " pressed");

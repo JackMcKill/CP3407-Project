@@ -1,8 +1,6 @@
 package com.cp3407.wildernessweather;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -47,31 +45,29 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
-        if (Parcels.unwrap(getIntent().getParcelableExtra("report")) != null) {
-            Log.i("Parcelable", "Parcelable object received");
-            // Get the report from the intent and unwrap it
-            singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
-            populateFields();
-
-        } else {
-            Log.i("Parcelable", "No parcelable object received");
-            // TODO code for when this activity is called without a Parcel object
-        }
+        singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
+        populateFields();
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 goBack();
             }
         });
 
         final ImageButton downloadButton = findViewById(R.id.btn_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
-                downloadData();
+
+            // TODO change this back before merge - temporarily using this download button to act as a "add to database" button
+            public void onClick(View v) {
+//                downloadData();
+
+                singleWeatherReport.setId(0); // id is set to 0 so that it can be autoincremented by Room
+                viewModel.insert(singleWeatherReport);
+                Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 
     // Adds the single weather report to the local database
@@ -106,19 +102,24 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * For example:
      * "lc" -> R.drawable.light_cloud
      * "hr" -> R.drawable.heavy_rain
+     *
      * @param abbreviation weather state abbreviation to get image for.
      * @return resource id of the corresponding image.
      */
     public int getStateImageResId(String abbreviation) {
-        switch(abbreviation) {
-            case "c": return R.drawable.clear;
-            case "lc": return R.drawable.light_cloud;
-            default: return R.drawable.clear;
+        switch (abbreviation) {
+            case "c":
+                return R.drawable.clear;
+            case "lc":
+                return R.drawable.light_cloud;
+            default:
+                return R.drawable.clear;
         }
     }
 
     /**
      * Converts date string in format YYYY-MM-DD to the format DD/MM/YYYY.
+     *
      * @param dateString date string in old format.
      * @return date string in new format.
      */
