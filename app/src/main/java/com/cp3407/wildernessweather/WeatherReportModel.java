@@ -15,7 +15,9 @@ public class WeatherReportModel {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    long id;
+    long id; // this ID is auto-generated and is used to identify database entities. See database documentation
+    @NonNull
+    long trueID; // this ID is provided by metaweather. See database documentation
     @NonNull
     String cityName;
     @NonNull
@@ -59,9 +61,21 @@ public class WeatherReportModel {
         this.id = id;
     }
 
-    public String getCityName() { return cityName; }
+    public long getTrueID() {
+        return trueID;
+    }
 
-    public void setCityName(String cityName) { this.cityName = cityName; }
+    public void setTrueID(long trueID) {
+        this.trueID = trueID;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
     @NonNull
     public String getWeatherStateName() {
@@ -185,6 +199,7 @@ public class WeatherReportModel {
     public String toString() {
         return "WeatherReportModel{" +
                 "id=" + id +
+                "trueID=" + trueID + "\n" +
                 "weather_state_name='" + weatherStateName + "\n" +
                 "weather_state_abbr='" + weatherStateAbbr + "\n" +
                 "wind_direction_compass='" + windDirectionCompass + "\n" +

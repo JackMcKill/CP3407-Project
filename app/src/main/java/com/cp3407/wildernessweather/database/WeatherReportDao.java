@@ -21,8 +21,8 @@ public interface WeatherReportDao {
     @Query("SELECT * FROM weather")
     LiveData<List<WeatherReportModel>> getAllWeatherReports();
 
-    @Query("SELECT * FROM weather WHERE id=:id")
-    LiveData<WeatherReportModel> getWeatherReport(long id);
+    @Query("SELECT * FROM weather WHERE trueID=:trueID")
+    LiveData<WeatherReportModel> getWeatherReport(long trueID);
 
     @Delete
     int delete(WeatherReportModel weatherReportModel);

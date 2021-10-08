@@ -31,7 +31,6 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.onDeleteClickListener = listener;
-
     }
 
     @NonNull
@@ -87,7 +86,6 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
 
         // This method is setting the weather report item into the recyclerView
         public void setData(long id, String cityName, String date, int position) {
-            // TODO change this so that instead of displaying the ID, we are displaying the date. ID is irrelevant to the user - this is waiting on the single_weather_report_view branch to be merged
             listItemID.setText(String.valueOf(id)); // This is what will be displayed on the recyclerview
             listItemCityName.setText(cityName);
             listItemDate.setText(date);
@@ -96,8 +94,8 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
 
         // Sets onClickListeners
         public void setListeners() {
-
             // Code here runs whenever an item in the recyclerView is pressed
+            // TODO change so user can click anywhere on the list item, not just the ID number
             listItemID.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

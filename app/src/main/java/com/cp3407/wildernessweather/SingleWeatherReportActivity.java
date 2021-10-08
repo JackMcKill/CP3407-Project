@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -58,24 +57,13 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         final ImageButton downloadButton = findViewById(R.id.btn_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
 
-            // TODO change this back before merge - temporarily using this download button to act as a "add to database" button
             public void onClick(View v) {
-//                downloadData();
-
-                singleWeatherReport.setId(0); // id is set to 0 so that it can be autoincremented by Room
-                viewModel.insert(singleWeatherReport);
-                Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
-
+                downloadData();
             }
         });
-    }
 
-    // Adds the single weather report to the local database
-    public void addToDatabase(View view) {
-        singleWeatherReport.setId(0); // id is set to 0 so that it can be autoincremented by Room
+        // Adds the single weather report to the local database
         viewModel.insert(singleWeatherReport);
-
-        Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
     }
 
     public void populateFields() {

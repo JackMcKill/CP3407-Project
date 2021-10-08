@@ -71,7 +71,7 @@ public class WeatherDataService {
                     JSONObject firstDay_fromAPI = (JSONObject) consolidated_weather_list.get(i);
 
                     // Get properties from the object and assign to WeatherReportModel properties
-                    oneDayWeather.setId(firstDay_fromAPI.getLong("id"));
+                    oneDayWeather.setTrueID(firstDay_fromAPI.getLong("id"));
                     oneDayWeather.setCityName(response.getString("title"));
                     oneDayWeather.setWeatherStateName(firstDay_fromAPI.getString("weather_state_name"));
                     oneDayWeather.setWeatherStateAbbr(firstDay_fromAPI.getString("weather_state_abbr"));
