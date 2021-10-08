@@ -1,21 +1,26 @@
 package com.cp3407.wildernessweather;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
+    boolean result;
 
     TextView cityNameView, stateView, applicableDateView, minTempView,
             maxTempView, tempView, windSpeedView, windDirectionView,
@@ -62,8 +67,39 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             }
         });
 
-        // Adds the single weather report to the local database
-        viewModel.insert(singleWeatherReport);
+        updateDatabase();
+    }
+
+    /*
+    Checks whether the database already contains an entry for the weather report being viewed
+    * If the database does not contain an entry for this weather report, a new one is added
+    * If the database already contains an entry, then nothing is added
+    * */
+    private void updateDatabase() {
+        Log.i("newEntry", "current trueID: " + singleWeatherReport.getTrueID());
+        viewModel.getAllWeatherReports().observe(this, new Observer<List<WeatherReportModel>>() {
+            @Override
+            public void onChanged(List<WeatherReportModel> weatherReportModels) {
+                for (WeatherReportModel model : weatherReportModels) {
+                    Log.i("newEntry", "trueID: " + model.getTrueID());
+                    if (model.getTrueID() != singleWeatherReport.getTrueID()) {
+                        result = true;
+                    } else {
+                        result = false;
+                        Log.i("newEntry", "result set to false");
+                        break;
+                    }
+                }
+
+                if (result) {
+                    Log.i("newEntry", "result set to true, so this should be added to the database");
+                    viewModel.insert(singleWeatherReport);
+
+                } else {
+                    Log.i("newEntry", "result set to false, so this should NOT be added to the database");
+                }
+            }
+        });
     }
 
     public void populateFields() {

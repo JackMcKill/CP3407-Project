@@ -111,7 +111,6 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO code to delete an item from the database here
                     if (onDeleteClickListener != null) {
                         onDeleteClickListener.OnDeleteClickListener(weatherReports.get(position));
                     }
