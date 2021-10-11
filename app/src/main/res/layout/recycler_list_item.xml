@@ -16,6 +16,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_itemRow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

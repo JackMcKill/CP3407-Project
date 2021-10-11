@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,8 +38,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
     @Override
     public WeatherReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.recycler_list_item, parent, false);
-        WeatherReportViewHolder viewHolder = new WeatherReportViewHolder(itemView);
-        return viewHolder;
+        return new WeatherReportViewHolder(itemView);
     }
 
     @Override
@@ -68,16 +68,16 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
     }
 
     public class WeatherReportViewHolder extends RecyclerView.ViewHolder {
-
+        private LinearLayout listItem;
         private TextView listItemID;
         private TextView listItemCityName;
         private TextView listItemDate;
         private int position;
         private ImageView deleteButton;
 
-
         public WeatherReportViewHolder(@NonNull View itemView) {
             super(itemView);
+            listItem = itemView.findViewById(R.id.ll_itemRow);
             listItemID = itemView.findViewById(R.id.tv_itemID);
             listItemCityName = itemView.findViewById(R.id.tv_itemCityName);
             listItemDate = itemView.findViewById(R.id.tv_itemDate);
@@ -96,7 +96,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         public void setListeners() {
             // Code here runs whenever an item in the recyclerView is pressed
             // TODO change so user can click anywhere on the list item, not just the ID number
-            listItemID.setOnClickListener(new View.OnClickListener() {
+            listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.i("recyclerView", "Item " + position + " pressed");
