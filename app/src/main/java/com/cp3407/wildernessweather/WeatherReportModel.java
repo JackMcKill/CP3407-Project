@@ -184,7 +184,8 @@ public class WeatherReportModel {
     @Override
     public String toString() {
         return "WeatherReportModel{" +
-                "id=" + id +
+                "id=" + id + "\n" +
+                "city_name=" + cityName + "\n " +
                 "weather_state_name='" + weatherStateName + "\n" +
                 "weather_state_abbr='" + weatherStateAbbr + "\n" +
                 "wind_direction_compass='" + windDirectionCompass + "\n" +
