@@ -50,11 +50,11 @@ public class WeatherDataService {
     public interface ForecastByIDCallback {
         void onError(String errorMessage);
 
-        void onResponse(List<WeatherReportModel> weatherReportModels);
+        void onResponse(ArrayList<WeatherReportModel> weatherReportModels);
     }
 
     public void getCityForecastByID(String cityID, ForecastByIDCallback forecastByIDCallback) {
-        List<WeatherReportModel> weatherReportModels = new ArrayList<>();
+        ArrayList<WeatherReportModel> weatherReportModels = new ArrayList<>();
         String url = QUERY_FOR_WEATHER_REPORT + cityID + "/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -106,7 +106,7 @@ public class WeatherDataService {
     public interface ForecastByNameCallback {
         void onError(String errorMessage);
 
-        void onResponse(List<WeatherReportModel> weatherReportModels);
+        void onResponse(ArrayList<WeatherReportModel> weatherReportModels);
     }
 
     public void getCityForecastByName(String cityName, ForecastByNameCallback forecastByNameCallback) {
@@ -129,7 +129,7 @@ public class WeatherDataService {
                     }
 
                     @Override
-                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
+                    public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
                         // Return the list of weather report models
                         forecastByNameCallback.onResponse(weatherReportModels);
                     }
