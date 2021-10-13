@@ -1,8 +1,11 @@
 package com.cp3407.wildernessweather;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,8 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.Calendar;
+
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
@@ -24,6 +29,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             airPressureView, humidityView, visibilityView, predictabilityView;
 
     ImageView stateImage;
+
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +64,55 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             // TODO code for when this activity is called without a Parcel object
         }
 
+        applicableDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open a date-picker pop-up
+                datePickerDialog.show();
+            }
+        });
+
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 goBack();
             }
         });
 
         final ImageButton downloadButton = findViewById(R.id.btn_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 downloadData();
             }
         });
 
+        initialiseDatePicker();
+
+    }
+
+    private void initialiseDatePicker() {
+        // Runs when new date is set
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month += 1; // Default behaviour is Jan = 0, Dec = 11. This line changes it to Jan = 1, Dec = 12.
+                String date = convertDateString(day, month, year);
+                // Convert date string before inserting.
+                applicableDateView.setText(date);
+            }
+
+            // TODO open a new SingleWeatherReportActivity showing weather information for the new date
+
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
 
     // Adds the single weather report to the local database
@@ -81,7 +123,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     public void populateFields() {
-
         cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
         stateView.setText(String.valueOf(singleWeatherReport.getWeatherStateName()));
         // Set weather state image field to correct resource.
@@ -104,25 +145,43 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * For example:
      * "lc" -> R.drawable.light_cloud
      * "hr" -> R.drawable.heavy_rain
+     *
      * @param abbreviation weather state abbreviation to get image for.
      * @return resource id of the corresponding image.
      */
     public int getStateImageResId(String abbreviation) {
-        switch(abbreviation) {
-            case "c": return R.drawable.clear;
-            case "lc": return R.drawable.light_cloud;
-            default: return R.drawable.clear;
+        switch (abbreviation) {
+            case "c":
+                return R.drawable.clear;
+            case "lc":
+                return R.drawable.light_cloud;
+            default:
+                return R.drawable.clear;
         }
     }
 
     /**
      * Converts date string in format YYYY-MM-DD to the format DD/MM/YYYY.
+     *
      * @param dateString date string in old format.
      * @return date string in new format.
      */
     public String convertDateString(String dateString) {
         String[] parts = dateString.split("-");
         return parts[2] + "/" + parts[1] + "/" + parts[0];
+    }
+
+    /**
+     * Works just like {@link SingleWeatherReportActivity#convertDateString(String)}, but takes
+     * date elements as individual int values instead
+     *
+     * @param day   the calendar day (int)
+     * @param month the calendar month (int)
+     * @param year  the calendar year (int)
+     * @return date string in DD/MM/YYYY format
+     */
+    public String convertDateString(int day, int month, int year) {
+        return day + "/" + month + "/" + year;
     }
 
     /**
@@ -138,5 +197,4 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     public void downloadData() {
 
     }
-
 }
