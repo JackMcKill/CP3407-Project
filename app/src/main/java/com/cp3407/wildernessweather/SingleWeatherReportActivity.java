@@ -2,6 +2,7 @@ package com.cp3407.wildernessweather;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     ImageView stateImage;
 
     private DatePickerDialog datePickerDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         humidityView = findViewById(R.id.tv_humidity);
         visibilityView = findViewById(R.id.tv_visibility);
         predictabilityView = findViewById(R.id.tv_predictability);
+
+        progressDialog = new ProgressDialog(SingleWeatherReportActivity.this);
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
         weatherDataService = new WeatherDataService(SingleWeatherReportActivity.this);
@@ -205,8 +209,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     // This method performs an API call to retrieve weather information for a specified date and reloads the activity
     private void goToNewDate(String date) {
-
-        // TODO display a loading sign here
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         weatherDataService.getCityForecastByDate(singleWeatherReport.getWoeid(), date, singleWeatherReport.getCityName(), new WeatherDataService.ForecastByDateCallback() {
             @Override
