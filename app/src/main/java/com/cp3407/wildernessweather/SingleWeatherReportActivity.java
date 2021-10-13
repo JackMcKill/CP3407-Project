@@ -2,6 +2,7 @@ package com.cp3407.wildernessweather;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.Calendar;
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
+    WeatherDataService weatherDataService;
 
     TextView cityNameView, stateView, applicableDateView, minTempView,
             maxTempView, tempView, windSpeedView, windDirectionView,
@@ -52,6 +54,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         predictabilityView = findViewById(R.id.tv_predictability);
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
+        weatherDataService = new WeatherDataService(SingleWeatherReportActivity.this);
 
         if (Parcels.unwrap(getIntent().getParcelableExtra("report")) != null) {
             Log.i("Parcelable", "Parcelable object received");
@@ -96,13 +99,13 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month += 1; // Default behaviour is Jan = 0, Dec = 11. This line changes it to Jan = 1, Dec = 12.
-                String date = convertDateString(day, month, year);
+                String displayDate = convertDateString(day, month, year);
+                String apiCallDate = convertDateString(year, month, day); // This is just the date in YYYY/MM/DD format, to be used in the API call below
                 // Convert date string before inserting.
-                applicableDateView.setText(date);
+                applicableDateView.setText(displayDate);
+
+                goToNewDate(apiCallDate);
             }
-
-            // TODO open a new SingleWeatherReportActivity showing weather information for the new date
-
         };
 
         Calendar calendar = Calendar.getInstance();
@@ -112,6 +115,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
+        // TODO prevent user from selecting a date further than 6 days into the future (no weather information available)
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
 
@@ -173,12 +177,13 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     /**
      * Works just like {@link SingleWeatherReportActivity#convertDateString(String)}, but takes
-     * date elements as individual int values instead
+     * date elements as individual int values instead. Can be used to build dates in different
+     * formats, depending on which order the date elements are given in the method call.
      *
      * @param day   the calendar day (int)
      * @param month the calendar month (int)
      * @param year  the calendar year (int)
-     * @return date string in DD/MM/YYYY format
+     * @return date string in param1/param2/param3 format
      */
     public String convertDateString(int day, int month, int year) {
         return day + "/" + month + "/" + year;
@@ -196,5 +201,26 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      */
     public void downloadData() {
 
+    }
+
+    // This method performs an API call to retrieve weather information for a specified date and reloads the activity
+    private void goToNewDate(String date) {
+
+        // TODO display a loading sign here
+
+        weatherDataService.getCityForecastByDate(singleWeatherReport.getWoeid(), date, singleWeatherReport.getCityName(), new WeatherDataService.ForecastByDateCallback() {
+            @Override
+            public void onError(String errorMessage) {
+                System.out.println(errorMessage);
+            }
+
+            @Override
+            public void onResponse(WeatherReportModel weatherReportModel) {
+                Intent intent = new Intent(SingleWeatherReportActivity.this, SingleWeatherReportActivity.class);
+                intent.putExtra("report", Parcels.wrap(weatherReportModel));
+                finish();
+                startActivity(intent);
+            }
+        });
     }
 }
