@@ -2,6 +2,8 @@ package com.cp3407.wildernessweather;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,6 +64,14 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
         populateFields();
+
+        applicableDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open a date-picker pop-up
+                datePickerDialog.show();
+            }
+        });
 
         applicableDateView.setOnClickListener(new View.OnClickListener() {
             @Override
