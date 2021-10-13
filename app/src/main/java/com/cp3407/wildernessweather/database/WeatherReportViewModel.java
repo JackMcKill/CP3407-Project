@@ -36,8 +36,13 @@ public class WeatherReportViewModel extends AndroidViewModel {
     }
 
     // Wrapper function for returning a single weather report
-    public LiveData<WeatherReportModel> getWeatherReport(long id) {
-        return weatherReportDao.getWeatherReport(id);
+    public LiveData<List<WeatherReportModel>> getWeatherReport(long trueID) {
+        return weatherReportDao.getWeatherReport(trueID);
+    }
+
+    // Wrapper function for deleting a weather report
+    public void delete(WeatherReportModel weatherReportModel) {
+        new DeleteAsyncTask(weatherReportDao).execute(weatherReportModel);
     }
 
     @Override
@@ -49,15 +54,29 @@ public class WeatherReportViewModel extends AndroidViewModel {
     // Performs insert operations on a background thread
     private class InsertAsyncTask extends AsyncTask<WeatherReportModel, Void, Void> {
 
-        WeatherReportDao mWeatherReportDao;
+        WeatherReportDao weatherReportDao;
 
-        public InsertAsyncTask(WeatherReportDao mWeatherReportDao) {
-            this.mWeatherReportDao = mWeatherReportDao;
+        public InsertAsyncTask(WeatherReportDao weatherReportDao) {
+            this.weatherReportDao = weatherReportDao;
         }
 
         @Override
         protected Void doInBackground(WeatherReportModel... weatherReportModels) {
-            mWeatherReportDao.insert(weatherReportModels[0]);
+            weatherReportDao.insert(weatherReportModels[0]);
+            return null;
+        }
+    }
+
+    private class DeleteAsyncTask extends AsyncTask<WeatherReportModel, Void, Void> {
+        WeatherReportDao weatherReportDao;
+
+        public DeleteAsyncTask(WeatherReportDao weatherReportDao) {
+            this.weatherReportDao = weatherReportDao;
+        }
+
+        @Override
+        protected Void doInBackground(WeatherReportModel... weatherReportModels) {
+            weatherReportDao.delete(weatherReportModels[0]);
             return null;
         }
     }

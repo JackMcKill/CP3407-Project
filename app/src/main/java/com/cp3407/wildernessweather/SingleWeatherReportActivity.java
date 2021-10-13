@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +17,7 @@ import org.parceler.Parcels;
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
+    boolean isNewEntry;
 
     TextView cityNameView, stateView, applicableDateView, minTempView,
             maxTempView, tempView, windSpeedView, windDirectionView,
@@ -46,38 +46,59 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
-        if (Parcels.unwrap(getIntent().getParcelableExtra("report")) != null) {
-            Log.i("Parcelable", "Parcelable object received");
-            // Get the report from the intent and unwrap it
-            singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
-            populateFields();
-
-        } else {
-            Log.i("Parcelable", "No parcelable object received");
-            // TODO code for when this activity is called without a Parcel object
-        }
+        singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
+        populateFields();
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 goBack();
             }
         });
 
         final ImageButton downloadButton = findViewById(R.id.btn_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+
+            public void onClick(View v) {
                 downloadData();
             }
         });
-
+//        viewModel.insert(singleWeatherReport);
+        updateDatabase();
     }
 
-    // Adds the single weather report to the local database
-    public void addToDatabase(View view) {
-        viewModel.insert(singleWeatherReport); // TODO The ID value provided by metaweather is irrelevant to us, we need to create our own ID value for storing in the database
+    /*
+     * Checks whether the database already contains an entry for the weather report being viewed
+     * If the database does not contain an entry for this weather report, a new one is added
+     * If the database already contains an entry, then nothing is added
+     * */
+    private void updateDatabase() {
+        Log.i("newEntry", "current trueID: " + singleWeatherReport.getTrueID());
+        viewModel.getAllWeatherReports().observe(this, weatherReportModels -> {
 
-        Toast.makeText(SingleWeatherReportActivity.this, "Added to database", Toast.LENGTH_SHORT).show();
+            if (weatherReportModels.size() == 0) { // this checks if the database is empty
+                isNewEntry = true;
+            } else {
+                for (WeatherReportModel model : weatherReportModels) {
+                    Log.i("newEntry", "trueID: " + model.getTrueID());
+                    if (model.getTrueID() != singleWeatherReport.getTrueID()) {
+                        isNewEntry = true;
+                    } else {
+                        isNewEntry = false;
+                        Log.i("newEntry", "result set to false");
+                        break;
+                    }
+                }
+            }
+
+            if (isNewEntry) {
+                Log.i("newEntry", "result set to true, so this should be added to the database");
+                viewModel.insert(singleWeatherReport);
+
+            } else {
+                Log.i("newEntry", "result set to false, so this should NOT be added to the database");
+            }
+        });
     }
 
     public void populateFields() {
@@ -104,19 +125,24 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * For example:
      * "lc" -> R.drawable.light_cloud
      * "hr" -> R.drawable.heavy_rain
+     *
      * @param abbreviation weather state abbreviation to get image for.
      * @return resource id of the corresponding image.
      */
     public int getStateImageResId(String abbreviation) {
-        switch(abbreviation) {
-            case "c": return R.drawable.clear;
-            case "lc": return R.drawable.light_cloud;
-            default: return R.drawable.clear;
+        switch (abbreviation) {
+            case "c":
+                return R.drawable.clear;
+            case "lc":
+                return R.drawable.light_cloud;
+            default:
+                return R.drawable.clear;
         }
     }
 
     /**
      * Converts date string in format YYYY-MM-DD to the format DD/MM/YYYY.
+     *
      * @param dateString date string in old format.
      * @return date string in new format.
      */
