@@ -28,6 +28,7 @@
     <string name="today_s_weather">Today\'s Weather</string>
     <string name="quick_view">Quick View</string>
     <string name="edit_favourites">Edit Favourites</string>
+    <string name="search_city_name">Search City Name</string>
 
     <string-array name="units_of_measurement">
         <item>Metric</item>
