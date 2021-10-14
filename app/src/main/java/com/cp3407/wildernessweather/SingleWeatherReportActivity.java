@@ -71,6 +71,14 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             }
         });
 
+        applicableDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open a date-picker pop-up
+                datePickerDialog.show();
+            }
+        });
+
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,8 +94,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         });
         updateDatabase();
         initialiseDatePicker();
-    }
+    
 
+        initialiseDatePicker();
+
+    }
 
     private void initialiseDatePicker() {
         // Runs when new date is set
