@@ -23,8 +23,10 @@
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_single_weather_report.xml" value="0.31837606837606836" />
         <entry key="app/src/main/res/layout/activity_weather_source_settings.xml" value="0.25427350427350426" />
+
         <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycler_list_item.xml" value="0.25427350427350426" />
+        <entry key="app/src/main/res/layout/location_row.xml" value="0.25427350427350426" />
         <entry key="app/src/main/res/layout/recyclerview_item.xml" value="0.25427350427350426" />
         <entry key="app/src/main/res/layout/simple_spinner_item.xml" value="0.25427350427350426" />
         <entry key="app/src/main/res/layout/spinner_dropdown_item.xml" value="0.25427350427350426" />
