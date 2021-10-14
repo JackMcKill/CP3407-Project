@@ -103,11 +103,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
                 goToNewDate(apiCallDate);
             }
         };
+        String date = singleWeatherReport.getApplicableDate();
 
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7)) - 1;
+        int day = Integer.parseInt(date.substring(8, 10));
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
