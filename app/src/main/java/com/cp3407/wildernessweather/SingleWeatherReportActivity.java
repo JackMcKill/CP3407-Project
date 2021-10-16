@@ -113,16 +113,20 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
                 goToNewDate(apiCallDate);
             }
         };
-        String date = singleWeatherReport.getApplicableDate();
+        String initialDate = singleWeatherReport.getApplicableDate();
 
-        int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(5, 7)) - 1;
-        int day = Integer.parseInt(date.substring(8, 10));
+        // Sets the date that the datePicker is displays upon initialisation (set to current date of the weather report being viewed)
+        int year = Integer.parseInt(initialDate.substring(0, 4));
+        int month = Integer.parseInt(initialDate.substring(5, 7)) - 1;
+        int day = Integer.parseInt(initialDate.substring(8, 10));
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
-        // TODO prevent user from selecting a date further than 6 days into the future (no weather information available)
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+
+        // Prevents users from selecting a date more than 1 week into the future
+        long oneWeekFromNow = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7;
+        datePickerDialog.getDatePicker().setMaxDate(oneWeekFromNow);
     }
 
     /*
