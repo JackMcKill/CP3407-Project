@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,7 +61,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         downloadButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                downloadData();
+                try {
+                    downloadData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 //        viewModel.insert(singleWeatherReport);
@@ -161,7 +166,9 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     /**
      * Downloads weather data to the local database.
      */
-    public void downloadData() {
+    public void downloadData() throws Exception {
+        ExportCSV.writeWithCsvListWriter(singleWeatherReport);
+        Toast.makeText(this, "it worked abbbbyy", Toast.LENGTH_SHORT);
 
     }
 
