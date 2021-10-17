@@ -96,8 +96,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         });
         updateDatabase();
         initialiseDatePicker();
-    }
+    
 
+        initialiseDatePicker();
+
+    }
 
     private void initialiseDatePicker() {
         // Runs when new date is set
