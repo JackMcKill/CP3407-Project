@@ -156,7 +156,7 @@ public class WeatherDataService {
 
         try {
             // Get properties from the object and assign to WeatherReportModel properties
-            weatherReport.setId(jsonObject.getLong("id"));
+            weatherReport.setTrueID(jsonObject.getLong("id"));
             weatherReport.setWeatherStateName(jsonObject.getString("weather_state_name"));
             weatherReport.setWeatherStateAbbr(jsonObject.getString("weather_state_abbr"));
             weatherReport.setWindDirectionCompass(jsonObject.getString("wind_direction_compass"));
