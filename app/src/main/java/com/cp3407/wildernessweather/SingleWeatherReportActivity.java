@@ -2,8 +2,6 @@ package com.cp3407.wildernessweather;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
-
-import java.util.Calendar;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;

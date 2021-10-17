@@ -10,7 +10,7 @@ Our app uses an SQLite database to provide local persistent storage. We are usin
 
 ### Setup
 Room is added to the `build.gradle` file, and is automatically added to the project at the next *Gradle Sync*.  
-```java
+```groovy
 // Room dependency used for SQLite database
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"

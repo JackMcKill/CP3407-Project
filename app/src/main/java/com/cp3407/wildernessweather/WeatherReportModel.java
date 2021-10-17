@@ -70,6 +70,7 @@ public class WeatherReportModel {
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
     public long getTrueID() {
         return trueID;
     }
