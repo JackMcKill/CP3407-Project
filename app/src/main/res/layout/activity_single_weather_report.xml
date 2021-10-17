@@ -124,15 +124,17 @@
             android:layout_weight="60"
             android:orientation="vertical"
             android:weightSum="100">
+
             <!-- Applicable date -->
             <TextView
                 android:id="@+id/tv_applicableDate"
+                style="?android:spinnerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="15"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="italic" />
             <!-- Main temperature -->
             <TextView
