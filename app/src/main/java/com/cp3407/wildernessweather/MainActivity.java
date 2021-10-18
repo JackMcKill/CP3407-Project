@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        favourites = getSharedPreferences("favs", Context.MODE_PRIVATE);
+        favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
 
         homeTitle = findViewById(R.id.homeTitle);
         currentDate = findViewById(R.id.currentDate);
