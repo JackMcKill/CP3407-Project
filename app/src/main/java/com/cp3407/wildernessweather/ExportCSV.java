@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
 import android.util.Log;
 
 import org.supercsv.io.CsvListWriter;
@@ -24,7 +25,7 @@ public class ExportCSV {
         try {
             Log.i("export", "Start");
             String path = "/data/data/com.cp3407.wildernessweather/" + weatherReportModel.getCityName() + "-" + weatherReportModel.getApplicableDate() + ".csv";
-            Log.i("export", path);
+
             listWriter = new CsvListWriter(new FileWriter(path),
                     CsvPreference.STANDARD_PREFERENCE);
 
@@ -34,18 +35,15 @@ public class ExportCSV {
                     "air_pressure", "humidity", "visibility", "predictability"};
 
             // write the header
-            Log.i("export", "write header");
             listWriter.writeHeader(header);
 
             // write the customer lists
-            Log.i("export", "Write data");
             listWriter.write(data);
 
         } finally {
             if (listWriter != null) {
-                Log.i("export", "Winning?");
                 listWriter.close();
-                Log.i("export", "Winning!!");
+                Log.i("export", "Exported");
             }
         }
     }

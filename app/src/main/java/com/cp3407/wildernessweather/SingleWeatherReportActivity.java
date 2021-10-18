@@ -1,6 +1,9 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
+
+import java.io.File;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
@@ -168,7 +173,23 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      */
     public void downloadData() throws Exception {
         ExportCSV.writeWithCsvListWriter(singleWeatherReport);
-        Toast.makeText(this, "it worked abbbbyy", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "CSV created", Toast.LENGTH_SHORT);
+
+        String path = "/data/data/com.cp3407.wildernessweather/" + singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
+        File file = new File(path);
+
+        //wait for 2 seconds while file is created
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, file);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        }, 2000);
 
     }
 
