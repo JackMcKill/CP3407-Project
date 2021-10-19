@@ -19,6 +19,8 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.Calendar;
+
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
@@ -114,6 +116,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         // Prevents users from selecting a date more than 1 week into the future
         long oneWeekFromNow = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7;
         datePickerDialog.getDatePicker().setMaxDate(oneWeekFromNow);
+
+        // Prevents users from selecting a date earlier than 2014
+        Calendar minDate = Calendar.getInstance();
+        minDate.set(2014, 0, 1); // Year, Month - 1, Day
+        datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis() - 1000);
     }
 
     /*
