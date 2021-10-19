@@ -1,9 +1,8 @@
 package com.cp3407.wildernessweather;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,8 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
-
-import java.io.File;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
@@ -52,7 +49,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
-        singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
+        singleWeatherReport = Parcels.unwrap(getIntent().getParcelableExtra("report"));
         populateFields();
 
         final ImageButton backButton = findViewById(R.id.btn_back);
@@ -68,6 +65,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     downloadData();
+//                    shareCSV();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -114,20 +112,20 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     public void populateFields() {
 
         cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
-        stateView.setText(String.valueOf(singleWeatherReport.getWeatherStateName()));
+        stateView.setText(singleWeatherReport.getWeatherStateName());
         // Set weather state image field to correct resource.
         stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
         // Convert date string before inserting.
         applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
-        minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMinTemp()) + "°"));
-        maxTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°"));
-        tempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getTheTemp()) + "°"));
-        windSpeedView.setText(String.valueOf((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h"));
-        windDirectionView.setText(String.valueOf(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)"));
-        airPressureView.setText(String.valueOf(singleWeatherReport.getAirPressure() + " in"));
-        humidityView.setText(String.valueOf(singleWeatherReport.getHumidity() + "%"));
-        visibilityView.setText(String.valueOf((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi"));
-        predictabilityView.setText(String.valueOf(singleWeatherReport.getPredictability() + "%"));
+        minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
+        maxTempView.setText(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°");
+        tempView.setText(" " + Math.round(singleWeatherReport.getTheTemp()) + "°");
+        windSpeedView.setText((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h");
+        windDirectionView.setText(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)");
+        airPressureView.setText(singleWeatherReport.getAirPressure() + " in");
+        humidityView.setText(singleWeatherReport.getHumidity() + "%");
+        visibilityView.setText((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi");
+        predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
     }
 
     /**
@@ -172,25 +170,40 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * Downloads weather data to the local database.
      */
     public void downloadData() throws Exception {
-        ExportCSV.writeWithCsvListWriter(singleWeatherReport);
-        Toast.makeText(this, "CSV created", Toast.LENGTH_SHORT);
-
-        String path = "/data/data/com.cp3407.wildernessweather/" + singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
-        File file = new File(path);
-
-        //wait for 2 seconds while file is created
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        ExportCSV.writeWithCsvListWriter(singleWeatherReport, new ExportCSV.ExportCSVCallback() {
             @Override
-            public void run() {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, file);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
-        }, 2000);
+            public void onSuccess(String successMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, successMessage, Toast.LENGTH_SHORT).show();
+                String fileName = singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
+                Log.i("export", "String: " + fileName);
+                shareCSV(fileName);
 
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    // Opens a share sheet to allow sharing of the CSV file
+    public void shareCSV(String fileName) {
+        // Generate the path to the CSV file
+        final String FILEPATH = "data/data/com.cp3407.wildernessweather/";
+
+        // Create a URI to identify and gain access to the CSV file
+        Uri uri = Uri.parse("content://" + FILEPATH + fileName);
+        Log.i("export", "uri: " + uri.toString());
+
+        // Create an Intent to open a share sheet
+        Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(sendIntent, "Send Mail"));
+    }
 }
+
+

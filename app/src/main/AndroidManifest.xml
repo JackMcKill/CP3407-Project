@@ -29,9 +29,6 @@
             android:label="@string/title_activity_db"
             android:theme="@style/Theme.WildernessWeather.NoActionBar" />
         <activity
-            android:name=".NewWordActivity"
-            android:exported="true" />
-        <activity
             android:name=".APIactivity"
             android:exported="true" />
         <activity

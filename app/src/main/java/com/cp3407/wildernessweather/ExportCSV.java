@@ -1,6 +1,5 @@
 package com.cp3407.wildernessweather;
 
-import android.content.Intent;
 import android.util.Log;
 
 import org.supercsv.io.CsvListWriter;
@@ -19,10 +18,15 @@ public class ExportCSV {
      This is what is being used for this. Needs more research (Specifically CsvListWriter {Maybe}).
     */
 
+    // Callback method that is passed when calling the writeWithCsvListWriter method
+    public interface ExportCSVCallback {
+        void onSuccess(String successMessage);
 
+        void onError(String errorMessage);
+    }
 
-    public static void writeWithCsvListWriter(WeatherReportModel weatherReportModel) throws Exception {
-        String[] data = weatherReportModel.exportString();
+    public static void writeWithCsvListWriter(WeatherReportModel weatherReportModel, ExportCSVCallback exportCSVCallback) throws Exception {
+        List<Object> data = Arrays.asList(weatherReportModel);
         ICsvListWriter listWriter = null;
         try {
             Log.i("export", "Start");
@@ -42,6 +46,10 @@ public class ExportCSV {
             // write the customer lists
             listWriter.write(data);
 
+            exportCSVCallback.onSuccess("CSV created");
+
+        } catch (Exception e) {
+            exportCSVCallback.onError("Error creating CSV");
         } finally {
             if (listWriter != null) {
                 listWriter.close();
@@ -49,6 +57,4 @@ public class ExportCSV {
             }
         }
     }
-
-
 }
