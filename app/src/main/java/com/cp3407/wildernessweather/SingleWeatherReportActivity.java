@@ -3,7 +3,6 @@ package com.cp3407.wildernessweather;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -171,20 +170,21 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * Downloads weather data to the local database.
      */
     public void downloadData() throws Exception {
-        ExportCSV.writeWithCsvListWriter(singleWeatherReport);
-        Toast.makeText(this, "CSV created", Toast.LENGTH_SHORT).show();
-
-        String fileName = singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
-        Log.i("export", "String: " + fileName);
-
-        // wait for 2 seconds while file is created
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        ExportCSV.writeWithCsvListWriter(singleWeatherReport, new ExportCSV.ExportCSVCallback() {
             @Override
-            public void run() {
+            public void onSuccess(String successMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, successMessage, Toast.LENGTH_SHORT).show();
+                String fileName = singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
+                Log.i("export", "String: " + fileName);
                 shareCSV(fileName);
+
             }
-        }, 2000);
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Opens a share sheet to allow sharing of the CSV file
