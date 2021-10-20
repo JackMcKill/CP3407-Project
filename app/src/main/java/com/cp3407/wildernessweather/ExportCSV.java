@@ -26,7 +26,7 @@ public class ExportCSV {
     }
 
     public static void writeWithCsvListWriter(WeatherReportModel weatherReportModel, ExportCSVCallback exportCSVCallback) throws Exception {
-        List<Object> data = Arrays.asList(weatherReportModel);
+        String[] data = weatherReportModel.exportString();
         ICsvListWriter listWriter = null;
         try {
             Log.i("export", "Start");
