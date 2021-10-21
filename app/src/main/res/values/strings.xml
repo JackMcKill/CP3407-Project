@@ -38,6 +38,16 @@
         <item>Regular</item>
         <item>Large</item>
     </string-array>
+    <string name="low">LOW</string>
+    <string name="details">Details</string>
+    <string name="wind_speed">WIND SPEED</string>
+    <string name="wind_direction">WIND DIRECTION</string>
+    <string name="pressure">PRESSURE</string>
+    <string name="high">HIGH</string>
+    <string name="humidity">HUMIDITY</string>
+    <string name="visibility">VISIBILITY</string>
+    <string name="predictability">PREDICTABILITY</string>
+
 
 
 </resources>
