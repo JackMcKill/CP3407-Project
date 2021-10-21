@@ -40,7 +40,9 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
         minTempView.setText(Math.round(minTemp) + "°");
         maxTempView.setText(Math.round(maxTemp) + "°");
 
-        // TODO: state image change.
+        int weatherStateImageResID = mContext.getResources().getIdentifier("ic_" + weatherStateAbbr, "drawable", mContext.getPackageName());
+        System.out.printf("ID: %d", weatherStateImageResID);
+        weatherStateImage.setImageResource(weatherStateImageResID);
 
         return convertView;
     }
