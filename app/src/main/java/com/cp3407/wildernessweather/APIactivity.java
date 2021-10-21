@@ -47,7 +47,6 @@ public class APIactivity extends AppCompatActivity {
             @Override
             public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
                 WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels);
-//                ArrayAdapter<WeatherReportModel> arrayAdapter = new ArrayAdapter<>(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels);
                 weatherReports.setAdapter(arrayAdapter);
 
                 weatherReports.setClickable(true);

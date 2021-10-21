@@ -85,7 +85,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
         stateView.setText(String.valueOf(singleWeatherReport.getWeatherStateName()));
         // Set weather state image field to correct resource.
-        stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+        int weatherStateImageResID = getResources().getIdentifier("ic_" + singleWeatherReport.getWeatherStateAbbr(), "drawable", getPackageName());
+        stateImage.setImageResource(weatherStateImageResID);
         // Convert date string before inserting.
         applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
         minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMinTemp()) + "°"));
@@ -97,22 +98,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         humidityView.setText(String.valueOf(singleWeatherReport.getHumidity() + "%"));
         visibilityView.setText(String.valueOf((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi"));
         predictabilityView.setText(String.valueOf(singleWeatherReport.getPredictability() + "%"));
-    }
-
-    /**
-     * Returns the resource id of the image that corresponds to a weather state abbreviation.
-     * For example:
-     * "lc" -> R.drawable.light_cloud
-     * "hr" -> R.drawable.heavy_rain
-     * @param abbreviation weather state abbreviation to get image for.
-     * @return resource id of the corresponding image.
-     */
-    public int getStateImageResId(String abbreviation) {
-        switch(abbreviation) {
-            case "c": return R.drawable.clear;
-            case "lc": return R.drawable.light_cloud;
-            default: return R.drawable.clear;
-        }
     }
 
     /**
