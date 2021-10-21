@@ -1,5 +1,7 @@
 Documentation for project:
 
-1. [Local Database](Database.md)
-2. [External Database](ExternalDatabase.md)
-3. [Export CSV](ExportCSV.md)
+- [Local Database](Database.md)
+- [External Database](ExternalDatabase.md)
+- [API Usage](API.md)
+- [Export CSV](ExportCSV.md)
+
