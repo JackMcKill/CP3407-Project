@@ -227,4 +227,10 @@ public class WeatherReportModel {
                 "predictability=" + predictability +
                 '}';
     }
+
+    public String[] exportString() {
+        return new String[]{String.valueOf(trueID), String.valueOf(woeid), weatherStateName, weatherStateAbbr, windDirectionCompass, created,
+                applicableDate, String.valueOf(minTemp), String.valueOf(maxTemp), String.valueOf(theTemp), String.valueOf(windSpeed),
+                String.valueOf(windDirection), String.valueOf(airPressure), String.valueOf(humidity), String.valueOf(visibility), String.valueOf(predictability)};
+    }
 }

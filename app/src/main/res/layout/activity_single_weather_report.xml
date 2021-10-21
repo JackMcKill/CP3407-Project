@@ -89,6 +89,7 @@
             <ImageButton
                 android:id="@+id/btn_download"
                 android:layout_width="match_parent"
+                android:rotation="180"
                 android:layout_height="0dp"
                 android:layout_weight="40"
                 android:background="@android:drawable/list_selector_background"

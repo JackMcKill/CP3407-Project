@@ -51,7 +51,7 @@ dependencies {
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    androidTestImplementation "androidx.room:room-testing:$room_version"
+    androidTestImplementation "androidx.room:room-shareCSV:$room_version"
 
     // Lifecycle components
     def lifeCycleVersion = "2.3.1"
@@ -67,5 +67,8 @@ dependencies {
     // RecyclerView dependency
     def recyclerview_version ="1.2.1"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+    // csv writer dependency
+    implementation 'net.sf.supercsv:super-csv-java8:2.4.0'
 
 }
