@@ -1,10 +1,10 @@
 package com.cp3407.wildernessweather;
 
-import android.net.Uri;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -272,7 +272,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         startActivity(Intent.createChooser(sendIntent, "Send Mail"));
     }
-}
 
 
     // This method performs an API call to retrieve weather information for a specified date and reloads the activity

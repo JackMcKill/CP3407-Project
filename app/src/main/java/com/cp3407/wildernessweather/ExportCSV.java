@@ -7,10 +7,6 @@ import org.supercsv.io.ICsvListWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class ExportCSV {
     /*
@@ -36,7 +32,7 @@ public class ExportCSV {
                     CsvPreference.STANDARD_PREFERENCE);
 
 
-            final String[] header = new String[]{"trueID", "weather_state_name", "weather_state_abbr", "wind_direction_compass",
+            final String[] header = new String[]{"trueID", "woeid", "weather_state_name", "weather_state_abbr", "wind_direction_compass",
                     "created", "applicable_date", "min_temp", "max_temp", "the_temp", "wind_speed", "wind_direction",
                     "air_pressure", "humidity", "visibility", "predictability"};
 
