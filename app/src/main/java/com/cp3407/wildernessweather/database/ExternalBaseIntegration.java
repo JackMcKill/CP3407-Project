@@ -1,6 +1,10 @@
 package com.cp3407.wildernessweather.database;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+
+import com.cp3407.wildernessweather.APIactivity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,11 +29,9 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     @Override
     protected Object doInBackground(Void... voids) {
         try{
-            // #TODO Buttons blocked until connection made.
             // Method made to connect to the database.
             Connection con = connectToDatabase();
             if (con != null){
-                // #TODO unblock buttons when connection made.
 
                 // #TODO if buttonPressed or onConditionMet then read database.
 
@@ -86,11 +88,14 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     protected void onPostExecute(Object result) {
         // When data is finished gathering, send to Activity.
         System.out.println("Finished gathering Data");
+        System.out.println(result.getClass().getName());
         delegate.processFinish(result);
     }
 
     public interface AsyncResponse {
         void processFinish(Object output);
     }
+
+
 
 }

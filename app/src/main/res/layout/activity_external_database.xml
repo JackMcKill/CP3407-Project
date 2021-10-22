@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Getting Data..."
+            android:text="Trying to connect..."
             android:id="@+id/connectionStatus"
             tools:ignore="MissingConstraints" />
         <Button
@@ -34,7 +34,23 @@
             android:layout_height="wrap_content"
             android:text="Get Data"
             android:enabled="false"
+            android:onClick="fetchDataPressed"
             />
+        <Button
+            android:id="@+id/retryConButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retry Con"
+            android:visibility="invisible"
+            android:onClick="retryConnectionPressed"
+            />
+
+        <TextView
+            android:id="@+id/databaseString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DBSTRING"
+            tools:ignore="MissingConstraints" />
     </TableLayout>
 
 
