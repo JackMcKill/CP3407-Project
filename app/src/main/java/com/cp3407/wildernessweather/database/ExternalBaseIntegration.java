@@ -32,14 +32,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             // Method made to connect to the database.
             Connection con = connectToDatabase();
             if (con != null){
-
-                // #TODO if buttonPressed or onConditionMet then read database.
-
-                // Once connection is made read data from tables
                 return con;
-
-                // #TODO if buttonPressed or onConditionMet then write to database
-                // writeToDatabase();
             }
             // #TODO add retry to connect to database button if connection failed
         }
@@ -47,7 +40,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             e.printStackTrace();
             return e;
         }
-        return dataBaseOutput;
+        return null;
     }
 
     public String readDatabase(Connection con) throws SQLException {

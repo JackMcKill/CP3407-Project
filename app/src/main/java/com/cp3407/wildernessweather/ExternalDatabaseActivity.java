@@ -38,7 +38,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         asyncTask = new ExternalBaseIntegration(new ExternalBaseIntegration.AsyncResponse() {
             @Override
             public void processFinish(Object output) {
-                if (output.getClass().getName().equals("java.lang.String")){
+                if (output == null){
                     tv_connectionStatus.setText("Failed");
                     btn_retryConnection.setVisibility(View.VISIBLE);
                     asyncTask.cancel(true);
@@ -59,11 +59,6 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         try {
             btn_getData.setEnabled(false);
             String databaseString = asyncTask.readDatabase(con);
-            try {
-                wait(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             System.out.println(databaseString + " x");
             tv_databaseDisplay.setText(databaseString);
         } catch (SQLException throwables) {
