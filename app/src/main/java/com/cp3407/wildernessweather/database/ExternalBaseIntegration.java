@@ -52,11 +52,15 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         // #TODO needs to be changed to selecting all from different table
         ResultSet rs = st.executeQuery("select * from Weatherapp");
         ResultSetMetaData rsmd = rs.getMetaData();
+        // While loop goes through all different entries
         while(rs.next()){
-            for (int i = 1; i < 16; i++)
+
+            int i = 1;
+            // For loop collects 1 entry from external database
+            for (i = 1; i < 16; i++)
                 result.append(rsmd.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
             // #TODO use new WeatherReportModel to build from external database
-
+            // #TODO maybe use recycler view to print multiple thingys
         }
         dataBaseOutput = (result.toString());
         return dataBaseOutput;
