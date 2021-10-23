@@ -17,6 +17,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     Button btn_getData, btn_retryConnection;
     ExternalBaseIntegration asyncTask;
     Connection con;
+    String databaseString;
 
 
     @Override
@@ -58,9 +59,20 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     private void displayExternalDatabase(){
         try {
             btn_getData.setEnabled(false);
-            String databaseString = asyncTask.readDatabase(con);
-            System.out.println(databaseString + " x");
-            tv_databaseDisplay.setText(databaseString);
+
+            databaseString = asyncTask.readDatabase(con, new ExternalBaseIntegration.ReadDatabaseCallback() {
+                @Override
+                public void onSuccess(String successMessage) {
+                    System.out.println(databaseString + " x");
+                    tv_databaseDisplay.setText(databaseString);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    System.out.println("Epic fail");
+                }
+            });
+            System.out.println("poop");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -73,6 +85,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
 
     public void retryConnectionPressed(View view){
         btn_retryConnection.setVisibility(View.INVISIBLE);
-        asyncTask.execute();
+        asyncTask.cancel(true);
+        createAsyncTask();
     }
 }

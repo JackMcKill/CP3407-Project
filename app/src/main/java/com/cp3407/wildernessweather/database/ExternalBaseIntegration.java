@@ -43,7 +43,8 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         return null;
     }
 
-    public String readDatabase(Connection con) throws SQLException {
+    public String readDatabase(Connection con, ReadDatabaseCallback readDatabaseCallback) throws SQLException {
+
         // Once connection is made begin building output
         StringBuilder result = new StringBuilder();
         Statement st = con.createStatement();
@@ -58,6 +59,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             result.append(rsmd.getColumnName(2)).append(": ").append(rs.getString(2)).append("\n");
         }
         dataBaseOutput = (result.toString());
+        readDatabaseCallback.onSuccess("Success");
         return dataBaseOutput;
     }
 
@@ -79,9 +81,8 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
 
     @Override
     protected void onPostExecute(Object result) {
-        // When data is finished gathering, send to Activity.
-        System.out.println("Finished gathering Data");
-        System.out.println(result.getClass().getName());
+        // When connection made send to activity.
+        System.out.println("Finished Connecting");
         delegate.processFinish(result);
     }
 
@@ -89,6 +90,10 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         void processFinish(Object output);
     }
 
+    public interface ReadDatabaseCallback {
+        void onSuccess(String successMessage);
 
+        void onError(String errorMessage);
+    }
 
 }
