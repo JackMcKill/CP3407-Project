@@ -46,8 +46,8 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
                 }
                 else{
                     tv_connectionStatus.setText("Connected");
-                    btn_getData.setEnabled(true);
-                    con = (Connection) output;
+                    databaseString = (String) output;
+                    tv_databaseDisplay.setText(databaseString);
                 }
 
             }
@@ -57,35 +57,37 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     }
 
     private void displayExternalDatabase(){
-        try {
-            btn_getData.setEnabled(false);
-
-            databaseString = asyncTask.readDatabase(con, new ExternalBaseIntegration.ReadDatabaseCallback() {
-                @Override
-                public void onSuccess(String successMessage) {
-                    System.out.println(databaseString + " x");
-                    tv_databaseDisplay.setText(databaseString);
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    System.out.println("Epic fail");
-                }
-            });
-            System.out.println("poop");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+//        try {
+//            btn_getData.setEnabled(false);
+//
+//            databaseString = asyncTask.readDatabase(con, new ExternalBaseIntegration.ReadDatabaseCallback() {
+//                @Override
+//                public void onSuccess(String successMessage) {
+//                    System.out.println(databaseString + " x");
+//                    tv_databaseDisplay.setText(databaseString);
+//                }
+//
+//                @Override
+//                public void onError(String errorMessage) {
+//                    System.out.println("Epic fail");
+//                }
+//            });
+//            System.out.println("poop");
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
     }
 
     public void fetchDataPressed(View view) {
         tv_connectionStatus.setText("Fetching data from External DB...");
-        displayExternalDatabase();
+//        displayExternalDatabase();
     }
 
     public void retryConnectionPressed(View view){
         btn_retryConnection.setVisibility(View.INVISIBLE);
         asyncTask.cancel(true);
+        tv_connectionStatus.setText("Attempting to reconnect...");
         createAsyncTask();
+
     }
 }

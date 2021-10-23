@@ -32,9 +32,9 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             // Method made to connect to the database.
             Connection con = connectToDatabase();
             if (con != null){
-                return con;
+                dataBaseOutput = readDatabase(con);
+                return dataBaseOutput;
             }
-            // #TODO add retry to connect to database button if connection failed
         }
         catch (Exception e){
             e.printStackTrace();
@@ -43,23 +43,22 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         return null;
     }
 
-    public String readDatabase(Connection con, ReadDatabaseCallback readDatabaseCallback) throws SQLException {
+    public String readDatabase(Connection con) throws SQLException {
 
         // Once connection is made begin building output
         StringBuilder result = new StringBuilder();
         Statement st = con.createStatement();
         //Selects all from Test Table
         // #TODO needs to be changed to selecting all from different table
-        ResultSet rs = st.executeQuery("select * from TestTable");
+        ResultSet rs = st.executeQuery("select * from Weatherapp");
         ResultSetMetaData rsmd = rs.getMetaData();
         while(rs.next()){
-            // #TODO Add for loop to count getColumnName(i) to set amount
-            result.append(rsmd.getColumnName(1)).append(": ").append(rs.getInt(1)).append("\n");
+            for (int i = 1; i < 16; i++)
+                result.append(rsmd.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
             // #TODO use new WeatherReportModel to build from external database
-            result.append(rsmd.getColumnName(2)).append(": ").append(rs.getString(2)).append("\n");
+
         }
         dataBaseOutput = (result.toString());
-        readDatabaseCallback.onSuccess("Success");
         return dataBaseOutput;
     }
 

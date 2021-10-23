@@ -227,4 +227,9 @@ public class WeatherReportModel {
                 "predictability=" + predictability +
                 '}';
     }
+
+    public String[] toList(){
+
+        return new String[] {String.valueOf(getId()), getApplicableDate(), getCreated()};
+    }
 }
