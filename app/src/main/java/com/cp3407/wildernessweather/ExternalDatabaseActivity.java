@@ -45,7 +45,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
                     asyncTask.cancel(true);
                 }
                 else{
-                    tv_connectionStatus.setText("Connected");
+                    tv_connectionStatus.setText("Connected. Fetching data from External DB...");
                     databaseString = (String) output;
                     tv_databaseDisplay.setText(databaseString);
                 }
@@ -79,7 +79,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     }
 
     public void fetchDataPressed(View view) {
-        tv_connectionStatus.setText("Fetching data from External DB...");
+
 //        displayExternalDatabase();
     }
 
