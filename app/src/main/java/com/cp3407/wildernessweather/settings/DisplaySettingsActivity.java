@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -22,7 +22,10 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
     private SwitchCompat darkModeSwitch;
     private Spinner unitsOfMeasurementSpinner;
     private Spinner fontSizeSpinner;
-    private Button saveButton;
+
+    private boolean isDarkMode;
+    private boolean isMetric;
+    private boolean isRegular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,10 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
         darkModeSwitch = findViewById(R.id.sw_darkmode);
         unitsOfMeasurementSpinner = findViewById(R.id.spin_unitOfMeasurement);
         fontSizeSpinner = findViewById(R.id.spin_fontSize);
-        saveButton = findViewById(R.id.btn_saveDisplaySettings);
+
+        isDarkMode = settingsData.getBoolean("isDarkMode", false);
+        isMetric = settingsData.getBoolean("isMetric", true);
+        isRegular = settingsData.getBoolean("isRegular", true);
 
         initialiseSettings();
     }
@@ -43,22 +49,15 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
 
     // Initialises the UI and restores the displayed settings to what is stored in SharedPrefs
     private void initialiseSettings() {
-
-        boolean isDarkMode = settingsData.getBoolean("isDarkMode", false);
-        boolean isMetric = settingsData.getBoolean("isMetric", true);
-        boolean isRegular = settingsData.getBoolean("isRegular", true);
-
-        setSwitch(isDarkMode);
-        setArrayAdapters(isMetric, isRegular);
-    }
-
-    private void setSwitch(boolean isDarkMode) {
+        // Sets the value of the switch
         darkModeSwitch.setChecked(isDarkMode);
+
+        // Sets the values of the spinners using array adapters
+        setArrayAdapters();
     }
 
-    // This method sets the values of the spinners using array adapters
-    public void setArrayAdapters(boolean isMetric, boolean isRegular) {
 
+    public void setArrayAdapters() {
         // Array adapter for units of measurement spinner
         ArrayAdapter<CharSequence> unitsOfMeasurementAdapter = ArrayAdapter.createFromResource(this, R.array.units_of_measurement, R.layout.spinner_item);
         unitsOfMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,10 +75,24 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
         fontSizeSpinner.setAdapter(textSizeAdapter);
         fontSizeSpinner.setOnItemSelectedListener(this);
         if (isRegular) {
-            fontSizeSpinner.setSelection(0);
+            fontSizeSpinner.setSelection(0); // 0 = regular font size, 1 = large font size
         } else {
             fontSizeSpinner.setSelection(1);
         }
+
+    }
+
+    // Save selections to SharedPreferences
+    public void savePressed(View view) {
+        SharedPreferences.Editor editor = settingsData.edit();
+
+        editor.putBoolean("isDarkMode", darkModeSwitch.isChecked());
+        editor.putBoolean("isMetric", unitsOfMeasurementSpinner.getSelectedItemPosition() == 0);
+        editor.putBoolean("isRegular", fontSizeSpinner.getSelectedItemPosition() == 0);
+        editor.apply();
+
+        Toast.makeText(DisplaySettingsActivity.this, "Settings Saved", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -92,8 +105,4 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
         // do nothing
     }
 
-    public void savePressed(View view) {
-        // save selections to SharedPreferences
-        // Go back to SettingsActivity
-    }
 }
