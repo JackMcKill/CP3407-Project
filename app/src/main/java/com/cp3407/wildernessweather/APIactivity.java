@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.parceler.Parcels;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class APIactivity extends AppCompatActivity {
 
@@ -45,8 +45,8 @@ public class APIactivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(List<WeatherReportModel> weatherReportModels) {
-                ArrayAdapter<WeatherReportModel> arrayAdapter = new ArrayAdapter<>(APIactivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
+            public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
+                WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels);
                 weatherReports.setAdapter(arrayAdapter);
 
                 weatherReports.setClickable(true);

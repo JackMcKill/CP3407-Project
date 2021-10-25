@@ -89,7 +89,6 @@
             <ImageButton
                 android:id="@+id/btn_download"
                 android:layout_width="match_parent"
-                android:rotation="180"
                 android:layout_height="0dp"
                 android:layout_weight="40"
                 android:background="@android:drawable/list_selector_background"
@@ -125,17 +124,15 @@
             android:layout_weight="60"
             android:orientation="vertical"
             android:weightSum="100">
-
             <!-- Applicable date -->
             <TextView
                 android:id="@+id/tv_applicableDate"
-                style="?android:spinnerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="15"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="italic" />
             <!-- Main temperature -->
             <TextView

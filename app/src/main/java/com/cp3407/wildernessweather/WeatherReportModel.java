@@ -23,6 +23,8 @@ public class WeatherReportModel {
     @NonNull
     String woeid;
     @NonNull
+    String cityName;
+    @NonNull
     String weatherStateName;
     @NonNull
     String weatherStateAbbr;
@@ -211,6 +213,7 @@ public class WeatherReportModel {
         return "WeatherReportModel{" +
                 "id=" + id +
                 "trueID=" + trueID + "\n" +
+                "city_name=" + cityName + "\n " +
                 "weather_state_name='" + weatherStateName + "\n" +
                 "weather_state_abbr='" + weatherStateAbbr + "\n" +
                 "wind_direction_compass='" + windDirectionCompass + "\n" +
