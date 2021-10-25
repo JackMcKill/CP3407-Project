@@ -23,8 +23,6 @@ public class WeatherReportModel {
     @NonNull
     String woeid;
     @NonNull
-    String cityName;
-    @NonNull
     String weatherStateName;
     @NonNull
     String weatherStateAbbr;
