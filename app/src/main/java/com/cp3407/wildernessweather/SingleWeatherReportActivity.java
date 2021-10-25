@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -42,6 +44,9 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
+
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
+//        setSupportActionBar(myToolbar);
 
         cityNameView = findViewById(R.id.tv_cityName);
         stateView = findViewById(R.id.tv_weatherStateName);
