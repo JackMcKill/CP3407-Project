@@ -3,7 +3,9 @@ package com.cp3407.wildernessweather;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +26,8 @@ import org.parceler.Parcels;
 import java.util.Calendar;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
+    private SharedPreferences settingsData;
+
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
     WeatherDataService weatherDataService;
@@ -45,8 +47,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
 
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
-//        setSupportActionBar(myToolbar);
 
         cityNameView = findViewById(R.id.tv_cityName);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -68,7 +68,11 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         weatherDataService = new WeatherDataService(SingleWeatherReportActivity.this);
 
         singleWeatherReport = Parcels.unwrap(getIntent().getParcelableExtra("report"));
-        populateFields();
+
+        settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        boolean isMetric = settingsData.getBoolean("isMetric", true);
+        populateFields(isMetric);
+        Log.i("single", "minTemp = " + singleWeatherReport.getTheTemp() + ". MinTempImp = " + singleWeatherReport.getTheTempImperial());
 
         applicableDateView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,22 +173,43 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         });
     }
 
-    public void populateFields() {
-        cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
-        stateView.setText(singleWeatherReport.getWeatherStateName());
-        // Set weather state image field to correct resource.
-        stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
-        // Convert date string before inserting.
-        applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
-        minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
-        maxTempView.setText(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°");
-        tempView.setText(" " + Math.round(singleWeatherReport.getTheTemp()) + "°");
-        windSpeedView.setText((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h");
-        windDirectionView.setText(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)");
-        airPressureView.setText(singleWeatherReport.getAirPressure() + " in");
-        humidityView.setText(singleWeatherReport.getHumidity() + "%");
-        visibilityView.setText((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi");
-        predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
+    public void populateFields(boolean isMetric) {
+        if (isMetric) {
+            cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
+            stateView.setText(singleWeatherReport.getWeatherStateName());
+            // Set weather state image field to correct resource.
+            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            // Convert date string before inserting.
+            applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
+            minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
+            maxTempView.setText(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°");
+            tempView.setText(" " + Math.round(singleWeatherReport.getTheTemp()) + "°");
+            windSpeedView.setText((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h");
+            windDirectionView.setText(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)");
+            airPressureView.setText(singleWeatherReport.getAirPressure() + " hPa");
+            humidityView.setText(singleWeatherReport.getHumidity() + "%");
+            visibilityView.setText((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "km");
+            predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
+        } else {
+            // TODO change the vales to the imperial system
+
+            cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
+            stateView.setText(singleWeatherReport.getWeatherStateName());
+            // Set weather state image field to correct resource.
+            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            // Convert date string before inserting.
+            applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
+            minTempView.setText(" " + Math.round(singleWeatherReport.getMinTempImperial()) + "°");
+            maxTempView.setText(" " + Math.round(singleWeatherReport.getMaxTempImperial()) + "°");
+            tempView.setText(" " + Math.round(singleWeatherReport.getTheTempImperial()) + "°");
+            windSpeedView.setText((Math.round(singleWeatherReport.getWindSpeedImperial() * 100.0) / 100.0) + " mph");
+            windDirectionView.setText(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)");
+            airPressureView.setText(singleWeatherReport.getAirPressure() + " hPa");
+            humidityView.setText(singleWeatherReport.getHumidity() + "%");
+            visibilityView.setText((Math.round(singleWeatherReport.getVisibilityImperial() * 100.0) / 100.0) + "mi");
+            predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
+        }
+
     }
 
     /**
