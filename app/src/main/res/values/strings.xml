@@ -8,11 +8,8 @@
     <string name="previous">Previous</string>
 
     <string name="button_save">Save</string>
-
     <string name="delete_button">Delete Button</string>
     <string name="nothing_in_database">Nothing in database</string>
-
-    <string name="empty_not_saved">Word not saved because it is empty.</string>
     <string name="turn_on_weather_warnings">Turn on weather warnings</string>
     <string name="display_preferences">Display Preferences</string>
     <string name="manage_downloaded_data">Manage Downloaded Data</string>

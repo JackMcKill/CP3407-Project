@@ -1,11 +1,20 @@
 package com.cp3407.wildernessweather;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,9 +23,12 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.Calendar;
+
 public class SingleWeatherReportActivity extends AppCompatActivity {
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
+    WeatherDataService weatherDataService;
     boolean isNewEntry;
 
     TextView cityNameView, stateView, applicableDateView, minTempView,
@@ -25,10 +37,16 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     ImageView stateImage;
 
+    private DatePickerDialog datePickerDialog;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
+
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
+//        setSupportActionBar(myToolbar);
 
         cityNameView = findViewById(R.id.tv_cityName);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -44,10 +62,21 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         visibilityView = findViewById(R.id.tv_visibility);
         predictabilityView = findViewById(R.id.tv_predictability);
 
-        viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
+        progressDialog = new ProgressDialog(SingleWeatherReportActivity.this);
 
-        singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
+        viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
+        weatherDataService = new WeatherDataService(SingleWeatherReportActivity.this);
+
+        singleWeatherReport = Parcels.unwrap(getIntent().getParcelableExtra("report"));
         populateFields();
+
+        applicableDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open a date-picker pop-up
+                datePickerDialog.show();
+            }
+        });
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -58,13 +87,52 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         final ImageButton downloadButton = findViewById(R.id.btn_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-                downloadData();
+                try {
+                    downloadData();
+//                    shareCSV();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-//        viewModel.insert(singleWeatherReport);
         updateDatabase();
+        initialiseDatePicker();
+    }
+
+    private void initialiseDatePicker() {
+        // Runs when new date is set
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month += 1; // Default behaviour is Jan = 0, Dec = 11. This line changes it to Jan = 1, Dec = 12.
+                String displayDate = convertDateString(day, month, year);
+                String apiCallDate = convertDateString(year, month, day); // This is just the date in YYYY/MM/DD format, to be used in the API call below
+                // Convert date string before inserting.
+                applicableDateView.setText(displayDate);
+
+                goToNewDate(apiCallDate);
+            }
+        };
+        String initialDate = singleWeatherReport.getApplicableDate();
+
+        // Sets the date that the datePicker is displays upon initialisation (set to current date of the weather report being viewed)
+        int year = Integer.parseInt(initialDate.substring(0, 4));
+        int month = Integer.parseInt(initialDate.substring(5, 7)) - 1;
+        int day = Integer.parseInt(initialDate.substring(8, 10));
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+
+        // Prevents users from selecting a date more than 1 week into the future
+        long oneWeekFromNow = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7;
+        datePickerDialog.getDatePicker().setMaxDate(oneWeekFromNow);
+
+        // Prevents users from selecting a date earlier than 2014
+        Calendar minDate = Calendar.getInstance();
+        minDate.set(2014, 0, 1); // Year, Month - 1, Day
+        datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis() - 1000);
     }
 
     /*
@@ -102,22 +170,21 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     public void populateFields() {
-
         cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
-        stateView.setText(String.valueOf(singleWeatherReport.getWeatherStateName()));
+        stateView.setText(singleWeatherReport.getWeatherStateName());
         // Set weather state image field to correct resource.
         stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
         // Convert date string before inserting.
         applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
-        minTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMinTemp()) + "°"));
-        maxTempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°"));
-        tempView.setText(String.valueOf(" " + Math.round(singleWeatherReport.getTheTemp()) + "°"));
-        windSpeedView.setText(String.valueOf((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h"));
-        windDirectionView.setText(String.valueOf(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)"));
-        airPressureView.setText(String.valueOf(singleWeatherReport.getAirPressure() + " in"));
-        humidityView.setText(String.valueOf(singleWeatherReport.getHumidity() + "%"));
-        visibilityView.setText(String.valueOf((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi"));
-        predictabilityView.setText(String.valueOf(singleWeatherReport.getPredictability() + "%"));
+        minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
+        maxTempView.setText(" " + Math.round(singleWeatherReport.getMaxTemp()) + "°");
+        tempView.setText(" " + Math.round(singleWeatherReport.getTheTemp()) + "°");
+        windSpeedView.setText((Math.round(singleWeatherReport.getWindSpeed() * 100.0) / 100.0) + " Km/h");
+        windDirectionView.setText(singleWeatherReport.getWindDirectionCompass() + " (" + Math.round(singleWeatherReport.getWindDirection()) + "°)");
+        airPressureView.setText(singleWeatherReport.getAirPressure() + " in");
+        humidityView.setText(singleWeatherReport.getHumidity() + "%");
+        visibilityView.setText((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi");
+        predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
     }
 
     /**
@@ -152,6 +219,20 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     /**
+     * Works just like {@link SingleWeatherReportActivity#convertDateString(String)}, but takes
+     * date elements as individual int values instead. Can be used to build dates in different
+     * formats, depending on which order the date elements are given in the method call.
+     *
+     * @param day   the calendar day (int)
+     * @param month the calendar month (int)
+     * @param year  the calendar year (int)
+     * @return date string in param1/param2/param3 format
+     */
+    public String convertDateString(int day, int month, int year) {
+        return day + "/" + month + "/" + year;
+    }
+
+    /**
      * Returns to APIActivity.
      */
     public void goBack() {
@@ -161,8 +242,61 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     /**
      * Downloads weather data to the local database.
      */
-    public void downloadData() {
+    public void downloadData() throws Exception {
+        ExportCSV.writeWithCsvListWriter(singleWeatherReport, new ExportCSV.ExportCSVCallback() {
+            @Override
+            public void onSuccess(String successMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, successMessage, Toast.LENGTH_SHORT).show();
+                String fileName = singleWeatherReport.getCityName() + "-" + singleWeatherReport.getApplicableDate() + ".csv";
+                Log.i("export", "String: " + fileName);
+                shareCSV(fileName);
 
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(SingleWeatherReportActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    // Opens a share sheet to allow sharing of the CSV file
+    public void shareCSV(String fileName) {
+        // Generate the path to the CSV file
+        final String FILEPATH = "data/data/com.cp3407.wildernessweather/";
+
+        // Create a URI to identify and gain access to the CSV file
+        Uri uri = Uri.parse("content://" + FILEPATH + fileName);
+        Log.i("export", "uri: " + uri.toString());
+
+        // Create an Intent to open a share sheet
+        Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(sendIntent, "Send Mail"));
+    }
+
+
+    // This method performs an API call to retrieve weather information for a specified date and reloads the activity
+    private void goToNewDate(String date) {
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        weatherDataService.getCityForecastByDate(singleWeatherReport.getWoeid(), date, singleWeatherReport.getCityName(), new WeatherDataService.ForecastByDateCallback() {
+            @Override
+            public void onError(String errorMessage) {
+                System.out.println(errorMessage);
+            }
+
+            @Override
+            public void onResponse(WeatherReportModel weatherReportModel) {
+                Intent intent = new Intent(SingleWeatherReportActivity.this, SingleWeatherReportActivity.class);
+                intent.putExtra("report", Parcels.wrap(weatherReportModel));
+                finish();
+                startActivity(intent);
+            }
+        });
+    }
 }
