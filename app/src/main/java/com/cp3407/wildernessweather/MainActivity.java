@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.parceler.Parcels;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -103,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
         weatherDataService.getFavourites(cityNames, weatherReportModels -> {
             WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels);
             locationList.setAdapter(adapter);
+            locationList.setOnItemClickListener((adapterView, view, i, l) -> {
+                WeatherReportModel weatherReportModel = weatherReportModels.get(i);
+                Intent intent = new Intent(MainActivity.this, SingleWeatherReportActivity.class);
+                intent.putExtra("report", Parcels.wrap(weatherReportModel));
+                startActivity(intent);
+            });
         });
     }
 

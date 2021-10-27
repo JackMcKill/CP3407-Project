@@ -3,8 +3,6 @@ package com.cp3407.wildernessweather;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,23 +48,18 @@ public class APIactivity extends AppCompatActivity {
                 WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels);
                 weatherReports.setAdapter(arrayAdapter);
 
-                weatherReports.setClickable(true);
+                // This code is run when the user clicks on a list item
+                weatherReports.setOnItemClickListener((adapterView, view, i, l) -> {
 
-                weatherReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    // This code is run when the user clicks on a list item
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.i("ListView", i + " clicked!");
 
-                        Log.i("ListView", i + " clicked!");
+                    // Store the selected weather report in a new variable
+                    WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
 
-                        // Store the selected weather report in a new variable
-                        WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
-
-                        // Send singleWeatherReport to a new activity inside an intent
-                        Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
-                        intent.putExtra("report", Parcels.wrap(singleWeatherReport));
-                        startActivity(intent);
-                    }
+                    // Send singleWeatherReport to a new activity inside an intent
+                    Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
+                    intent.putExtra("report", Parcels.wrap(singleWeatherReport));
+                    startActivity(intent);
                 });
             }
         });
