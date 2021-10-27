@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,12 +32,14 @@ public class APIactivity extends AppCompatActivity {
         getWeatherData = findViewById(R.id.btn_getWeatherData);
         weatherReports = findViewById(R.id.lv_weatherReports);
 
+        getWeatherData.setOnClickListener(view -> getWeatherReports(searchBox.getText().toString()));
+
         weatherDataService = new WeatherDataService(APIactivity.this);
+        getWeatherReports(getIntent().getStringExtra("cityName"));
     }
 
-    public void getWeatherPressed(View view) {
-
-        weatherDataService.getCityForecastByName(searchBox.getText().toString(), new WeatherDataService.ForecastByNameCallback() {
+    public void getWeatherReports(String cityName) {
+        weatherDataService.getCityForecastByName(cityName, new WeatherDataService.ForecastByNameCallback() {
             @Override
             public void onError(String errorMessage) {
                 Toast.makeText(APIactivity.this, errorMessage, Toast.LENGTH_SHORT).show();

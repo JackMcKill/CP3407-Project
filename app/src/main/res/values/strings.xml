@@ -32,7 +32,7 @@
     <string name="visibility">VISIBILITY</string>
     <string name="predictability">PREDICTABILITY</string>
     <string name="today_s_weather">Today\'s Weather</string>
-    <string name="quick_view">Quick View</string>
+    <string name="search">Search</string>
     <string name="edit_favourites">Edit Favourites</string>
     <string name="search_city_name">Search City Name</string>
 

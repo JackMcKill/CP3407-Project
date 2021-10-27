@@ -16,7 +16,6 @@
         android:id="@+id/btn_getWeatherData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="getWeatherPressed"
         android:text="Press for weather data" />
 
     <ListView

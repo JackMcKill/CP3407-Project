@@ -1,12 +1,15 @@
 package com.cp3407.wildernessweather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherDataService weatherDataService;
 
-    EditText searchBox;
+    SearchView searchBox;
     ListView locationList;
-    TextView homeTitle, currentDate, locationName, editFavs;
+    TextView homeTitle, currentDate, locationName;
     ImageButton settingsButton;
 
     @Override
@@ -41,11 +44,27 @@ public class MainActivity extends AppCompatActivity {
         homeTitle = findViewById(R.id.homeTitle);
         currentDate = findViewById(R.id.currentDate);
         locationName = findViewById(R.id.locationName);
-        editFavs = findViewById(R.id.editFav);
-        searchBox = findViewById(R.id.searchBox);
+        searchBox = findViewById(R.id.sv_search);
         settingsButton = findViewById(R.id.settingsButton);
-
         locationList = findViewById(R.id.locationList);
+
+        searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchText) {
+                Log.i("main", "String: " + searchText);
+
+                Intent intent = new Intent(MainActivity.this, APIactivity.class);
+                intent.putExtra("cityName", searchText);
+                startActivity(intent);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
 
         initialiseList();
     }
