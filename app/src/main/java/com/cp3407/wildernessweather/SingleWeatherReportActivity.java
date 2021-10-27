@@ -57,10 +57,12 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             // TODO code for when this activity is called without a Parcel object
         }
 
+        // Setup custom app bar.
+
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v) {
-                goBack();
+                finish();
             }
         });
 
@@ -108,13 +110,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     public String convertDateString(String dateString) {
         String[] parts = dateString.split("-");
         return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-
-    /**
-     * Returns to APIActivity.
-     */
-    public void goBack() {
-        finish();
     }
 
     /**

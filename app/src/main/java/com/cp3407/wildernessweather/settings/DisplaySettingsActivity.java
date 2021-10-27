@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +21,17 @@ public class DisplaySettingsActivity extends AppCompatActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_settings);
-        this.setTitle("Display Settings");
+
+        // Setup custom app bar.
+        TextView titleView = findViewById(R.id.tv_title);
+        titleView.setText(String.valueOf("Display Settings"));
+
+        final ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                finish();
+            }
+        });
 
         unitsOfMeasurementSpinner = findViewById(R.id.spin_unitOfMeasurement);
         fontSizeSpinner = findViewById(R.id.spin_fontSize);

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="8"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#00FFFFFF"
     android:weightSum="100">
     <!-- Main vertical layout container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="100"
-        android:background="@drawable/city_name_layout_bg"
+        android:background="@drawable/app_bar_bg"
         android:padding="12dp"
         android:weightSum="100">
         <!-- Back button -->

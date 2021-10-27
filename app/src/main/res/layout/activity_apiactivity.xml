@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context=".APIactivity">
 
+    <include layout="@layout/custom_app_bar"/>
+
     <EditText
         android:id="@+id/et_searchBox"
         android:layout_width="match_parent"

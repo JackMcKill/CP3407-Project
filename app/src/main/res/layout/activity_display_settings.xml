@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context=".settings.DisplaySettingsActivity">
 
+    <include layout="@layout/custom_app_bar"/>
+
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sw_darkmode"
         android:layout_width="match_parent"

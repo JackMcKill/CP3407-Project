@@ -8,7 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,16 @@ public class APIactivity extends AppCompatActivity {
         weatherReports = findViewById(R.id.lv_weatherReports);
 
         weatherDataService = new WeatherDataService(APIactivity.this);
+        // Setup custom app bar.
+        TextView titleView = findViewById(R.id.tv_title);
+        titleView.setText(String.valueOf("Location Search"));
+
+        final ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                finish();
+            }
+        });
     }
 
     public void getWeatherPressed(View view) {
