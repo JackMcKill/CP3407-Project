@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#00FFFFFF"
+    android:weightSum="100">
+    <!-- Main vertical layout container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:background="@drawable/app_bar_bg"
+        android:padding="12dp"
+        android:weightSum="100">
+        <!-- Back button (Space) -->
+<!--        <Space-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="10" />-->
+        <!-- City name -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:autoSizeTextType="uniform"
+            android:paddingStart="12dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</com.google.android.material.appbar.AppBarLayout>
