@@ -137,12 +137,20 @@ public class WeatherReportModel {
         return minTemp;
     }
 
+    public float getMinTempImperial() {
+        return (float) ((minTemp * 1.8) + 32);
+    }
+
     public void setMinTemp(float minTemp) {
         this.minTemp = minTemp;
     }
 
     public float getMaxTemp() {
         return maxTemp;
+    }
+
+    public float getMaxTempImperial() {
+        return (float) ((maxTemp * 1.8) + 32);
     }
 
     public void setMaxTemp(float maxTemp) {
@@ -153,11 +161,19 @@ public class WeatherReportModel {
         return theTemp;
     }
 
+    public float getTheTempImperial() {
+        return (float) ((theTemp * 1.8) + 32);
+    }
+
     public void setTheTemp(float theTemp) {
         this.theTemp = theTemp;
     }
 
     public float getWindSpeed() {
+        return (float) (windSpeed * 1.60934);
+    }
+
+    public float getWindSpeedImperial() {
         return windSpeed;
     }
 
@@ -190,7 +206,11 @@ public class WeatherReportModel {
     }
 
     public float getVisibility() {
-        return visibility;
+        return (float) (visibility * 1.60934);
+    }
+
+    public float getVisibilityImperial() {
+        return (visibility);
     }
 
     public void setVisibility(float visibility) {

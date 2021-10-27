@@ -1,11 +1,12 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 public class APIactivity extends AppCompatActivity {
+    private SharedPreferences settingsData;
 
     EditText searchBox;
     Button getWeatherData;
@@ -28,6 +30,8 @@ public class APIactivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apiactivity);
+
+        settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         searchBox = findViewById(R.id.et_searchBox);
         getWeatherData = findViewById(R.id.btn_getWeatherData);
@@ -46,7 +50,8 @@ public class APIactivity extends AppCompatActivity {
 
             @Override
             public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
-                WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels);
+                boolean isMetric = settingsData.getBoolean("isMetric", true);
+                WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
                 weatherReports.setAdapter(arrayAdapter);
 
                 weatherReports.setClickable(true);
