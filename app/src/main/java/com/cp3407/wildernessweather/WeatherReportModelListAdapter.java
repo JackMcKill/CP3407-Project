@@ -16,18 +16,30 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
 
     private Context mContext;
     int mResource;
+    boolean isMetric;
 
-    public WeatherReportModelListAdapter(Context context, int resource, ArrayList<WeatherReportModel> objects) {
+    public WeatherReportModelListAdapter(Context context, int resource, ArrayList<WeatherReportModel> objects, boolean isMetric) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
+        this.isMetric = isMetric;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         String cityName = getItem(position).getCityName();
         String weatherStateAbbr = getItem(position).getWeatherStateAbbr();
-        float minTemp = getItem(position).getMinTemp();
-        float maxTemp = getItem(position).getMaxTemp();
+        float minTemp;
+        float maxTemp;
+
+        if (isMetric) {
+            minTemp = getItem(position).getMinTemp();
+            maxTemp = getItem(position).getMaxTemp();
+
+        } else {
+            minTemp = getItem(position).getMinTempImperial();
+            maxTemp = getItem(position).getMaxTempImperial();
+        }
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 

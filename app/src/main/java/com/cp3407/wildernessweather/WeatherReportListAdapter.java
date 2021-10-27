@@ -95,7 +95,6 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         // Sets onClickListeners
         public void setListeners() {
             // Code here runs whenever an item in the recyclerView is pressed
-            // TODO change so user can click anywhere on the list item, not just the ID number
             listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

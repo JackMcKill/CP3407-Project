@@ -24,7 +24,6 @@
         android:orientation="horizontal"
         android:paddingStart="20dp">
 
-        <!--        TODO create spinners - need string arrays showing options-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

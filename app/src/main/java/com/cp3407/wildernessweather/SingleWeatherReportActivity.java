@@ -46,7 +46,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
-
+        settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         cityNameView = findViewById(R.id.tv_cityName);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -69,10 +69,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
         singleWeatherReport = Parcels.unwrap(getIntent().getParcelableExtra("report"));
 
-        settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
         boolean isMetric = settingsData.getBoolean("isMetric", true);
         populateFields(isMetric);
-        Log.i("single", "minTemp = " + singleWeatherReport.getTheTemp() + ". MinTempImp = " + singleWeatherReport.getTheTempImperial());
 
         applicableDateView.setOnClickListener(new View.OnClickListener() {
             @Override
