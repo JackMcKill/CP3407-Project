@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -32,10 +30,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
 
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
-//        setSupportActionBar(myToolbar);
-
-        cityNameView = findViewById(R.id.tv_cityName);
+        cityNameView = findViewById(R.id.tv_title);
         stateView = findViewById(R.id.tv_weatherStateName);
         stateImage = findViewById(R.id.iv_stateImage);
         applicableDateView = findViewById(R.id.tv_applicableDate);
@@ -119,7 +114,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      * Returns to APIActivity.
      */
     public void goBack() {
-
+        finish();
     }
 
     /**
