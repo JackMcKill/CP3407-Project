@@ -52,15 +52,17 @@
             android:layout_height="wrap_content"
             android:text="DBSTRING"
             tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherReportList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
     </TableLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weatherReportList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

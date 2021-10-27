@@ -59,14 +59,13 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         //Selects all from Test Table
         ResultSet rs = st.executeQuery("select * from Weatherapp");
         ResultSetMetaData rsmd = rs.getMetaData();
-        String[] string_list = new String[16];
+        String[] string_list = new String[18];
         weatherReportModelList = new ArrayList<WeatherReportModel>();
         // While loop goes through all different entries
         while(rs.next()){
             weatherReportModel = new WeatherReportModel();
             // For loop collects 1 entry from external database
-            for (int i = 0; i < 16; i++){
-//                result.append(rsmd.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
+            for (int i = 0; i < 18; i++){
                 string_list[i] = rs.getString(i+1);
             }
             weatherReportModel.setId(Long.parseLong(string_list[0]));
@@ -85,12 +84,12 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             weatherReportModel.setVisibility(Integer.parseInt(string_list[13]));
             weatherReportModel.setPredictability(Integer.parseInt(string_list[14]));
             weatherReportModel.setTrueID(Long.parseLong(string_list[15]));
-//            Log.i("external db", weatherReportModel.toString());
-            Log.i("external db", weatherReportModelList.toString());
+            weatherReportModel.setCityName(string_list[16]);
+            weatherReportModel.setWoeid(string_list[17]);
             weatherReportModelList.add(weatherReportModel);
             Log.i("external db", weatherReportModelList.toString());
         }
-        result.append("blah");
+
         dataBaseOutput = weatherReportModelList;
         Log.i("external db", "Finished reading database");
         return dataBaseOutput;
