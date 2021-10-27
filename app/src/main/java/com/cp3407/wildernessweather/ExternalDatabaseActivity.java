@@ -1,23 +1,33 @@
 package com.cp3407.wildernessweather;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cp3407.wildernessweather.database.ExternalBaseIntegration;
+import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
 
-public class ExternalDatabaseActivity extends AppCompatActivity {
+public class ExternalDatabaseActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
     TextView tv_connectionStatus, tv_databaseDisplay;
     Button btn_getData, btn_retryConnection;
     ExternalBaseIntegration asyncTask;
     Connection con;
-    String databaseString;
+    private WeatherReportListAdapter adapter;
+    List<WeatherReportModel> databaseOutput;
+    ListView lv_display;
+
+    private WeatherReportViewModel viewModel;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -30,6 +40,10 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         btn_getData = findViewById(R.id.getData);
         btn_retryConnection = findViewById(R.id.retryConButton);
 
+        recyclerView = findViewById(R.id.weatherReportList);
+        adapter = new WeatherReportListAdapter(this, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Begin ASync task to collect data from database.
         createAsyncTask();
@@ -46,8 +60,11 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
                 }
                 else{
                     tv_connectionStatus.setText("Connected. Fetching data from External DB...");
-                    databaseString = (String) output;
-                    tv_databaseDisplay.setText(databaseString);
+
+                    databaseOutput = (List<WeatherReportModel>) output;
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
+                    adapter.setWeatherReports(databaseOutput);
                 }
 
             }
@@ -56,27 +73,6 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         asyncTask.execute();
     }
 
-    private void displayExternalDatabase(){
-//        try {
-//            btn_getData.setEnabled(false);
-//
-//            databaseString = asyncTask.readDatabase(con, new ExternalBaseIntegration.ReadDatabaseCallback() {
-//                @Override
-//                public void onSuccess(String successMessage) {
-//                    System.out.println(databaseString + " x");
-//                    tv_databaseDisplay.setText(databaseString);
-//                }
-//
-//                @Override
-//                public void onError(String errorMessage) {
-//                    System.out.println("Epic fail");
-//                }
-//            });
-//            System.out.println("poop");
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-    }
 
     public void fetchDataPressed(View view) {
 
@@ -89,5 +85,11 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         tv_connectionStatus.setText("Attempting to reconnect...");
         createAsyncTask();
 
+    }
+
+    @Override
+    public void OnDeleteClickListener(WeatherReportModel myModel) {
+        Toast.makeText(this, "Item Deleted", Toast.LENGTH_SHORT).show();
+        viewModel.delete(myModel);
     }
 }

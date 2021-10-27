@@ -228,8 +228,4 @@ public class WeatherReportModel {
                 '}';
     }
 
-    public String[] toList(){
-
-        return new String[] {String.valueOf(getId()), getApplicableDate(), getCreated()};
-    }
 }
