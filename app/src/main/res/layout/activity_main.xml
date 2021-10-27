@@ -9,35 +9,32 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/homeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/today_s_weather"
+        android:text="@string/today_weather"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/currentDate"
+        android:id="@+id/tv_currentDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Friday 27th August, 2021"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:padding="10dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/quickViewText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search"
@@ -48,31 +45,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:background="@color/white"
             android:hint="@string/search_city_name"
-            android:background="@color/white"/>
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/locationList"
+        android:id="@+id/lv_locationList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
-
-    <TextView
-        android:id="@+id/editFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:text="@string/edit_favourites"
-        android:textSize="15sp"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_marginTop="15dp" />
 
     <ImageButton
-        android:id="@+id/settingsButton"
+        android:id="@+id/btn_settingsButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="end"

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -15,7 +13,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     SearchView searchBox;
     ListView locationList;
-    TextView homeTitle, currentDate, locationName;
+    TextView currentDate, locationName;
     ImageButton settingsButton;
 
     @Override
@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
         weatherDataService = new WeatherDataService(MainActivity.this);
 
-        homeTitle = findViewById(R.id.homeTitle);
-        currentDate = findViewById(R.id.currentDate);
+        currentDate = findViewById(R.id.tv_currentDate);
         locationName = findViewById(R.id.locationName);
         searchBox = findViewById(R.id.sv_search);
-        settingsButton = findViewById(R.id.settingsButton);
-        locationList = findViewById(R.id.locationList);
+        settingsButton = findViewById(R.id.btn_settingsButton);
+        locationList = findViewById(R.id.lv_locationList);
 
+        currentDate.setText(getDate());
         searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
@@ -67,6 +67,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
         initialiseList();
+    }
+
+    private String getDate() {
+        Calendar calendar = Calendar.getInstance();
+
+        String dayName = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String daySuffix = getSuffix(day);
+        String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        int year = calendar.get(Calendar.YEAR);
+
+        return dayName + " " + day + daySuffix + " " + month + ", " + year;
+    }
+
+    public String getSuffix(int day) {
+        switch (day) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
     }
 
 
