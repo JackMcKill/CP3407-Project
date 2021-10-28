@@ -228,4 +228,26 @@ public class WeatherReportModel {
                 '}';
     }
 
+    public String exportString() {
+        return  id + "," +
+                weatherStateName + ", " +
+                weatherStateAbbr + ", " +
+                windDirectionCompass + ", " +
+                created + ", " +
+                applicableDate + ", " +
+                minTemp + ", " +
+                maxTemp + ", " +
+                theTemp + ", " +
+                windSpeed + ", " +
+                windDirection + ", " +
+                airPressure + ", " +
+                humidity + ", " +
+                visibility + ", " +
+                predictability + ", " +
+                trueID + ", " +
+                cityName + ", " +
+                woeid;
+
+    }
+
 }

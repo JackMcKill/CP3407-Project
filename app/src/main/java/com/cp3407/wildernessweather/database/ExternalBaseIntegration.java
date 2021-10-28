@@ -1,12 +1,10 @@
 package com.cp3407.wildernessweather.database;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
 
-import com.cp3407.wildernessweather.APIactivity;
+import androidx.lifecycle.LiveData;
+
 import com.cp3407.wildernessweather.WeatherReportModel;
 
 import java.sql.Connection;
@@ -23,7 +21,10 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     private static final String user = "admin";
     private static final String pass = "jackandharper";
     WeatherReportModel weatherReportModel;
-    List<WeatherReportModel> weatherReportModelList;
+    WeatherReportModel weatherReportModelToWrite;
+    List<WeatherReportModel> weatherReportModelReadList;
+    WeatherReportViewModel weatherReportViewModel;
+    LiveData<List<WeatherReportModel>> weatherReportModelWriteList;
 
     List<WeatherReportModel> dataBaseOutput;
 
@@ -60,7 +61,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         ResultSet rs = st.executeQuery("select * from Weatherapp");
         ResultSetMetaData rsmd = rs.getMetaData();
         String[] string_list = new String[18];
-        weatherReportModelList = new ArrayList<WeatherReportModel>();
+        weatherReportModelReadList = new ArrayList<WeatherReportModel>();
         // While loop goes through all different entries
         while(rs.next()){
             weatherReportModel = new WeatherReportModel();
@@ -86,11 +87,11 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             weatherReportModel.setTrueID(Long.parseLong(string_list[15]));
             weatherReportModel.setCityName(string_list[16]);
             weatherReportModel.setWoeid(string_list[17]);
-            weatherReportModelList.add(weatherReportModel);
-            Log.i("external db", weatherReportModelList.toString());
+            weatherReportModelReadList.add(weatherReportModel);
+            Log.i("external db", weatherReportModelReadList.toString());
         }
 
-        dataBaseOutput = weatherReportModelList;
+        dataBaseOutput = weatherReportModelReadList;
         Log.i("external db", "Finished reading database");
         return dataBaseOutput;
     }
@@ -113,12 +114,16 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         Statement st = con.createStatement();
         // #TODO for loop here for all different things to insert
 
+
+        weatherReportModelWriteList = weatherReportViewModel.getAllWeatherReports();
         // These will change every time in the for loop to insert data
-        String column_name = ""; // #TODO get column name from internal database
-        String weather_report_model_data = ""; // #TODO get data from internal database
-        String query = "INSERT INTO Weatherapp (" + column_name + ") VALUES('" + weather_report_model_data + "')";
-        st.executeQuery(query);
-        // end loop
+        for (int i = 0; i < weatherReportModelWriteList.size(); i++){
+            weatherReportModelToWrite = weatherReportModelWriteList.get(i);
+            String weather_report_model_data = weatherReportModelToWrite.exportString();
+            String query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
+            st.executeQuery(query);
+        }
+
         // #TODO should somehow call internal database to delete data after this is done?
         Log.i("external db", "Finished writing to database");
     }
