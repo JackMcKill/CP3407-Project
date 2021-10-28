@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.cp3407.wildernessweather.settings.SettingsActivity;
 
 import org.parceler.Parcels;
 
@@ -45,15 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
         currentDate = findViewById(R.id.tv_currentDate);
         locationName = findViewById(R.id.locationName);
-        searchBox = findViewById(R.id.sv_search);
+        searchBox = findViewById(R.id.sv_searchHomePage);
         settingsButton = findViewById(R.id.btn_settingsButton);
         locationList = findViewById(R.id.lv_locationList);
+
+        searchBox.setQueryHint("Search");
 
         currentDate.setText(getDate());
         searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                Log.i("main", "String: " + searchText);
 
                 Intent intent = new Intent(MainActivity.this, APIactivity.class);
                 intent.putExtra("cityName", searchText);
@@ -66,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 return false;
             }
+        });
+
+        settingsButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
         initialiseList();
@@ -101,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         dummySetSharedPreferences();
         String[] cityNames = getFavCityNames();
-        Log.i("main", "about to get weather reports");
         weatherDataService.getFavourites(cityNames, weatherReportModels -> {
             WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels);
             locationList.setAdapter(adapter);

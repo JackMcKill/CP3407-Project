@@ -3,9 +3,8 @@ package com.cp3407.wildernessweather;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +15,7 @@ import java.util.ArrayList;
 
 public class APIactivity extends AppCompatActivity {
 
-    EditText searchBox;
-    Button getWeatherData;
+    SearchView searchBox;
     ListView weatherReports;
     WeatherDataService weatherDataService;
 
@@ -26,11 +24,10 @@ public class APIactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apiactivity);
 
-        searchBox = findViewById(R.id.et_searchBox);
-        getWeatherData = findViewById(R.id.btn_getWeatherData);
+        searchBox = findViewById(R.id.sv_searchResultPage);
         weatherReports = findViewById(R.id.lv_weatherReports);
 
-        getWeatherData.setOnClickListener(view -> getWeatherReports(searchBox.getText().toString()));
+        searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
 
         weatherDataService = new WeatherDataService(APIactivity.this);
         getWeatherReports(getIntent().getStringExtra("cityName"));
