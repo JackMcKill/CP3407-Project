@@ -3,8 +3,11 @@ package com.cp3407.wildernessweather.database;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.cp3407.wildernessweather.ExternalDatabaseActivity;
 import com.cp3407.wildernessweather.WeatherReportModel;
 
 import java.sql.Connection;
@@ -41,6 +44,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             Connection con = connectToDatabase();
             if (con != null){
                 // Might put the writing to external database here from local db.
+                writeToDatabase(con);
                 dataBaseOutput = readDatabase(con);
                 return dataBaseOutput;
             }
@@ -113,13 +117,12 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         Log.i("external db", "writing to external db");
         Statement st = con.createStatement();
         // #TODO for loop here for all different things to insert
-
-
         weatherReportModelWriteList = weatherReportViewModel.getAllWeatherReports();
+
         // These will change every time in the for loop to insert data
-        for (int i = 0; i < weatherReportModelWriteList.size(); i++){
-            weatherReportModelToWrite = weatherReportModelWriteList.get(i);
-            String weather_report_model_data = weatherReportModelToWrite.exportString();
+        for (int i = 0; i < weatherReportModelWriteList.getValue().size(); i++){
+            weatherReportModelToWrite = weatherReportModelWriteList.getValue().get(i);
+            String weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
             String query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
             st.executeQuery(query);
         }

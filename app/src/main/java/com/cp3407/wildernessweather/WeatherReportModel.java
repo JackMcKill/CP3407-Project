@@ -228,8 +228,8 @@ public class WeatherReportModel {
                 '}';
     }
 
-    public String exportString() {
-        return  id + "," +
+    public String exportToDatabaseString() {
+        return  id + ", " +
                 weatherStateName + ", " +
                 weatherStateAbbr + ", " +
                 windDirectionCompass + ", " +
@@ -247,7 +247,6 @@ public class WeatherReportModel {
                 trueID + ", " +
                 cityName + ", " +
                 woeid;
-
     }
 
 }
