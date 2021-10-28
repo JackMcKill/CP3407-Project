@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences favourites;
     private SharedPreferences settingsData;
-
     private WeatherDataService weatherDataService;
 
     SearchView searchBox;
@@ -108,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
         dummySetSharedPreferences();
         String[] cityNames = getFavCityNames();
+        boolean isMetric = settingsData.getBoolean("isMetric", true);
         weatherDataService.getFavourites(cityNames, weatherReportModels -> {
-            WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels);
+            WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
             locationList.setAdapter(adapter);
             locationList.setOnItemClickListener((adapterView, view, i, l) -> {
                 WeatherReportModel weatherReportModel = weatherReportModels.get(i);
