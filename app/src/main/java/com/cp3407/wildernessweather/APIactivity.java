@@ -1,12 +1,14 @@
 package com.cp3407.wildernessweather;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.parceler.Parcels;
@@ -28,7 +30,7 @@ public class APIactivity extends AppCompatActivity {
         weatherReports = findViewById(R.id.lv_weatherReports);
 
         searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
-
+        searchBox.setIconified(false);
         weatherDataService = new WeatherDataService(APIactivity.this);
         getWeatherReports(getIntent().getStringExtra("cityName"));
     }
