@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +18,7 @@ import java.util.ArrayList;
 public class APIactivity extends AppCompatActivity {
     private SharedPreferences settingsData;
 
-    EditText searchBox;
-    Button getWeatherData;
+    SearchView searchBox;
     ListView weatherReports;
     WeatherDataService weatherDataService;
 
@@ -31,18 +27,19 @@ public class APIactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apiactivity);
 
+        searchBox = findViewById(R.id.sv_searchResultPage);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
-        searchBox = findViewById(R.id.et_searchBox);
-        getWeatherData = findViewById(R.id.btn_getWeatherData);
         weatherReports = findViewById(R.id.lv_weatherReports);
 
+        searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
+        searchBox.setIconified(false);
         weatherDataService = new WeatherDataService(APIactivity.this);
+        getWeatherReports(getIntent().getStringExtra("cityName"));
     }
 
-    public void getWeatherPressed(View view) {
-
-        weatherDataService.getCityForecastByName(searchBox.getText().toString(), new WeatherDataService.ForecastByNameCallback() {
+    public void getWeatherReports(String cityName) {
+        weatherDataService.getCityForecastByName(cityName, new WeatherDataService.ForecastByNameCallback() {
             @Override
             public void onError(String errorMessage) {
                 Toast.makeText(APIactivity.this, errorMessage, Toast.LENGTH_SHORT).show();
@@ -54,23 +51,18 @@ public class APIactivity extends AppCompatActivity {
                 WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
                 weatherReports.setAdapter(arrayAdapter);
 
-                weatherReports.setClickable(true);
+                // This code is run when the user clicks on a list item
+                weatherReports.setOnItemClickListener((adapterView, view, i, l) -> {
 
-                weatherReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    // This code is run when the user clicks on a list item
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.i("ListView", i + " clicked!");
 
-                        Log.i("ListView", i + " clicked!");
+                    // Store the selected weather report in a new variable
+                    WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
 
-                        // Store the selected weather report in a new variable
-                        WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
-
-                        // Send singleWeatherReport to a new activity inside an intent
-                        Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
-                        intent.putExtra("report", Parcels.wrap(singleWeatherReport));
-                        startActivity(intent);
-                    }
+                    // Send singleWeatherReport to a new activity inside an intent
+                    Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
+                    intent.putExtra("report", Parcels.wrap(singleWeatherReport));
+                    startActivity(intent);
                 });
             }
         });

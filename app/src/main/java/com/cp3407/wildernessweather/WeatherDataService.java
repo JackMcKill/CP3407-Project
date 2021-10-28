@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherDataService {
 
@@ -77,9 +76,7 @@ public class WeatherDataService {
                 e.printStackTrace();
             }
 
-        }, error -> {
-            forecastByIDCallback.onError("Something went wrong");
-        });
+        }, error -> forecastByIDCallback.onError("Something went wrong"));
 
         Singleton.getInstance(context).addToRequestQueue(request);
     }
@@ -97,6 +94,7 @@ public class WeatherDataService {
             public void onError(String errorMessage) {
                 // Toast displaying error message if getCityID fails
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                forecastByNameCallback.onError("Something went wrong");
             }
 
             @Override
@@ -142,12 +140,36 @@ public class WeatherDataService {
                 e.printStackTrace();
             }
 
-        }, error -> {
-            forecastByDateCallback.onError("Something went wrong");
-        });
+        }, error -> forecastByDateCallback.onError("Something went wrong"));
 
         Singleton.getInstance(context).addToRequestQueue(request);
+    }
 
+    public interface FavouritesCallback {
+        void onResponse(ArrayList<WeatherReportModel> weatherReportModels);
+    }
+
+    public void getFavourites(String[] cityNames, FavouritesCallback favouritesCallback) {
+        ArrayList<WeatherReportModel> favouriteReports = new ArrayList<>();
+
+        for (String name : cityNames) {
+            getCityForecastByName(name, new ForecastByNameCallback() {
+                @Override
+                public void onError(String errorMessage) {
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
+                    WeatherReportModel weatherReportModel = weatherReportModels.get(0);
+                    favouriteReports.add(weatherReportModel);
+
+                    if (favouriteReports.size() == cityNames.length) {
+                        favouritesCallback.onResponse(favouriteReports);
+                    }
+                }
+            });
+        }
     }
 
     // Helper method that constructs a new WeatherReportModel
