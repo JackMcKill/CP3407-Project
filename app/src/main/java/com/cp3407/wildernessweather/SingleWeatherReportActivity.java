@@ -51,6 +51,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             // Get the report from the intent and unwrap it
             singleWeatherReport = (WeatherReportModel) Parcels.unwrap(getIntent().getParcelableExtra("report"));
             populateFields();
+            updateFavouriteButton();
 
         } else {
             Log.i("Parcelable", "No parcelable object received");
@@ -76,6 +77,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     // Adds the single weather report to the local database
+
     public void addToDatabase(View view) {
         viewModel.insert(singleWeatherReport); // TODO The ID value provided by metaweather is irrelevant to us, we need to create our own ID value for storing in the database
 
@@ -100,6 +102,20 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         humidityView.setText(String.valueOf(singleWeatherReport.getHumidity() + "%"));
         visibilityView.setText(String.valueOf((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "mi"));
         predictabilityView.setText(String.valueOf(singleWeatherReport.getPredictability() + "%"));
+    }
+
+    private void updateFavouriteButton() {
+
+        final ImageButton favouriteButton = findViewById(R.id.btn_favourite);
+        favouriteButton.setImageResource(R.drawable.ic_favourite_gray);
+        // TODO: set button image to ic_favourite if location is in favourites, else ic_favourite_gray.
+        // This means that we need to keep track of which locations we have favourited.
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                // TODO: favourite method in WeatherReportModel.
+                favouriteButton.setImageResource(R.drawable.ic_favourite);
+            }
+        });
     }
 
     /**
