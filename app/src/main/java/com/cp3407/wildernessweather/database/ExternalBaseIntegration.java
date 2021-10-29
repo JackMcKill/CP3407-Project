@@ -86,7 +86,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             weatherReportModel.setWindDirectionCompass(string_list[10]);
             weatherReportModel.setAirPressure(Integer.parseInt(string_list[11]));
             weatherReportModel.setHumidity(Integer.parseInt(string_list[12]));
-            weatherReportModel.setVisibility(Integer.parseInt(string_list[13]));
+            weatherReportModel.setVisibility(Float.parseFloat(string_list[13]));
             weatherReportModel.setPredictability(Integer.parseInt(string_list[14]));
             weatherReportModel.setTrueID(Long.parseLong(string_list[15]));
             weatherReportModel.setCityName(string_list[16]);
@@ -118,18 +118,15 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         Log.i("external db", "writing to external db");
         Statement st = con.createStatement();
         // These will change every time in the for loop to insert data
-        query = "INSERT INTO Weatherapp VALUES ('101', 'Light Rain', 'lr', 'north', '19', '2020-11-27', '25.0', '45.0', '26.0', '11.0', '0.0', '123', '12', '24', '44', '1235123815', 'Brisbane', '1123141')";
-        st.executeUpdate(query);
+        weatherReportModelToWrite = new WeatherReportModel();
+        for (int i = 0; i < jacksList.size(); i++) {
+            weatherReportModelToWrite = jacksList.get(i);
+            Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
 
-//        weatherReportModelToWrite = new WeatherReportModel();
-//        for (int i = 0; i < jacksList.size(); i++) {
-//            weatherReportModelToWrite = jacksList.get(i);
-//            Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
-//
-//            weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
-//            query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
-//            st.executeQuery(query);
-//        }
+            weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
+            query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
+            st.executeUpdate(query);
+        }
 
         // #TODO should somehow call internal database to delete data after this is done?
         Log.i("external db", "Finished writing to database");
@@ -139,8 +136,9 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     protected void onPostExecute(Object result) {
         // When connection made send to activity.
 
-        Log.i("external db", "Finished everything");
+        Log.i("external db", "Finished everything: " + result.getClass());
         delegate.processFinish(result);
+
     }
 
     public interface AsyncResponse {
