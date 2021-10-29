@@ -23,6 +23,8 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     List<WeatherReportModel> weatherReportModelReadList;
 
     List<WeatherReportModel> jacksList;
+    String weather_report_model_data;
+    String query;
 
     List<WeatherReportModel> dataBaseOutput;
 
@@ -115,19 +117,19 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         // This function will act as a writing to database from local database data.
         Log.i("external db", "writing to external db");
         Statement st = con.createStatement();
-        // #TODO for loop here for all different things to insert
-
         // These will change every time in the for loop to insert data
+        query = "INSERT INTO Weatherapp VALUES ('101', 'Light Rain', 'lr', 'north', '19', '2020-11-27', '25.0', '45.0', '26.0', '11.0', '0.0', '123', '12', '24', '44', '1235123815', 'Brisbane', '1123141')";
+        st.executeUpdate(query);
 
-        weatherReportModelToWrite = new WeatherReportModel();
-        for (int i = 0; i < jacksList.size(); i++) {
-            weatherReportModelToWrite = jacksList.get(i);
-            Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.getCityName());
-            
-//            String weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
-//            String query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
+//        weatherReportModelToWrite = new WeatherReportModel();
+//        for (int i = 0; i < jacksList.size(); i++) {
+//            weatherReportModelToWrite = jacksList.get(i);
+//            Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
+//
+//            weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
+//            query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
 //            st.executeQuery(query);
-        }
+//        }
 
         // #TODO should somehow call internal database to delete data after this is done?
         Log.i("external db", "Finished writing to database");
