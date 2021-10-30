@@ -27,6 +27,7 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
 
     public View getView(int position, View convertView, ViewGroup parent) {
         String cityName = getItem(position).getCityName();
+        String applicableDate = convertDateString(getItem(position).getApplicableDate());
         String weatherStateAbbr = getItem(position).getWeatherStateAbbr();
         float minTemp;
         float maxTemp;
@@ -44,11 +45,13 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView cityNameView = convertView.findViewById(R.id.tv_cityName);
+        TextView applicableDateView = convertView.findViewById(R.id.tv_applicableDate);
         TextView minTempView = convertView.findViewById(R.id.tv_minTemp);
         TextView maxTempView = convertView.findViewById(R.id.tv_maxTemp);
         ImageView weatherStateImage = convertView.findViewById(R.id.iv_stateImage);
 
         cityNameView.setText(String.valueOf(cityName));
+        applicableDateView.setText(String.valueOf(applicableDate));
         minTempView.setText(Math.round(minTemp) + "°");
         maxTempView.setText(Math.round(maxTemp) + "°");
 
@@ -56,5 +59,16 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
         weatherStateImage.setImageResource(weatherStateImageResID);
 
         return convertView;
+    }
+
+    /**
+     * Converts date string in format YYYY-MM-DD to the format DD/MM/YYYY.
+     *
+     * @param dateString date string in old format.
+     * @return date string in new format.
+     */
+    public String convertDateString(String dateString) {
+        String[] parts = dateString.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
 }
