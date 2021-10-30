@@ -254,4 +254,25 @@ public class WeatherReportModel {
                 applicableDate, String.valueOf(minTemp), String.valueOf(maxTemp), String.valueOf(theTemp), String.valueOf(windSpeed),
                 String.valueOf(windDirection), String.valueOf(airPressure), String.valueOf(humidity), String.valueOf(visibility), String.valueOf(predictability)};
     }
+
+    public String exportToDatabaseString() {
+        return "'" + trueID + "', " +
+                "'" + weatherStateName + "', " +
+                "'" + weatherStateAbbr + "', " +
+                "'" + windDirectionCompass + "', " +
+                "'" + created + "', " +
+                "'" + applicableDate + "', " +
+                "'" + minTemp + "', " +
+                "'" + maxTemp + "', " +
+                "'" + theTemp + "', " +
+                "'" + windSpeed + "', " +
+                "'" + windDirection + "', " +
+                "'" + airPressure + "', " +
+                "'" + humidity + "', " +
+                "'" + visibility + "', " +
+                "'" + predictability + "', " +
+                "'" + cityName + "', " +
+                "'" + woeid + "'";
+    }
+
 }

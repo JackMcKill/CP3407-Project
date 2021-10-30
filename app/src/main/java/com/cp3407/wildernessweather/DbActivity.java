@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cp3407.wildernessweather.database.ConnectToDatabase;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
     private RecyclerView recyclerView;
     private WeatherReportViewModel viewModel;
     private WeatherReportListAdapter adapter;
-    TextView databaseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +50,6 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
                 adapter.setWeatherReports(weatherReportModels);
             }
         });
-
-        databaseTextView = findViewById(R.id.connectionStatus);
-
-        // Begin ASync task to collect data from database.
-        ConnectToDatabase asyncTask = new ConnectToDatabase(new ConnectToDatabase.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                databaseTextView.setText(output);
-            }
-        });
-        asyncTask.execute();
     }
 
     @Override
