@@ -183,7 +183,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
             stateView.setText(singleWeatherReport.getWeatherStateName());
             // Set weather state image field to correct resource.
-            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            int weatherStateImageResID = getResources().getIdentifier("ic_" + singleWeatherReport.getWeatherStateAbbr(), "drawable", getPackageName());
+            stateImage.setImageResource(weatherStateImageResID);
             // Convert date string before inserting.
             applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
             minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
@@ -201,7 +202,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
             stateView.setText(singleWeatherReport.getWeatherStateName());
             // Set weather state image field to correct resource.
-            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            int weatherStateImageResID = getResources().getIdentifier("ic_" + singleWeatherReport.getWeatherStateAbbr(), "drawable", getPackageName());
+            stateImage.setImageResource(weatherStateImageResID);
             // Convert date string before inserting.
             applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
             minTempView.setText(" " + Math.round(singleWeatherReport.getMinTempImperial()) + "°");
@@ -235,8 +237,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             isFavourite = false;
         }
 
-        // TODO: set button image to ic_favourite if location is in favourites, else ic_favourite_gray.
-        // This means that we need to keep track of which locations we have favourited.
         favouriteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 toggleFavourite(isFavourite);
@@ -259,26 +259,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         editor.apply();
         Log.i("favourites", "favourites: " + favouriteLocations);
         updateFavouriteButton();
-    }
-
-    /**
-     * Returns the resource id of the image that corresponds to a weather state abbreviation.
-     * For example:
-     * "lc" -> R.drawable.light_cloud
-     * "hr" -> R.drawable.heavy_rain
-     *
-     * @param abbreviation weather state abbreviation to get image for.
-     * @return resource id of the corresponding image.
-     */
-    public int getStateImageResId(String abbreviation) {
-        switch (abbreviation) {
-            case "c":
-                return R.drawable.clear;
-            case "lc":
-                return R.drawable.light_cloud;
-            default:
-                return R.drawable.clear;
-        }
     }
 
     /**
