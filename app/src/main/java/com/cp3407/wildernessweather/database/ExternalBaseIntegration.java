@@ -118,17 +118,23 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         Log.i("external db", "writing to external db");
         Statement st = con.createStatement();
         // These will change every time in the for loop to insert data
-        weatherReportModelToWrite = new WeatherReportModel();
-        for (int i = 0; i < jacksList.size(); i++) {
-            weatherReportModelToWrite = jacksList.get(i);
-            Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
+        // #TODO Use LOCATIONID(TRUEID) as main id point for database
 
-            weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
-            query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
-            st.executeUpdate(query);
-        }
+            weatherReportModelToWrite = new WeatherReportModel();
+            for (int i = 0; i < jacksList.size(); i++) {
+                try {
+                    weatherReportModelToWrite = jacksList.get(i);
+                    Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
 
-        // #TODO should somehow call internal database to delete data after this is done?
+                    weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
+                    query = "INSERT INTO Weatherapp VALUES(" + weather_report_model_data + ")";
+                    st.executeUpdate(query);
+                } catch (Exception e){
+                    Log.i("external db", "failed to write string");
+                }
+            }
+
+
         Log.i("external db", "Finished writing to database");
     }
 

@@ -1,6 +1,7 @@
 package com.cp3407.wildernessweather;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -75,11 +76,17 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
                     asyncTask.cancel(true);
                 } else {
                     tv_connectionStatus.setText("Connected. Fetching data from External DB...");
+                    try{
+                        databaseOutput = (List<WeatherReportModel>) output;
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
+                        adapter.setWeatherReports(databaseOutput);
+                    } catch (Exception e){
+                        tv_databaseDisplay.setText(e.toString());
+                        Log.i("external db", e.toString());
+                    }
 
-                    databaseOutput = (List<WeatherReportModel>) output;
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
-                    adapter.setWeatherReports(databaseOutput);
+
                 }
 
             }
