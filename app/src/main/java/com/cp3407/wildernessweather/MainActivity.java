@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
         initialiseList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialiseList();
+    }
+
     private String getDate() {
         Calendar calendar = Calendar.getInstance();
 
