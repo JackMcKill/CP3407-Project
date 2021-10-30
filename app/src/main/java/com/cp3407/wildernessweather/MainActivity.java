@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -15,7 +16,6 @@ import com.cp3407.wildernessweather.settings.SettingsActivity;
 
 import org.parceler.Parcels;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
@@ -108,11 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void initialiseList() {
-
-        dummySetSharedPreferences();
-        String[] cityNames = getFavCityNames();
+        String[] favouriteLocations = getFavCityNames();
         boolean isMetric = settingsData.getBoolean("isMetric", true);
-        weatherDataService.getFavourites(cityNames, weatherReportModels -> {
+        weatherDataService.getFavourites(favouriteLocations, weatherReportModels -> {
             WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
             locationList.setAdapter(adapter);
             locationList.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -124,23 +122,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void dummySetSharedPreferences() {
-        String[] testCityNames = {"Rome", "Paris", "New York"};
-
-        Set<String> citiesAsSet = convertArrayToSet(testCityNames);
-        SharedPreferences.Editor editor = favourites.edit();
-        editor.putStringSet("locations", citiesAsSet);
-
-        editor.apply();
-    }
-
     public String[] getFavCityNames() {
         Set<String> cityNamesAsSet = favourites.getStringSet("locations", new HashSet<>());
+        Log.i("favourites", "favourites: " + cityNamesAsSet);
         return convertSetToArray(cityNamesAsSet);
-    }
-
-    public <T> Set<T> convertArrayToSet(T[] array) {
-        return new HashSet<>(Arrays.asList(array));
     }
 
     public String[] convertSetToArray(Set<String> setOfString) {
