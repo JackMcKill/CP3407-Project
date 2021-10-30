@@ -47,7 +47,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
                 Log.i("jack", "inside doInBackground");
                 writeToDatabase(con);
                 dataBaseOutput = readDatabase(con);
-                return weatherReportModelPrintList;
+                return dataBaseOutput;
             }
         } catch (Exception e) {
             e.printStackTrace();

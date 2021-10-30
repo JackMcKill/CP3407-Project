@@ -20,12 +20,12 @@ import java.util.List;
 
 public class ExternalDatabaseActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
     TextView tv_connectionStatus, tv_databaseDisplay;
-    Button btn_getData, btn_retryConnection;
+    Button btn_retryConnection;
     ExternalBaseIntegration asyncTask;
 
     private WeatherReportListAdapter adapter;
     List<WeatherReportModel> databaseOutput;
-    List<WeatherReportModel> jacksList;
+    List<WeatherReportModel> localDatabaseList;
 
     private WeatherReportViewModel viewModel;
     private RecyclerView recyclerView;
@@ -40,11 +40,10 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
 
         tv_connectionStatus = findViewById(R.id.connectionStatus);
         tv_databaseDisplay = findViewById(R.id.databaseString);
-        btn_getData = findViewById(R.id.getData);
         btn_retryConnection = findViewById(R.id.retryConButton);
 
 
-        jacksList = new ArrayList<>();
+        localDatabaseList = new ArrayList<>();
 
 
         recyclerView = findViewById(R.id.weatherReportList);
@@ -55,13 +54,13 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
 
         // Begin ASync task to collect data from database.
         viewModel.getAllWeatherReports().observe(this, weatherReportModels -> {
-            jacksList = weatherReportModels;
+            localDatabaseList = weatherReportModels;
             createAsyncTask();
         });
     }
 
     private void createAsyncTask() {
-        asyncTask = new ExternalBaseIntegration(jacksList, new ExternalBaseIntegration.AsyncResponse() {
+        asyncTask = new ExternalBaseIntegration(localDatabaseList, new ExternalBaseIntegration.AsyncResponse() {
             @Override
             public void processFinish(Object output) {
                 if (output == null) {
@@ -70,12 +69,12 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
                     asyncTask.cancel(true);
                 } else {
                     tv_connectionStatus.setText("Connected. Fetching data from External DB...");
-                    try{
+                    try {
                         databaseOutput = (List<WeatherReportModel>) output;
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
                         adapter.setWeatherReports(databaseOutput);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         tv_databaseDisplay.setText(e.toString());
                         Log.i("external db", e.toString());
                     }
@@ -90,10 +89,6 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
     }
 
 
-    public void fetchDataPressed(View view) {
-
-//        displayExternalDatabase();
-    }
 
     public void retryConnectionPressed(View view) {
         btn_retryConnection.setVisibility(View.INVISIBLE);
