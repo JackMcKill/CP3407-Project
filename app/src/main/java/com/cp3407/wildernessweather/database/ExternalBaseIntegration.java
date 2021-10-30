@@ -64,16 +64,16 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         //Selects all from Test Table
         ResultSet rs = st.executeQuery("select * from Weatherapp");
         ResultSetMetaData rsmd = rs.getMetaData();
-        String[] string_list = new String[18];
+        String[] string_list = new String[17];
         weatherReportModelReadList = new ArrayList<WeatherReportModel>();
         // While loop goes through all different entries
         while (rs.next()) {
             weatherReportModel = new WeatherReportModel();
             // For loop collects 1 entry from external database
-            for (int i = 0; i < 18; i++) {
+            for (int i = 0; i < 17; i++) {
                 string_list[i] = rs.getString(i + 1);
             }
-            weatherReportModel.setId(Long.parseLong(string_list[0]));
+            weatherReportModel.setTrueID(Long.parseLong(string_list[0]));
             weatherReportModel.setWeatherStateName(string_list[1]);
             weatherReportModel.setWeatherStateAbbr(string_list[2]);
             weatherReportModel.setWindDirectionCompass(string_list[3]);
@@ -88,9 +88,8 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
             weatherReportModel.setHumidity(Integer.parseInt(string_list[12]));
             weatherReportModel.setVisibility(Float.parseFloat(string_list[13]));
             weatherReportModel.setPredictability(Integer.parseInt(string_list[14]));
-            weatherReportModel.setTrueID(Long.parseLong(string_list[15]));
-            weatherReportModel.setCityName(string_list[16]);
-            weatherReportModel.setWoeid(string_list[17]);
+            weatherReportModel.setCityName(string_list[15]);
+            weatherReportModel.setWoeid(string_list[16]);
             weatherReportModelReadList.add(weatherReportModel);
             Log.i("external db", weatherReportModelReadList.toString());
         }
@@ -118,7 +117,6 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         Log.i("external db", "writing to external db");
         Statement st = con.createStatement();
         // These will change every time in the for loop to insert data
-        // #TODO Use LOCATIONID(TRUEID) as main id point for database
 
             weatherReportModelToWrite = new WeatherReportModel();
             for (int i = 0; i < jacksList.size(); i++) {
