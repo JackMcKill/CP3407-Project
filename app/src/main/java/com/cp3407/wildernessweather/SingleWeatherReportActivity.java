@@ -222,6 +222,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         final ImageButton favouriteButton = findViewById(R.id.btn_favourite);
         // Get favourites as a set
         Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
+        Log.i("favourites", "favourites: " + favouriteLocations);
 
         // If current location is in set, yellow star, else grey star
         if (favouriteLocations.contains(singleWeatherReport.getCityName())) {
@@ -246,19 +247,19 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     public void toggleFavourite(boolean isFavourite) {
         Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
         SharedPreferences.Editor editor = favourites.edit();
+        HashSet<String> favouriteLocationsEdited = new HashSet<String>(favouriteLocations);
         if (isFavourite) {
-            favouriteLocations.remove(singleWeatherReport.getCityName());
+            favouriteLocationsEdited.remove(singleWeatherReport.getCityName());
             Log.i("favourites", "removing this from favourites");
         } else {
-            favouriteLocations.add(singleWeatherReport.getCityName());
+            favouriteLocationsEdited.add(singleWeatherReport.getCityName());
             Log.i("favourites", "adding this to favourites");
         }
-        editor.putStringSet("locations", favouriteLocations);
+        editor.putStringSet("locations", favouriteLocationsEdited);
         editor.apply();
         Log.i("favourites", "favourites: " + favouriteLocations);
         updateFavouriteButton();
     }
-
 
     /**
      * Returns the resource id of the image that corresponds to a weather state abbreviation.
