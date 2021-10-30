@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,23 +12,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.ExternalBaseIntegration;
+import com.cp3407.wildernessweather.database.ExternalWeatherReportListAdapter;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExternalDatabaseActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
+public class ExternalDatabaseActivity extends AppCompatActivity {
     TextView tv_connectionStatus, tv_databaseDisplay;
     Button btn_retryConnection;
     ExternalBaseIntegration asyncTask;
 
-    private WeatherReportListAdapter adapter;
+    private ExternalWeatherReportListAdapter adapter;
     List<WeatherReportModel> databaseOutput;
     List<WeatherReportModel> localDatabaseList;
 
     private WeatherReportViewModel viewModel;
     private RecyclerView recyclerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +41,12 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
         tv_databaseDisplay = findViewById(R.id.databaseString);
         btn_retryConnection = findViewById(R.id.retryConButton);
 
-
         localDatabaseList = new ArrayList<>();
 
-
         recyclerView = findViewById(R.id.weatherReportList);
-        adapter = new WeatherReportListAdapter(this, this);
+        adapter = new ExternalWeatherReportListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         // Begin ASync task to collect data from database.
         viewModel.getAllWeatherReports().observe(this, weatherReportModels -> {
@@ -78,29 +74,16 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
                         tv_databaseDisplay.setText(e.toString());
                         Log.i("external db", e.toString());
                     }
-
-
                 }
-
             }
-
         });
         asyncTask.execute();
     }
-
-
 
     public void retryConnectionPressed(View view) {
         btn_retryConnection.setVisibility(View.INVISIBLE);
         asyncTask.cancel(true);
         tv_connectionStatus.setText("Attempting to reconnect...");
         createAsyncTask();
-
-    }
-
-    @Override
-    public void OnDeleteClickListener(WeatherReportModel myModel) {
-        Toast.makeText(this, "Item Deleted", Toast.LENGTH_SHORT).show();
-        viewModel.delete(myModel);
     }
 }
