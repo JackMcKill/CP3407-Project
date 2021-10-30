@@ -24,9 +24,12 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 import org.parceler.Parcels;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
+    private SharedPreferences favourites;
 
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
@@ -47,6 +50,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
 
         cityNameView = findViewById(R.id.tv_title);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -214,18 +218,47 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     }
 
     private void updateFavouriteButton() {
-
+        boolean isFavourite;
         final ImageButton favouriteButton = findViewById(R.id.btn_favourite);
-        favouriteButton.setImageResource(R.drawable.ic_favourite_gray);
+        // Get favourites as a set
+        Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
+
+        // If current location is in set, yellow star, else grey star
+        if (favouriteLocations.contains(singleWeatherReport.getCityName())) {
+            Log.i("favourites", "this is a favourite");
+            favouriteButton.setImageResource(R.drawable.ic_favourite);
+            isFavourite = true;
+        } else {
+            Log.i("favourites", "this is not a favourite");
+            favouriteButton.setImageResource(R.drawable.ic_favourite_gray);
+            isFavourite = false;
+        }
+
         // TODO: set button image to ic_favourite if location is in favourites, else ic_favourite_gray.
         // This means that we need to keep track of which locations we have favourited.
         favouriteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
-                // TODO: favourite method in WeatherReportModel.
-                favouriteButton.setImageResource(R.drawable.ic_favourite);
+            public void onClick(View v) {
+                toggleFavourite(isFavourite);
             }
         });
     }
+
+    public void toggleFavourite(boolean isFavourite) {
+        Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
+        SharedPreferences.Editor editor = favourites.edit();
+        if (isFavourite) {
+            favouriteLocations.remove(singleWeatherReport.getCityName());
+            Log.i("favourites", "removing this from favourites");
+        } else {
+            favouriteLocations.add(singleWeatherReport.getCityName());
+            Log.i("favourites", "adding this to favourites");
+        }
+        editor.putStringSet("locations", favouriteLocations);
+        editor.apply();
+        Log.i("favourites", "favourites: " + favouriteLocations);
+        updateFavouriteButton();
+    }
+
 
     /**
      * Returns the resource id of the image that corresponds to a weather state abbreviation.
