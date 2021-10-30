@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cp3407.wildernessweather.database.ExternalBaseIntegration;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +22,10 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
     TextView tv_connectionStatus, tv_databaseDisplay;
     Button btn_getData, btn_retryConnection;
     ExternalBaseIntegration asyncTask;
-    Connection con;
+
     private WeatherReportListAdapter adapter;
     List<WeatherReportModel> databaseOutput;
     List<WeatherReportModel> jacksList;
-    ListView lv_display;
-
-    boolean isReady;
 
     private WeatherReportViewModel viewModel;
     private RecyclerView recyclerView;
@@ -48,7 +43,6 @@ public class ExternalDatabaseActivity extends AppCompatActivity implements Weath
         btn_getData = findViewById(R.id.getData);
         btn_retryConnection = findViewById(R.id.retryConButton);
 
-        isReady = false;
 
         jacksList = new ArrayList<>();
 

@@ -22,7 +22,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     WeatherReportModel weatherReportModelToWrite;
     List<WeatherReportModel> weatherReportModelReadList;
 
-    List<WeatherReportModel> jacksList;
+    List<WeatherReportModel> weatherReportModelPrintList;
     String weather_report_model_data;
     String query;
 
@@ -30,11 +30,11 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
 
     public AsyncResponse delegate = null; //Call back interface
 
-    public ExternalBaseIntegration(List<WeatherReportModel> jacksList, AsyncResponse asyncResponse) {
+    public ExternalBaseIntegration(List<WeatherReportModel> weatherReportModelPrintList, AsyncResponse asyncResponse) {
         Log.i("jack", "inside constructor");
         delegate = asyncResponse; //Assigning call back interface through constructor
 
-        this.jacksList = jacksList;
+        this.weatherReportModelPrintList = weatherReportModelPrintList;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
                 Log.i("jack", "inside doInBackground");
                 writeToDatabase(con);
                 dataBaseOutput = readDatabase(con);
-                return jacksList;
+                return weatherReportModelPrintList;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,9 +119,9 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
         // These will change every time in the for loop to insert data
 
             weatherReportModelToWrite = new WeatherReportModel();
-            for (int i = 0; i < jacksList.size(); i++) {
+            for (int i = 0; i < weatherReportModelPrintList.size(); i++) {
                 try {
-                    weatherReportModelToWrite = jacksList.get(i);
+                    weatherReportModelToWrite = weatherReportModelPrintList.get(i);
                     Log.i("jack", "Taken from the list we passed in: " + weatherReportModelToWrite.exportToDatabaseString());
 
                     weather_report_model_data = weatherReportModelToWrite.exportToDatabaseString();
