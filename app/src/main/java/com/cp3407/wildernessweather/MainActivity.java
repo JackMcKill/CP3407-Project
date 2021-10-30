@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, APIactivity.class);
                 intent.putExtra("cityName", searchText);
+                finish();
                 startActivity(intent);
 
                 return false;
@@ -78,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        initialiseList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initialiseList();
     }
 
