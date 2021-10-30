@@ -24,9 +24,12 @@ import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 import org.parceler.Parcels;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
+    private SharedPreferences favourites;
 
     WeatherReportModel singleWeatherReport;
     WeatherReportViewModel viewModel;
@@ -47,6 +50,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
 
         cityNameView = findViewById(R.id.tv_title);
         stateView = findViewById(R.id.tv_weatherStateName);
@@ -68,6 +72,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         weatherDataService = new WeatherDataService(SingleWeatherReportActivity.this);
 
         singleWeatherReport = Parcels.unwrap(getIntent().getParcelableExtra("report"));
+        updateFavouriteButton();
 
         boolean isMetric = settingsData.getBoolean("isMetric", true);
         populateFields(isMetric);
@@ -178,7 +183,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
             stateView.setText(singleWeatherReport.getWeatherStateName());
             // Set weather state image field to correct resource.
-            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            int weatherStateImageResID = getResources().getIdentifier("ic_" + singleWeatherReport.getWeatherStateAbbr(), "drawable", getPackageName());
+            stateImage.setImageResource(weatherStateImageResID);
             // Convert date string before inserting.
             applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
             minTempView.setText(" " + Math.round(singleWeatherReport.getMinTemp()) + "°");
@@ -196,7 +202,8 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
             stateView.setText(singleWeatherReport.getWeatherStateName());
             // Set weather state image field to correct resource.
-            stateImage.setImageResource(getStateImageResId(singleWeatherReport.getWeatherStateAbbr()));
+            int weatherStateImageResID = getResources().getIdentifier("ic_" + singleWeatherReport.getWeatherStateAbbr(), "drawable", getPackageName());
+            stateImage.setImageResource(weatherStateImageResID);
             // Convert date string before inserting.
             applicableDateView.setText(String.valueOf(convertDateString(singleWeatherReport.getApplicableDate())));
             minTempView.setText(" " + Math.round(singleWeatherReport.getMinTempImperial()) + "°");
@@ -212,24 +219,46 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Returns the resource id of the image that corresponds to a weather state abbreviation.
-     * For example:
-     * "lc" -> R.drawable.light_cloud
-     * "hr" -> R.drawable.heavy_rain
-     *
-     * @param abbreviation weather state abbreviation to get image for.
-     * @return resource id of the corresponding image.
-     */
-    public int getStateImageResId(String abbreviation) {
-        switch (abbreviation) {
-            case "c":
-                return R.drawable.clear;
-            case "lc":
-                return R.drawable.light_cloud;
-            default:
-                return R.drawable.clear;
+    private void updateFavouriteButton() {
+        boolean isFavourite;
+        final ImageButton favouriteButton = findViewById(R.id.btn_favourite);
+        // Get favourites as a set
+        Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
+        Log.i("favourites", "favourites: " + favouriteLocations);
+
+        // If current location is in set, yellow star, else grey star
+        if (favouriteLocations.contains(singleWeatherReport.getCityName())) {
+            Log.i("favourites", "this is a favourite");
+            favouriteButton.setImageResource(R.drawable.ic_favourite);
+            isFavourite = true;
+        } else {
+            Log.i("favourites", "this is not a favourite");
+            favouriteButton.setImageResource(R.drawable.ic_favourite_gray);
+            isFavourite = false;
         }
+
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                toggleFavourite(isFavourite);
+            }
+        });
+    }
+
+    public void toggleFavourite(boolean isFavourite) {
+        Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
+        SharedPreferences.Editor editor = favourites.edit();
+        HashSet<String> favouriteLocationsEdited = new HashSet<String>(favouriteLocations);
+        if (isFavourite) {
+            favouriteLocationsEdited.remove(singleWeatherReport.getCityName());
+            Log.i("favourites", "removing this from favourites");
+        } else {
+            favouriteLocationsEdited.add(singleWeatherReport.getCityName());
+            Log.i("favourites", "adding this to favourites");
+        }
+        editor.putStringSet("locations", favouriteLocationsEdited);
+        editor.apply();
+        Log.i("favourites", "favourites: " + favouriteLocations);
+        updateFavouriteButton();
     }
 
     /**
