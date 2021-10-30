@@ -41,6 +41,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             airPressureView, humidityView, visibilityView, predictabilityView;
 
     ImageView stateImage;
+    ImageButton backButton, downloadButton, historyButton;
 
     private DatePickerDialog datePickerDialog;
     private ProgressDialog progressDialog;
@@ -66,6 +67,10 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         visibilityView = findViewById(R.id.tv_visibility);
         predictabilityView = findViewById(R.id.tv_predictability);
 
+        backButton = findViewById(R.id.btn_back);
+        downloadButton = findViewById(R.id.btn_download);
+        historyButton = findViewById(R.id.btn_SingleWeatherHistory);
+
         progressDialog = new ProgressDialog(SingleWeatherReportActivity.this);
 
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
@@ -85,28 +90,26 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             }
         });
 
-        // Setup custom app bar.
-
-        final ImageButton backButton = findViewById(R.id.btn_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        final ImageButton downloadButton = findViewById(R.id.btn_download);
-        downloadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    downloadData();
-//                    shareCSV();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
         updateDatabase();
+        intialiseButtons();
         initialiseDatePicker();
+    }
+
+    private void intialiseButtons() {
+        backButton.setOnClickListener(v -> finish());
+        downloadButton.setOnClickListener(v -> {
+            try {
+                downloadData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        historyButton.setOnClickListener(view -> {
+            Intent intent = new Intent(SingleWeatherReportActivity.this, DbActivity.class);
+            intent.putExtra("woeid", singleWeatherReport.getWoeid());
+            intent.putExtra("cityName", singleWeatherReport.getCityName());
+            startActivity(intent);
+        });
     }
 
     private void initialiseDatePicker() {

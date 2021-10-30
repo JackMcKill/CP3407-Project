@@ -1,6 +1,7 @@
 package com.cp3407.wildernessweather;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -29,11 +30,11 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
 
         // Setup custom app bar.
         TextView titleView = findViewById(R.id.tv_title);
-        titleView.setText(String.valueOf("DBActivity"));
+        titleView.setText(R.string.history);
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -43,13 +44,28 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        int woeid = Integer.parseInt(getIntent().getStringExtra("woeid"));
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
-        viewModel.getAllWeatherReports().observe(this, new Observer<List<WeatherReportModel>>() {
-            @Override
-            public void onChanged(List<WeatherReportModel> weatherReportModels) {
-                adapter.setWeatherReports(weatherReportModels);
-            }
-        });
+
+        if (woeid == 0) {
+            Log.i("database", "woeid = " + woeid);
+            viewModel.getAllWeatherReports().observe(this, new Observer<List<WeatherReportModel>>() {
+                @Override
+                public void onChanged(List<WeatherReportModel> weatherReportModels) {
+                    adapter.setWeatherReports(weatherReportModels);
+                }
+            });
+        } else {
+            titleView.setText(getIntent().getStringExtra("cityName") + " History");
+            Log.i("database", "woeid = " + woeid);
+            viewModel.getSelectWeatherReports(woeid).observe(this, new Observer<List<WeatherReportModel>>() {
+                @Override
+                public void onChanged(List<WeatherReportModel> weatherReportModels) {
+                    Log.i("database", "number of entries: " + weatherReportModels.size());
+                    adapter.setWeatherReports(weatherReportModels);
+                }
+            });
+        }
     }
 
     @Override

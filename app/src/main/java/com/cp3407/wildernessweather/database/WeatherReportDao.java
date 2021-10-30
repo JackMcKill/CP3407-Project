@@ -21,11 +21,10 @@ public interface WeatherReportDao {
     @Query("SELECT * FROM weather")
     LiveData<List<WeatherReportModel>> getAllWeatherReports();
 
-    @Query("SELECT * FROM weather WHERE trueID=:trueID")
-    LiveData<List<WeatherReportModel>> getWeatherReport(long trueID);
+    @Query("SELECT * FROM weather WHERE woeid=:woeid")
+    LiveData<List<WeatherReportModel>> getSelectWeatherReports(int woeid);
 
     @Delete
     int delete(WeatherReportModel weatherReportModel);
 
-    // TODO some form of update method
 }

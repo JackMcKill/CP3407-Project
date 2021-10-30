@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         currentDate = findViewById(R.id.tv_currentDate);
         searchBox = findViewById(R.id.sv_searchHomePage);
         settingsButton = findViewById(R.id.btn_settingsButton);
-        historyButton = findViewById(R.id.btn_historyButton);
+        historyButton = findViewById(R.id.btn_historyMain);
         locationList = findViewById(R.id.lv_locationList);
 
         searchBox.setQueryHint("Search");
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         historyButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, DbActivity.class);
+            intent.putExtra("woeid", "0");
             startActivity(intent);
         });
 
