@@ -7,43 +7,7 @@
     android:orientation="vertical"
     tools:context=".SingleWeatherReportActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:background="#FFFFFF"
-        android:weightSum="100">
-        <!-- Main vertical layout container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="100"
-            android:background="@drawable/city_name_layout_bg"
-            android:padding="12dp"
-            android:weightSum="100">
-            <!-- Back button -->
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:background="@android:drawable/list_selector_background"
-                android:rotation="180"
-                app:srcCompat="@drawable/ic_baseline_chevron_right_50" />
-            <!-- City name -->
-            <TextView
-                android:id="@+id/tv_cityName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="90"
-                android:autoSizeTextType="uniform"
-                android:paddingStart="12dp"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/custom_app_bar"/>
     <!-- Weather state section -->
     <LinearLayout
         android:layout_width="match_parent"

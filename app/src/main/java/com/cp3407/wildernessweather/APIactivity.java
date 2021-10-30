@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,18 @@ public class APIactivity extends AppCompatActivity {
         searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
         searchBox.setIconified(false);
         weatherDataService = new WeatherDataService(APIactivity.this);
+
+        // Setup custom app bar.
+        TextView titleView = findViewById(R.id.tv_title);
+        titleView.setText(String.valueOf("Location Search"));
+
+        final ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getWeatherReports(getIntent().getStringExtra("cityName"));
     }
 

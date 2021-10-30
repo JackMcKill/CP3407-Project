@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup custom app bar.
+        TextView titleView = findViewById(R.id.tv_title);
+        titleView.setText(String.valueOf("Wilderness Weather"));
+
         favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 

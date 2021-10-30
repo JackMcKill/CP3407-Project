@@ -48,7 +48,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_weather_report);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
-        cityNameView = findViewById(R.id.tv_cityName);
+        cityNameView = findViewById(R.id.tv_title);
         stateView = findViewById(R.id.tv_weatherStateName);
         stateImage = findViewById(R.id.iv_stateImage);
         applicableDateView = findViewById(R.id.tv_applicableDate);
@@ -80,10 +80,12 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             }
         });
 
+        // Setup custom app bar.
+
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                goBack();
+                finish();
             }
         });
 

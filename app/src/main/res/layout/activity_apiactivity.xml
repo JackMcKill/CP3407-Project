@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context=".APIactivity">
 
+    <include layout="@layout/custom_app_bar" />
+
     <SearchView
         android:id="@+id/sv_searchResultPage"
         android:layout_width="match_parent"

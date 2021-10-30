@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WildernessWeather" >
+        android:theme="@style/Theme.WildernessWeather.NoActionBar" >
         <activity
             android:name=".settings.WeatherSourceSettingsActivity"
             android:exported="true" />
@@ -31,7 +31,8 @@
             android:theme="@style/Theme.WildernessWeather.NoActionBar" />
         <activity
             android:name=".APIactivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WildernessWeather.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
