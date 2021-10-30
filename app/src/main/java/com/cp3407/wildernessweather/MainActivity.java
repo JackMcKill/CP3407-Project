@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, APIactivity.class);
                 intent.putExtra("cityName", searchText);
-                finish();
                 startActivity(intent);
 
                 return false;
