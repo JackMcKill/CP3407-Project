@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
     private WeatherDataService weatherDataService;
 
-    SearchView searchBox;
-    ListView locationList;
-    TextView currentDate, locationName;
-    ImageButton settingsButton;
+    private SearchView searchBox;
+    private ListView locationList;
+    private TextView currentDate, locationName;
+    private ImageButton settingsButton, historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         weatherDataService = new WeatherDataService(MainActivity.this);
 
         currentDate = findViewById(R.id.tv_currentDate);
-        locationName = findViewById(R.id.locationName);
         searchBox = findViewById(R.id.sv_searchHomePage);
         settingsButton = findViewById(R.id.btn_settingsButton);
+        historyButton = findViewById(R.id.btn_historyMain);
         locationList = findViewById(R.id.lv_locationList);
 
         searchBox.setQueryHint("Search");
@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
 
         settingsButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        });
+
+        historyButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, DbActivity.class);
+            intent.putExtra("woeid", "0");
             startActivity(intent);
         });
 

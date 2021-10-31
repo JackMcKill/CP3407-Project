@@ -115,10 +115,21 @@
             android:orientation="vertical"
             android:weightSum="100">
 
+            <!--History button-->
+            <ImageButton
+                android:id="@+id/btn_SingleWeatherHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:background="#00000000"
+                android:src="@drawable/ic_history" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="60" />
+                android:layout_weight="20" />
+
+
             <!-- Min temperature -->
             <TextView
                 android:id="@+id/tv_minTemp"

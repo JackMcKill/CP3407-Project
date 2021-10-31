@@ -36,8 +36,8 @@ public class WeatherReportViewModel extends AndroidViewModel {
     }
 
     // Wrapper function for returning a single weather report
-    public LiveData<List<WeatherReportModel>> getWeatherReport(long trueID) {
-        return weatherReportDao.getWeatherReport(trueID);
+    public LiveData<List<WeatherReportModel>> getSelectWeatherReports(int woeid) {
+        return weatherReportDao.getSelectWeatherReports(woeid);
     }
 
     // Wrapper function for deleting a weather report
