@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cp3407.wildernessweather.helperClasses.ForecastListAdapter;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;

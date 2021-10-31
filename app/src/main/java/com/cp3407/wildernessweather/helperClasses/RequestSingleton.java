@@ -1,4 +1,4 @@
-package com.cp3407.wildernessweather;
+package com.cp3407.wildernessweather.helperClasses;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

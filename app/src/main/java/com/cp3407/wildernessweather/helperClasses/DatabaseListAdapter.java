@@ -1,4 +1,4 @@
-package com.cp3407.wildernessweather;
+package com.cp3407.wildernessweather.helperClasses;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.cp3407.wildernessweather.R;
+import com.cp3407.wildernessweather.SingleWeatherReportActivity;
+import com.cp3407.wildernessweather.WeatherReportModel;
 
 import org.parceler.Parcels;
 

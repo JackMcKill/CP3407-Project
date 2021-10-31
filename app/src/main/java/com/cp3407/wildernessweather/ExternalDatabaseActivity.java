@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.ExternalDatabaseIntegration;
-import com.cp3407.wildernessweather.database.ExternalDatabaseListAdapter;
+import com.cp3407.wildernessweather.helperClasses.ExternalDatabaseListAdapter;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.util.ArrayList;

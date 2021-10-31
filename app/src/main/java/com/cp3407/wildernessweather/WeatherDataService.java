@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.cp3407.wildernessweather.helperClasses.RequestSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;

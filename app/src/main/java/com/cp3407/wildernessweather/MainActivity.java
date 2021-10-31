@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cp3407.wildernessweather.helperClasses.ForecastListAdapter;
 import com.cp3407.wildernessweather.settings.SettingsActivity;
 
 import org.parceler.Parcels;

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
+import com.cp3407.wildernessweather.helperClasses.DatabaseListAdapter;
 
 public class DatabaseActivity extends AppCompatActivity implements DatabaseListAdapter.OnDeleteClickListener {
 
