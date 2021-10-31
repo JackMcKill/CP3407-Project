@@ -36,6 +36,8 @@
     <string name="edit_favourites">Edit Favourites</string>
     <string name="search_city_name">Search City Name</string>
     <string name="history">History</string>
+    <string name="history_button">History Button</string>
+    <string name="settings_button">Settings button</string>
 
     <string-array name="units_of_measurement">
         <item>Metric</item>

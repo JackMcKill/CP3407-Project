@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
     private WeatherDataService weatherDataService;
 
-    private SearchView searchBox;
     private ListView locationList;
-    private TextView currentDate, locationName;
-    private ImageButton settingsButton, historyButton;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,17 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup custom app bar.
         TextView titleView = findViewById(R.id.tv_title);
-        titleView.setText(String.valueOf("Wilderness Weather"));
+        titleView.setText("Wilderness Weather");
 
         favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         weatherDataService = new WeatherDataService(MainActivity.this);
 
-        currentDate = findViewById(R.id.tv_currentDate);
-        searchBox = findViewById(R.id.sv_searchHomePage);
-        settingsButton = findViewById(R.id.btn_settingsButton);
-        historyButton = findViewById(R.id.btn_historyMain);
+        TextView currentDate = findViewById(R.id.tv_currentDate);
+        SearchView searchBox = findViewById(R.id.sv_searchHomePage);
+        ImageButton settingsButton = findViewById(R.id.btn_settingsButton);
+        ImageButton historyButton = findViewById(R.id.btn_historyMain);
         locationList = findViewById(R.id.lv_locationList);
 
         searchBox.setQueryHint("Search");
