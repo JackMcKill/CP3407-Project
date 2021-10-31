@@ -1,66 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExternalDatabaseActivity">
+    tools:context=".ExternalDatabaseActivity"
+    android:orientation="vertical"
+    android:background="@drawable/bg_home">
 
-    <TableLayout
+    <include layout="@layout/custom_app_bar" />
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="External Database:"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ConnectionStatus: "
-            tools:ignore="MissingConstraints" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trying to connect..."
-            android:id="@+id/connectionStatus"
-            tools:ignore="MissingConstraints" />
-        <Button
-            android:id="@+id/getData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Data"
-            android:enabled="false"
-            android:onClick="fetchDataPressed"
-            />
-        <Button
-            android:id="@+id/retryConButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Retry Con"
-            android:visibility="invisible"
-            android:onClick="retryConnectionPressed"
-            />
+        android:text="@string/trying_to_connect"
+        android:textSize="30sp"
+        android:id="@+id/connectionStatus"
+        tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/databaseString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DBSTRING"
-            tools:ignore="MissingConstraints" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/weatherReportList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weatherReportList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_home">
 
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </TableLayout>
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/retryConButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retry_con"
+        android:visibility="invisible"
+        android:onClick="retryConnectionPressed"
+        tools:ignore="UsingOnClickInXml" />
 
 
 

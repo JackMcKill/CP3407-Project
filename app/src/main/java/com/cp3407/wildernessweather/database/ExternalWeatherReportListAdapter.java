@@ -2,26 +2,34 @@ package com.cp3407.wildernessweather.database;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.R;
+import com.cp3407.wildernessweather.SingleWeatherReportActivity;
 import com.cp3407.wildernessweather.WeatherReportModel;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<ExternalWeatherReportListAdapter.ExternalWeatherReportViewHolder> {
 
     private final LayoutInflater layoutInflater;
+    private Context context;
     private List<WeatherReportModel> weatherReports;
 
     public ExternalWeatherReportListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @NonNull
@@ -55,20 +63,34 @@ public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<Exter
         notifyDataSetChanged();
     }
 
-    public static class ExternalWeatherReportViewHolder extends RecyclerView.ViewHolder {
-        private final TextView listItemCityName;
-        private final TextView listItemDate;
+    public class ExternalWeatherReportViewHolder extends RecyclerView.ViewHolder {
+        private TextView listItemCityName;
+        private TextView listItemDate;
+        private LinearLayout listItem;
+        private int position;
 
         public ExternalWeatherReportViewHolder(@NonNull View itemView) {
             super(itemView);
+            listItem = itemView.findViewById(R.id.ll_itemRowExternal);
             listItemCityName = itemView.findViewById(R.id.tv_itemCityNameExternal);
             listItemDate = itemView.findViewById(R.id.tv_itemDateExternal);
+            listItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("recyclerView", "Item " + position + " pressed");
+                    // Opens a new SingleWeatherReportActivity - does not populate fields yet.
+                    Intent intent = new Intent(context, SingleWeatherReportActivity.class);
+                    intent.putExtra("report", Parcels.wrap(weatherReports.get(position)));
+                    context.startActivity(intent);
+                }
+            });
         }
 
         // This method is setting the weather report item into the recyclerView
         public void setData(long id, String cityName, String date, int position) {
             listItemCityName.setText(cityName);
             listItemDate.setText(date);
+            this.position = position;
         }
     }
 }

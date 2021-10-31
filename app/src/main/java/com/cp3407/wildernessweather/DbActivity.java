@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,18 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
-import java.util.List;
-
 public class DbActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
 
-    private RecyclerView rv_databaseList;
     private WeatherReportViewModel viewModel;
     private WeatherReportListAdapter adapter;
 
@@ -31,41 +28,36 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         // Setup custom app bar.
         TextView tv_title = findViewById(R.id.tv_title);
         tv_title.setText(R.string.history);
+        ImageButton btn_externalDB = findViewById(R.id.btn_externalDB);
 
         final ImageButton btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btn_back.setOnClickListener(v -> finish());
 
-        rv_databaseList = findViewById(R.id.rv_databaseList);
+        RecyclerView recyclerView = findViewById(R.id.rv_databaseList);
         adapter = new WeatherReportListAdapter(this, this);
-        rv_databaseList.setAdapter(adapter);
-        rv_databaseList.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         int woeid = Integer.parseInt(getIntent().getStringExtra("woeid"));
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
         if (woeid == 0) {
             Log.i("database", "woeid = " + woeid);
-            viewModel.getAllWeatherReports().observe(this, new Observer<List<WeatherReportModel>>() {
-                @Override
-                public void onChanged(List<WeatherReportModel> weatherReportModels) {
-                    adapter.setWeatherReports(weatherReportModels);
-                }
-            });
+            viewModel.getAllWeatherReports().observe(this, weatherReportModels -> adapter.setWeatherReports(weatherReportModels));
         } else {
             tv_title.setText(getIntent().getStringExtra("cityName") + " History");
+            btn_externalDB.setVisibility(View.INVISIBLE);
             Log.i("database", "woeid = " + woeid);
-            viewModel.getSelectWeatherReports(woeid).observe(this, new Observer<List<WeatherReportModel>>() {
-                @Override
-                public void onChanged(List<WeatherReportModel> weatherReportModels) {
-                    Log.i("database", "number of entries: " + weatherReportModels.size());
-                    adapter.setWeatherReports(weatherReportModels);
-                }
+            viewModel.getSelectWeatherReports(woeid).observe(this, weatherReportModels -> {
+                Log.i("database", "number of entries: " + weatherReportModels.size());
+                adapter.setWeatherReports(weatherReportModels);
             });
         }
+
+        btn_externalDB.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ExternalDatabaseActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

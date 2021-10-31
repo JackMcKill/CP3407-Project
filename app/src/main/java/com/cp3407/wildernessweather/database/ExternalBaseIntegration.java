@@ -8,7 +8,6 @@ import com.cp3407.wildernessweather.WeatherReportModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
 
     List<WeatherReportModel> dataBaseOutput;
 
-    public AsyncResponse delegate = null; //Call back interface
+    public AsyncResponse delegate; //Call back interface
 
     public ExternalBaseIntegration(List<WeatherReportModel> weatherReportModelPrintList, AsyncResponse asyncResponse) {
         Log.i("jack", "inside constructor");
@@ -59,13 +58,11 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
     public List<WeatherReportModel> readDatabase(Connection con) throws SQLException {
         Log.i("external db", "Reading database");
         // Once connection is made begin building output
-        StringBuilder result = new StringBuilder();
         Statement st = con.createStatement();
         //Selects all from Test Table
         ResultSet rs = st.executeQuery("select * from Weatherapp");
-        ResultSetMetaData rsmd = rs.getMetaData();
         String[] string_list = new String[17];
-        weatherReportModelReadList = new ArrayList<WeatherReportModel>();
+        weatherReportModelReadList = new ArrayList<>();
         // While loop goes through all different entries
         while (rs.next()) {
             weatherReportModel = new WeatherReportModel();

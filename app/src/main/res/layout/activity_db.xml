@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".DbActivity">
 
-    <include layout="@layout/custom_app_bar" />
+    <include layout="@layout/custom_app_bar_database" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_databaseList"
