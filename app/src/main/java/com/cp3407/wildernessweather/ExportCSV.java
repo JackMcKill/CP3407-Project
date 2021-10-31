@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import org.supercsv.io.CsvListWriter;
@@ -26,7 +27,7 @@ public class ExportCSV {
         ICsvListWriter listWriter = null;
         try {
             Log.i("export", "Start");
-            String path = "/data/data/com.cp3407.wildernessweather/" + weatherReportModel.getCityName() + "-" + weatherReportModel.getApplicableDate() + ".csv";
+            @SuppressLint("SdCardPath") String path = "/data/data/com.cp3407.wildernessweather/" + weatherReportModel.getCityName() + "-" + weatherReportModel.getApplicableDate() + ".csv";
 
             listWriter = new CsvListWriter(new FileWriter(path),
                     CsvPreference.STANDARD_PREFERENCE);

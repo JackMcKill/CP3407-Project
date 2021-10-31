@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.android.volley.Request;
@@ -7,8 +8,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class Singleton {
+    @SuppressLint("StaticFieldLeak")
     private static Singleton instance;
     private RequestQueue requestQueue;
+    @SuppressLint("StaticFieldLeak")
     private static Context ctx;
 
     private Singleton(Context context) {

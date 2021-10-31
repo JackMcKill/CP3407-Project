@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -9,8 +10,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +27,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SingleWeatherReportActivity extends AppCompatActivity {
-    private SharedPreferences settingsData;
     private SharedPreferences favourites;
 
     WeatherReportModel singleWeatherReport;
@@ -50,7 +48,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_weather_report);
-        settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
         favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
 
         cityNameView = findViewById(R.id.tv_title);
@@ -82,12 +80,9 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         boolean isMetric = settingsData.getBoolean("isMetric", true);
         populateFields(isMetric);
 
-        applicableDateView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open a date-picker pop-up
-                datePickerDialog.show();
-            }
+        applicableDateView.setOnClickListener(view -> {
+            // open a date-picker pop-up
+            datePickerDialog.show();
         });
 
         updateDatabase();
@@ -114,17 +109,14 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
 
     private void initialiseDatePicker() {
         // Runs when new date is set
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1; // Default behaviour is Jan = 0, Dec = 11. This line changes it to Jan = 1, Dec = 12.
-                String displayDate = convertDateString(day, month, year);
-                String apiCallDate = convertDateString(year, month, day); // This is just the date in YYYY/MM/DD format, to be used in the API call below
-                // Convert date string before inserting.
-                applicableDateView.setText(displayDate);
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month += 1; // Default behaviour is Jan = 0, Dec = 11. This line changes it to Jan = 1, Dec = 12.
+            String displayDate = convertDateString(day, month, year);
+            String apiCallDate = convertDateString(year, month, day); // This is just the date in YYYY/MM/DD format, to be used in the API call below
+            // Convert date string before inserting.
+            applicableDateView.setText(displayDate);
 
-                goToNewDate(apiCallDate);
-            }
+            goToNewDate(apiCallDate);
         };
         String initialDate = singleWeatherReport.getApplicableDate();
 
@@ -181,6 +173,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void populateFields(boolean isMetric) {
         if (isMetric) {
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
@@ -200,7 +193,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             visibilityView.setText((Math.round(singleWeatherReport.getVisibility() * 100.0) / 100.0) + "km");
             predictabilityView.setText(singleWeatherReport.getPredictability() + "%");
         } else {
-            // TODO change the vales to the imperial system
+            // change the vales to the imperial system
 
             cityNameView.setText(String.valueOf(singleWeatherReport.getCityName()));
             stateView.setText(singleWeatherReport.getWeatherStateName());
@@ -240,17 +233,13 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             isFavourite = false;
         }
 
-        favouriteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                toggleFavourite(isFavourite);
-            }
-        });
+        favouriteButton.setOnClickListener(v -> toggleFavourite(isFavourite));
     }
 
     public void toggleFavourite(boolean isFavourite) {
         Set<String> favouriteLocations = favourites.getStringSet("locations", new HashSet<>());
         SharedPreferences.Editor editor = favourites.edit();
-        HashSet<String> favouriteLocationsEdited = new HashSet<String>(favouriteLocations);
+        HashSet<String> favouriteLocationsEdited = new HashSet<>(favouriteLocations);
         if (isFavourite) {
             favouriteLocationsEdited.remove(singleWeatherReport.getCityName());
             Log.i("favourites", "removing this from favourites");
@@ -287,13 +276,6 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
      */
     public String convertDateString(int day, int month, int year) {
         return day + "/" + month + "/" + year;
-    }
-
-    /**
-     * Returns to APIActivity.
-     */
-    public void goBack() {
-
     }
 
     /**
