@@ -38,7 +38,6 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 
         tv_connectionStatus = findViewById(R.id.connectionStatus);
-        tv_databaseDisplay = findViewById(R.id.databaseString);
         btn_retryConnection = findViewById(R.id.retryConButton);
 
         localDatabaseList = new ArrayList<>();

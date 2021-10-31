@@ -1,8 +1,10 @@
 package com.cp3407.wildernessweather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         // Setup custom app bar.
         TextView titleView = findViewById(R.id.tv_title);
         titleView.setText(R.string.history);
+        Button btn_externalDB = findViewById(R.id.btn_externalDB);
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +69,11 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
                 }
             });
         }
+
+        btn_externalDB.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ExternalDatabaseActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
