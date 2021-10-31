@@ -37,6 +37,8 @@
     <string name="search_city_name">Search City Name</string>
     <string name="history">History</string>
     <string name="connect_to_external_db">Connect to External DB</string>
+    <string name="trying_to_connect">Trying to connect...</string>
+    <string name="retry_con">Retry Con</string>
 
     <string-array name="units_of_measurement">
         <item>Metric</item>
