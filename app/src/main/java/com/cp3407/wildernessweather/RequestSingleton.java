@@ -7,21 +7,21 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-public class Singleton {
+public class RequestSingleton {
     @SuppressLint("StaticFieldLeak")
-    private static Singleton instance;
+    private static RequestSingleton instance;
     private RequestQueue requestQueue;
     @SuppressLint("StaticFieldLeak")
     private static Context ctx;
 
-    private Singleton(Context context) {
+    private RequestSingleton(Context context) {
         ctx = context;
         requestQueue = getRequestQueue();
     }
 
-    public static synchronized Singleton getInstance(Context context) {
+    public static synchronized RequestSingleton getInstance(Context context) {
         if (instance == null) {
-            instance = new Singleton(context);
+            instance = new RequestSingleton(context);
         }
         return instance;
     }

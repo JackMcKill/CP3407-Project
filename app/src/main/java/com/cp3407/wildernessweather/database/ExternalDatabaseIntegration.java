@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
+public class ExternalDatabaseIntegration extends AsyncTask<Void, Void, Object> {
     private static final String url = "jdbc:mysql://db-mysql-weatherapp.c5hi3iqblfad.ap-southeast-2.rds.amazonaws.com:3306/db_mysql_weatherapp";
     private static final String user = "admin";
     private static final String pass = "jackandharper";
@@ -29,7 +29,7 @@ public class ExternalBaseIntegration extends AsyncTask<Void, Void, Object> {
 
     public AsyncResponse delegate; //Call back interface
 
-    public ExternalBaseIntegration(List<WeatherReportModel> weatherReportModelPrintList, AsyncResponse asyncResponse) {
+    public ExternalDatabaseIntegration(List<WeatherReportModel> weatherReportModelPrintList, AsyncResponse asyncResponse) {
         Log.i("jack", "inside constructor");
         delegate = asyncResponse; //Assigning call back interface through constructor
 

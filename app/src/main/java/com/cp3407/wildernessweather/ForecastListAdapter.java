@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportModel> {
+public class ForecastListAdapter extends ArrayAdapter<WeatherReportModel> {
 
     private static final String TAG = "WeatherReportModelListAdapter";
 
@@ -18,7 +18,7 @@ public class WeatherReportModelListAdapter extends ArrayAdapter<WeatherReportMod
     int mResource;
     boolean isMetric;
 
-    public WeatherReportModelListAdapter(Context context, int resource, ArrayList<WeatherReportModel> objects, boolean isMetric) {
+    public ForecastListAdapter(Context context, int resource, ArrayList<WeatherReportModel> objects, boolean isMetric) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;

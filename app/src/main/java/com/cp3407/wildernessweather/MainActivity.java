@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
 
-                Intent intent = new Intent(MainActivity.this, APIactivity.class);
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                 intent.putExtra("cityName", searchText);
                 startActivity(intent);
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_history.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, DbActivity.class);
+            Intent intent = new Intent(MainActivity.this, DatabaseActivity.class);
             intent.putExtra("woeid", "0");
             startActivity(intent);
         });
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         String[] favouriteLocations = getFavCityNames();
         boolean isMetric = settingsData.getBoolean("isMetric", true);
         weatherDataService.getFavourites(favouriteLocations, weatherReportModels -> {
-            WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
+            ForecastListAdapter adapter = new ForecastListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
             lv_locationList.setAdapter(adapter);
             lv_locationList.setOnItemClickListener((adapterView, view, i, l) -> {
                 WeatherReportModel weatherReportModel = weatherReportModels.get(i);

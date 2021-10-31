@@ -43,7 +43,7 @@ public class WeatherDataService {
             }
             getCityIDCallback.onResponse(cityID);
         }, error -> getCityIDCallback.onError("Something went wrong - invalid city name"));
-        Singleton.getInstance(context).addToRequestQueue(request);
+        RequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
     public interface ForecastByIDCallback {
@@ -78,7 +78,7 @@ public class WeatherDataService {
 
         }, error -> forecastByIDCallback.onError("Something went wrong"));
 
-        Singleton.getInstance(context).addToRequestQueue(request);
+        RequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
     public interface ForecastByNameCallback {
@@ -142,7 +142,7 @@ public class WeatherDataService {
 
         }, error -> forecastByDateCallback.onError("Something went wrong"));
 
-        Singleton.getInstance(context).addToRequestQueue(request);
+        RequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
     public interface FavouritesCallback {

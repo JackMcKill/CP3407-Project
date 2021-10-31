@@ -28,12 +28,12 @@
             android:exported="true"
             android:theme="@style/Theme.WildernessWeather.NoActionBar" />
         <activity
-            android:name=".DbActivity"
+            android:name=".DatabaseActivity"
             android:exported="true"
             android:label="@string/title_activity_db"
             android:theme="@style/Theme.WildernessWeather.NoActionBar" />
         <activity
-            android:name=".APIactivity"
+            android:name=".ResultActivity"
             android:exported="true"
             android:theme="@style/Theme.WildernessWeather.NoActionBar"/>
         <activity

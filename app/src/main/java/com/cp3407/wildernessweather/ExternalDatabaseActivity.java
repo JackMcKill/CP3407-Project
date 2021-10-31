@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cp3407.wildernessweather.database.ExternalBaseIntegration;
-import com.cp3407.wildernessweather.database.ExternalWeatherReportListAdapter;
+import com.cp3407.wildernessweather.database.ExternalDatabaseIntegration;
+import com.cp3407.wildernessweather.database.ExternalDatabaseListAdapter;
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ import java.util.List;
 public class ExternalDatabaseActivity extends AppCompatActivity {
     TextView tv_connectionStatus, tv_databaseDisplay;
     Button btn_retryConnection;
-    ExternalBaseIntegration asyncTask;
+    ExternalDatabaseIntegration asyncTask;
 
-    private ExternalWeatherReportListAdapter adapter;
+    private ExternalDatabaseListAdapter adapter;
     List<WeatherReportModel> databaseOutput;
     List<WeatherReportModel> localDatabaseList;
 
@@ -50,7 +50,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
         localDatabaseList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.weatherReportList);
-        adapter = new ExternalWeatherReportListAdapter(this);
+        adapter = new ExternalDatabaseListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -63,7 +63,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void createAsyncTask() {
-        asyncTask = new ExternalBaseIntegration(localDatabaseList, output -> {
+        asyncTask = new ExternalDatabaseIntegration(localDatabaseList, output -> {
             if (output == null) {
                 tv_connectionStatus.setText("Failed");
                 btn_retryConnection.setVisibility(View.VISIBLE);

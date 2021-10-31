@@ -21,13 +21,13 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<ExternalWeatherReportListAdapter.ExternalWeatherReportViewHolder> {
+public class ExternalDatabaseListAdapter extends RecyclerView.Adapter<ExternalDatabaseListAdapter.ExternalWeatherReportViewHolder> {
 
     private final LayoutInflater layoutInflater;
     private Context context;
     private List<WeatherReportModel> weatherReports;
 
-    public ExternalWeatherReportListAdapter(Context context) {
+    public ExternalDatabaseListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
     }

@@ -100,7 +100,7 @@ public class SingleWeatherReportActivity extends AppCompatActivity {
             }
         });
         btn_history.setOnClickListener(view -> {
-            Intent intent = new Intent(SingleWeatherReportActivity.this, DbActivity.class);
+            Intent intent = new Intent(SingleWeatherReportActivity.this, DatabaseActivity.class);
             intent.putExtra("woeid", singleWeatherReport.getWoeid());
             intent.putExtra("cityName", singleWeatherReport.getCityName());
             startActivity(intent);

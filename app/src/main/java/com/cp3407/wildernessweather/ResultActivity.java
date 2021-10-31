@@ -18,7 +18,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-public class APIactivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
 
     SearchView sv_searchBox;
@@ -29,7 +29,7 @@ public class APIactivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apiactivity);
+        setContentView(R.layout.activity_result);
 
         sv_searchBox = findViewById(R.id.sv_searchResultPage);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -38,7 +38,7 @@ public class APIactivity extends AppCompatActivity {
 
         sv_searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
         sv_searchBox.setIconified(false);
-        weatherDataService = new WeatherDataService(APIactivity.this);
+        weatherDataService = new WeatherDataService(ResultActivity.this);
 
         // Setup custom app bar.
         TextView tv_title = findViewById(R.id.tv_title);
@@ -54,13 +54,13 @@ public class APIactivity extends AppCompatActivity {
         weatherDataService.getCityForecastByName(cityName, new WeatherDataService.ForecastByNameCallback() {
             @Override
             public void onError(String errorMessage) {
-                Toast.makeText(APIactivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ResultActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
                 boolean isMetric = settingsData.getBoolean("isMetric", true);
-                WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
+                ForecastListAdapter arrayAdapter = new ForecastListAdapter(ResultActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
                 lv_weatherReports.setAdapter(arrayAdapter);
 
                 // This code is run when the user clicks on a list item
@@ -72,7 +72,7 @@ public class APIactivity extends AppCompatActivity {
                     WeatherReportModel singleWeatherReport = weatherReportModels.get(i);
 
                     // Send singleWeatherReport to a new activity inside an intent
-                    Intent intent = new Intent(APIactivity.this, SingleWeatherReportActivity.class);
+                    Intent intent = new Intent(ResultActivity.this, SingleWeatherReportActivity.class);
                     intent.putExtra("report", Parcels.wrap(singleWeatherReport));
                     startActivity(intent);
                 });

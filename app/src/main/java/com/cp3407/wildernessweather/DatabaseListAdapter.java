@@ -18,18 +18,18 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReportListAdapter.WeatherReportViewHolder> {
+public class DatabaseListAdapter extends RecyclerView.Adapter<DatabaseListAdapter.WeatherReportViewHolder> {
 
     public interface OnDeleteClickListener {
         void OnDeleteClickListener(WeatherReportModel myModel);
     }
 
     private final LayoutInflater layoutInflater;
-    private Context context;
+    private final Context context;
     private List<WeatherReportModel> weatherReports;
-    private OnDeleteClickListener onDeleteClickListener;
+    private final OnDeleteClickListener onDeleteClickListener;
 
-    public WeatherReportListAdapter(Context context, OnDeleteClickListener listener) {
+    public DatabaseListAdapter(Context context, OnDeleteClickListener listener) {
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.onDeleteClickListener = listener;
@@ -70,12 +70,12 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
     }
 
     public class WeatherReportViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout listItem;
-        private TextView listItemID;
-        private TextView listItemCityName;
-        private TextView listItemDate;
+        private final LinearLayout listItem;
+        private final TextView listItemID;
+        private final TextView listItemCityName;
+        private final TextView listItemDate;
         private int position;
-        private ImageView deleteButton;
+        private final ImageView deleteButton;
 
         public WeatherReportViewHolder(@NonNull View itemView) {
             super(itemView);

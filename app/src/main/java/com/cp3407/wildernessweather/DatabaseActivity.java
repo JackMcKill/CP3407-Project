@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
-public class DbActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
+public class DatabaseActivity extends AppCompatActivity implements DatabaseListAdapter.OnDeleteClickListener {
 
     private WeatherReportViewModel viewModel;
-    private WeatherReportListAdapter adapter;
+    private DatabaseListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_db);
+        setContentView(R.layout.activity_database);
 
         // Setup custom app bar.
         TextView tv_title = findViewById(R.id.tv_title);
@@ -34,7 +34,7 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         btn_back.setOnClickListener(v -> finish());
 
         RecyclerView recyclerView = findViewById(R.id.rv_databaseList);
-        adapter = new WeatherReportListAdapter(this, this);
+        adapter = new DatabaseListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
