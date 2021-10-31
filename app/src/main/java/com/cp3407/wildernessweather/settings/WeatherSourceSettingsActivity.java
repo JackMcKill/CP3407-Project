@@ -22,7 +22,7 @@ public class WeatherSourceSettingsActivity extends AppCompatActivity {
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -30,7 +30,5 @@ public class WeatherSourceSettingsActivity extends AppCompatActivity {
     }
 
     public void savePressed(View view) {
-        // TODO Sprint 2: save selections to SharedPreferences
-        // Go back to SettingsActivity
     }
 }

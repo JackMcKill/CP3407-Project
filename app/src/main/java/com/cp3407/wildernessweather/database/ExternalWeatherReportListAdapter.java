@@ -17,7 +17,6 @@ import java.util.List;
 
 public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<ExternalWeatherReportListAdapter.ExternalWeatherReportViewHolder> {
 
-
     private final LayoutInflater layoutInflater;
     private List<WeatherReportModel> weatherReports;
 

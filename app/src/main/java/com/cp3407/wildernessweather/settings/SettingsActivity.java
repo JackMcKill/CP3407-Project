@@ -23,12 +23,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
+            public void onClick(View v) {
                 finish();
             }
         });
-
-        // TODO add functionality
     }
 
     public void displayPrefsClicked(View view) {
