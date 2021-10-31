@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class APIactivity extends AppCompatActivity {
     private SharedPreferences settingsData;
 
-    SearchView searchBox;
-    ListView weatherReports;
+    SearchView sv_searchBox;
+    ListView lv_weatherReports;
     WeatherDataService weatherDataService;
 
     @SuppressLint("SetTextI18n")
@@ -31,21 +31,21 @@ public class APIactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apiactivity);
 
-        searchBox = findViewById(R.id.sv_searchResultPage);
+        sv_searchBox = findViewById(R.id.sv_searchResultPage);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
-        weatherReports = findViewById(R.id.lv_weatherReports);
+        lv_weatherReports = findViewById(R.id.lv_weatherReports);
 
-        searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
-        searchBox.setIconified(false);
+        sv_searchBox.setQuery(getIntent().getStringExtra("cityName"), false);
+        sv_searchBox.setIconified(false);
         weatherDataService = new WeatherDataService(APIactivity.this);
 
         // Setup custom app bar.
-        TextView titleView = findViewById(R.id.tv_title);
-        titleView.setText("Location Search");
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText("Location Search");
 
-        final ImageButton backButton = findViewById(R.id.btn_back);
-        backButton.setOnClickListener(v -> finish());
+        final ImageButton btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> finish());
 
         getWeatherReports(getIntent().getStringExtra("cityName"));
     }
@@ -61,10 +61,10 @@ public class APIactivity extends AppCompatActivity {
             public void onResponse(ArrayList<WeatherReportModel> weatherReportModels) {
                 boolean isMetric = settingsData.getBoolean("isMetric", true);
                 WeatherReportModelListAdapter arrayAdapter = new WeatherReportModelListAdapter(APIactivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
-                weatherReports.setAdapter(arrayAdapter);
+                lv_weatherReports.setAdapter(arrayAdapter);
 
                 // This code is run when the user clicks on a list item
-                weatherReports.setOnItemClickListener((adapterView, view, i, l) -> {
+                lv_weatherReports.setOnItemClickListener((adapterView, view, i, l) -> {
 
                     Log.i("ListView", i + " clicked!");
 

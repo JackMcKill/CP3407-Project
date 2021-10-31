@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DbActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
 
-    private RecyclerView recyclerView;
+    private RecyclerView rv_databaseList;
     private WeatherReportViewModel viewModel;
     private WeatherReportListAdapter adapter;
 
@@ -29,20 +29,20 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         setContentView(R.layout.activity_db);
 
         // Setup custom app bar.
-        TextView titleView = findViewById(R.id.tv_title);
-        titleView.setText(R.string.history);
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText(R.string.history);
 
-        final ImageButton backButton = findViewById(R.id.btn_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        final ImageButton btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
             }
         });
 
-        recyclerView = findViewById(R.id.rv_databaseList);
+        rv_databaseList = findViewById(R.id.rv_databaseList);
         adapter = new WeatherReportListAdapter(this, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        rv_databaseList.setAdapter(adapter);
+        rv_databaseList.setLayoutManager(new LinearLayoutManager(this));
 
         int woeid = Integer.parseInt(getIntent().getStringExtra("woeid"));
         viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
@@ -56,7 +56,7 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
                 }
             });
         } else {
-            titleView.setText(getIntent().getStringExtra("cityName") + " History");
+            tv_title.setText(getIntent().getStringExtra("cityName") + " History");
             Log.i("database", "woeid = " + woeid);
             viewModel.getSelectWeatherReports(woeid).observe(this, new Observer<List<WeatherReportModel>>() {
                 @Override

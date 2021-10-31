@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences settingsData;
     private WeatherDataService weatherDataService;
 
-    private ListView locationList;
+    private ListView lv_locationList;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -38,24 +38,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Setup custom app bar.
-        TextView titleView = findViewById(R.id.tv_title);
-        titleView.setText("Wilderness Weather");
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText("Wilderness Weather");
 
         favourites = getSharedPreferences("favourites", Context.MODE_PRIVATE);
         settingsData = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         weatherDataService = new WeatherDataService(MainActivity.this);
 
-        TextView currentDate = findViewById(R.id.tv_currentDate);
-        SearchView searchBox = findViewById(R.id.sv_searchHomePage);
-        ImageButton settingsButton = findViewById(R.id.btn_settingsButton);
-        ImageButton historyButton = findViewById(R.id.btn_historyMain);
-        locationList = findViewById(R.id.lv_locationList);
+        TextView tv_currentDate = findViewById(R.id.tv_currentDate);
+        SearchView sv_searchBox = findViewById(R.id.sv_searchHomePage);
+        ImageButton btn_settings = findViewById(R.id.btn_settingsButton);
+        ImageButton btn_history = findViewById(R.id.btn_historyMain);
+        lv_locationList = findViewById(R.id.lv_locationList);
 
-        searchBox.setQueryHint("Search");
+        sv_searchBox.setQueryHint("Search");
 
-        currentDate.setText(getDate());
-        searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        tv_currentDate.setText(getDate());
+        sv_searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
 
@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        settingsButton.setOnClickListener(view -> {
+        btn_settings.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
         });
 
-        historyButton.setOnClickListener(view -> {
+        btn_history.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, DbActivity.class);
             intent.putExtra("woeid", "0");
             startActivity(intent);
@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
         boolean isMetric = settingsData.getBoolean("isMetric", true);
         weatherDataService.getFavourites(favouriteLocations, weatherReportModels -> {
             WeatherReportModelListAdapter adapter = new WeatherReportModelListAdapter(MainActivity.this, R.layout.weather_report_list_item, weatherReportModels, isMetric);
-            locationList.setAdapter(adapter);
-            locationList.setOnItemClickListener((adapterView, view, i, l) -> {
+            lv_locationList.setAdapter(adapter);
+            lv_locationList.setOnItemClickListener((adapterView, view, i, l) -> {
                 WeatherReportModel weatherReportModel = weatherReportModels.get(i);
                 Intent intent = new Intent(MainActivity.this, SingleWeatherReportActivity.class);
                 intent.putExtra("report", Parcels.wrap(weatherReportModel));

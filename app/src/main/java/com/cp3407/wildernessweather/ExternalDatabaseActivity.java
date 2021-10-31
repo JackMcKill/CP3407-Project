@@ -28,7 +28,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     List<WeatherReportModel> localDatabaseList;
 
     private WeatherReportViewModel viewModel;
-    private RecyclerView recyclerView;
+    private RecyclerView rv_reportsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,10 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
 
         localDatabaseList = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.weatherReportList);
+        rv_reportsList = findViewById(R.id.weatherReportList);
         adapter = new ExternalWeatherReportListAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        rv_reportsList.setAdapter(adapter);
+        rv_reportsList.setLayoutManager(new LinearLayoutManager(this));
 
         // Begin ASync task to collect data from database.
         viewModel.getAllWeatherReports().observe(this, weatherReportModels -> {
@@ -67,8 +67,8 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
                     tv_connectionStatus.setText("Connected. Fetching data from External DB...");
                     try {
                         databaseOutput = (List<WeatherReportModel>) output;
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
+                        rv_reportsList.setAdapter(adapter);
+                        rv_reportsList.setLayoutManager(new LinearLayoutManager(ExternalDatabaseActivity.this));
                         adapter.setWeatherReports(databaseOutput);
                     } catch (Exception e) {
                         tv_databaseDisplay.setText(e.toString());
