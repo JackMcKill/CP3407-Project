@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather.database;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +19,10 @@ public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<Exter
 
 
     private final LayoutInflater layoutInflater;
-    private Context context;
     private List<WeatherReportModel> weatherReports;
 
     public ExternalWeatherReportListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
-        this.context = context;
     }
 
     @NonNull
@@ -51,14 +50,15 @@ public class ExternalWeatherReportListAdapter extends RecyclerView.Adapter<Exter
         } else return 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setWeatherReports(List<WeatherReportModel> weatherReports) {
         this.weatherReports = weatherReports;
         notifyDataSetChanged();
     }
 
-    public class ExternalWeatherReportViewHolder extends RecyclerView.ViewHolder {
-        private TextView listItemCityName;
-        private TextView listItemDate;
+    public static class ExternalWeatherReportViewHolder extends RecyclerView.ViewHolder {
+        private final TextView listItemCityName;
+        private final TextView listItemDate;
 
         public ExternalWeatherReportViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -13,14 +13,13 @@ import java.util.List;
 
 public class WeatherReportViewModel extends AndroidViewModel {
 
-    private WeatherReportDao weatherReportDao;
-    private WeatherReportDatabase weatherDB;
-    private LiveData<List<WeatherReportModel>> allWeatherReports;
+    private final WeatherReportDao weatherReportDao;
+    private final LiveData<List<WeatherReportModel>> allWeatherReports;
 
     public WeatherReportViewModel(Application application) {
         super(application);
 
-        weatherDB = WeatherReportDatabase.getDatabase(application); // Application context provided by the AndroidViewModel
+        WeatherReportDatabase weatherDB = WeatherReportDatabase.getDatabase(application); // Application context provided by the AndroidViewModel
         weatherReportDao = weatherDB.weatherReportDao(); // Fetching the instance of the database
         allWeatherReports = weatherReportDao.getAllWeatherReports();
     }
