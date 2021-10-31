@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,12 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_external_database);
+        // Setup custom app bar.
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText(R.string.external_database);
+
+        final ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(v -> finish());
 
         WeatherReportViewModel viewModel = new ViewModelProvider(this).get(WeatherReportViewModel.class);
 

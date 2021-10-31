@@ -33,14 +33,10 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         // Setup custom app bar.
         TextView titleView = findViewById(R.id.tv_title);
         titleView.setText(R.string.history);
-        Button btn_externalDB = findViewById(R.id.btn_externalDB);
+        ImageButton btn_externalDB = findViewById(R.id.btn_externalDB);
 
         final ImageButton backButton = findViewById(R.id.btn_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
 
         recyclerView = findViewById(R.id.rv_databaseList);
         adapter = new WeatherReportListAdapter(this, this);

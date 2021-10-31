@@ -7,13 +7,8 @@
     android:orientation="vertical"
     tools:context=".DbActivity">
 
-    <include layout="@layout/custom_app_bar" />
-    <Button
-        android:id="@+id/btn_externalDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/connect_to_external_db"
-        />
+    <include layout="@layout/custom_app_bar_database" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_databaseList"
