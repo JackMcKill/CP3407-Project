@@ -1,7 +1,8 @@
 # API
 ## API Overview
 ### Volley 
-In order to make network requests to our weather date provider [metaweather.com](https://www.metaweather.com), our app is utilizing the [Volley HTTP Library](https://developer.android.com/training/volley). At a high-level, Volley is used by creating a `RequestQueue` and passing it `Request` objects.
+In order to make network requests to our weather data provider [metaweather.com](https://www.
+metaweather.com), our app is utilizing the [Volley HTTP Library](https://developer.android.com/training/volley). At a high-level, Volley is used by creating a `RequestQueue` and passing it `Request` objects.
 
 ### Setup
 Volley is added to the `build.gradle` file, and is automatically added to the project at the next *Gradle Sync*.  
