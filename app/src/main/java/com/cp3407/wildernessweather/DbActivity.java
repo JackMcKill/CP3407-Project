@@ -4,24 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cp3407.wildernessweather.database.WeatherReportViewModel;
 
-import java.util.List;
-
 public class DbActivity extends AppCompatActivity implements WeatherReportListAdapter.OnDeleteClickListener {
 
-    private RecyclerView recyclerView;
     private WeatherReportViewModel viewModel;
     private WeatherReportListAdapter adapter;
 
@@ -38,7 +33,7 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
         final ImageButton backButton = findViewById(R.id.btn_back);
         backButton.setOnClickListener(v -> finish());
 
-        recyclerView = findViewById(R.id.rv_databaseList);
+        RecyclerView recyclerView = findViewById(R.id.rv_databaseList);
         adapter = new WeatherReportListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,21 +43,14 @@ public class DbActivity extends AppCompatActivity implements WeatherReportListAd
 
         if (woeid == 0) {
             Log.i("database", "woeid = " + woeid);
-            viewModel.getAllWeatherReports().observe(this, new Observer<List<WeatherReportModel>>() {
-                @Override
-                public void onChanged(List<WeatherReportModel> weatherReportModels) {
-                    adapter.setWeatherReports(weatherReportModels);
-                }
-            });
+            viewModel.getAllWeatherReports().observe(this, weatherReportModels -> adapter.setWeatherReports(weatherReportModels));
         } else {
             titleView.setText(getIntent().getStringExtra("cityName") + " History");
+            btn_externalDB.setVisibility(View.INVISIBLE);
             Log.i("database", "woeid = " + woeid);
-            viewModel.getSelectWeatherReports(woeid).observe(this, new Observer<List<WeatherReportModel>>() {
-                @Override
-                public void onChanged(List<WeatherReportModel> weatherReportModels) {
-                    Log.i("database", "number of entries: " + weatherReportModels.size());
-                    adapter.setWeatherReports(weatherReportModels);
-                }
+            viewModel.getSelectWeatherReports(woeid).observe(this, weatherReportModels -> {
+                Log.i("database", "number of entries: " + weatherReportModels.size());
+                adapter.setWeatherReports(weatherReportModels);
             });
         }
 

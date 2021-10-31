@@ -9,7 +9,6 @@
 
     <include layout="@layout/custom_app_bar_database" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_databaseList"
         android:layout_width="match_parent"
