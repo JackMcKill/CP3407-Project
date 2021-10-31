@@ -6,41 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExternalDatabaseActivity"
+    android:orientation="vertical"
     android:background="@drawable/bg_home">
 
     <include layout="@layout/custom_app_bar" />
 
-    <TableLayout
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trying to connect..."
-            android:id="@+id/connectionStatus"
-            tools:ignore="MissingConstraints" />
-        <Button
-            android:id="@+id/retryConButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Retry Con"
-            android:visibility="invisible"
-            android:onClick="retryConnectionPressed"
-            />
+        android:text="Trying to connect..."
+        android:textSize="30dp"
+        android:id="@+id/connectionStatus"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weatherReportList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_home">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/weatherReportList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_home">
+    </androidx.recyclerview.widget.RecyclerView>
 
-
-        </androidx.recyclerview.widget.RecyclerView>
-    </TableLayout>
+    <Button
+        android:id="@+id/retryConButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retry Con"
+        android:visibility="invisible"
+        android:onClick="retryConnectionPressed"
+        />
 
 
 

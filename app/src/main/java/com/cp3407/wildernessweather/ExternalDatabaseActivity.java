@@ -63,7 +63,7 @@ public class ExternalDatabaseActivity extends AppCompatActivity {
                     btn_retryConnection.setVisibility(View.VISIBLE);
                     asyncTask.cancel(true);
                 } else {
-                    tv_connectionStatus.setText("Connected. Fetching data from External DB...");
+                    tv_connectionStatus.setText("Data fetched from SQL database");
                     try {
                         databaseOutput = (List<WeatherReportModel>) output;
                         recyclerView.setAdapter(adapter);
