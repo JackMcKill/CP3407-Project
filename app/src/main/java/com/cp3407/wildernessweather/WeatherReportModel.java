@@ -14,9 +14,7 @@ public class WeatherReportModel {
     // Properties must be public in order to use the Parceler dependency
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     long id; // this ID is auto-generated and is used to identify database entities. See database documentation
-    @NonNull
     long trueID; // this ID is provided by metaweather. See database documentation
     @NonNull
     String cityName;
@@ -63,11 +61,12 @@ public class WeatherReportModel {
         this.id = id;
     }
 
+    @NonNull
     public String getCityName() {
         return cityName;
     }
 
-    public void setCityName(String cityName) {
+    public void setCityName(@NonNull String cityName) {
         this.cityName = cityName;
     }
 
@@ -79,11 +78,12 @@ public class WeatherReportModel {
         this.trueID = trueID;
     }
 
+    @NonNull
     public String getWoeid() {
         return woeid;
     }
 
-    public void setWoeid(String woeid) {
+    public void setWoeid(@NonNull String woeid) {
         this.woeid = woeid;
     }
 
@@ -93,7 +93,7 @@ public class WeatherReportModel {
         return weatherStateName;
     }
 
-    public void setWeatherStateName(String weatherStateName) {
+    public void setWeatherStateName(@NonNull String weatherStateName) {
         this.weatherStateName = weatherStateName;
     }
 
@@ -102,7 +102,7 @@ public class WeatherReportModel {
         return weatherStateAbbr;
     }
 
-    public void setWeatherStateAbbr(String weatherStateAbbr) {
+    public void setWeatherStateAbbr(@NonNull String weatherStateAbbr) {
         this.weatherStateAbbr = weatherStateAbbr;
     }
 
@@ -111,7 +111,7 @@ public class WeatherReportModel {
         return windDirectionCompass;
     }
 
-    public void setWindDirectionCompass(String windDirectionCompass) {
+    public void setWindDirectionCompass(@NonNull String windDirectionCompass) {
         this.windDirectionCompass = windDirectionCompass;
     }
 
@@ -120,7 +120,7 @@ public class WeatherReportModel {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(@NonNull String created) {
         this.created = created;
     }
 
@@ -129,7 +129,7 @@ public class WeatherReportModel {
         return applicableDate;
     }
 
-    public void setApplicableDate(String applicableDate) {
+    public void setApplicableDate(@NonNull String applicableDate) {
         this.applicableDate = applicableDate;
     }
 
@@ -226,6 +226,7 @@ public class WeatherReportModel {
     }
 
     // This method should only be used when prototyping - USER SHOULD NEVER SEE THIS OUTPUT
+    @NonNull
     @Override
     public String toString() {
         return "WeatherReportModel{" +
@@ -250,7 +251,7 @@ public class WeatherReportModel {
     }
 
     public String[] exportString() {
-        return new String[]{String.valueOf(trueID), String.valueOf(woeid), weatherStateName, weatherStateAbbr, windDirectionCompass, created,
+        return new String[]{String.valueOf(trueID), woeid, weatherStateName, weatherStateAbbr, windDirectionCompass, created,
                 applicableDate, String.valueOf(minTemp), String.valueOf(maxTemp), String.valueOf(theTemp), String.valueOf(windSpeed),
                 String.valueOf(windDirection), String.valueOf(airPressure), String.valueOf(humidity), String.valueOf(visibility), String.valueOf(predictability)};
     }

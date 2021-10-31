@@ -1,5 +1,6 @@
 package com.cp3407.wildernessweather;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -61,6 +62,7 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         } else return 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setWeatherReports(List<WeatherReportModel> weatherReports) {
         this.weatherReports = weatherReports;
         notifyDataSetChanged();
@@ -95,24 +97,18 @@ public class WeatherReportListAdapter extends RecyclerView.Adapter<WeatherReport
         // Sets onClickListeners
         public void setListeners() {
             // Code here runs whenever an item in the recyclerView is pressed
-            listItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.i("recyclerView", "Item " + position + " pressed");
-                    // Opens a new SingleWeatherReportActivity - does not populate fields yet.
-                    Intent intent = new Intent(context, SingleWeatherReportActivity.class);
-                    intent.putExtra("report", Parcels.wrap(weatherReports.get(position)));
-                    context.startActivity(intent);
-                }
+            listItem.setOnClickListener(view -> {
+                Log.i("recyclerView", "Item " + position + " pressed");
+                // Opens a new SingleWeatherReportActivity - does not populate fields yet.
+                Intent intent = new Intent(context, SingleWeatherReportActivity.class);
+                intent.putExtra("report", Parcels.wrap(weatherReports.get(position)));
+                context.startActivity(intent);
             });
 
             // Code for the delete button
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onDeleteClickListener != null) {
-                        onDeleteClickListener.OnDeleteClickListener(weatherReports.get(position));
-                    }
+            deleteButton.setOnClickListener(view -> {
+                if (onDeleteClickListener != null) {
+                    onDeleteClickListener.OnDeleteClickListener(weatherReports.get(position));
                 }
             });
         }
